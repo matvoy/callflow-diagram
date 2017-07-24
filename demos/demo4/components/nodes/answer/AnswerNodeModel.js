@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import * as RJD from '../../../../../src/main';
 
-export class ConnectionNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(224, 98, 20)', extras = {value:'200 OK'}) {
+export class AnswerNodeModel extends RJD.NodeModel {
+  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {value:'200 OK'}) {
     super('answer');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

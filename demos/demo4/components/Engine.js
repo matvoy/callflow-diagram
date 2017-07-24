@@ -4,8 +4,10 @@ import { StartWidgetFactory } from './nodes/start/StartWidgetFactory';
 import { StartNodeFactory } from './nodes/start/StartInstanceFactories';
 import { StopWidgetFactory } from './nodes/stop/StopWidgetFactory';
 import { StopNodeFactory } from './nodes/stop/StopInstanceFactories';
-import { ConnectionWidgetFactory } from './nodes/connection/ConnectionWidgetFactory';
-import { ConnectionNodeFactory } from './nodes/connection/ConnectionInstanceFactories';
+import { AnswerWidgetFactory } from './nodes/answer/AnswerWidgetFactory';
+import { AnswerNodeFactory } from './nodes/answer/AnswerInstanceFactories';
+import { HangupWidgetFactory } from './nodes/hangup/HangupWidgetFactory';
+import { HangupNodeFactory } from './nodes/hangup/HangupInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -13,7 +15,8 @@ diagramEngine.registerNodeFactory(new RJD.DefaultNodeFactory());
 diagramEngine.registerLinkFactory(new RJD.DefaultLinkFactory());
 diagramEngine.registerNodeFactory(new StartWidgetFactory());
 diagramEngine.registerNodeFactory(new StopWidgetFactory());
-diagramEngine.registerNodeFactory(new ConnectionWidgetFactory());
+diagramEngine.registerNodeFactory(new AnswerWidgetFactory());
+diagramEngine.registerNodeFactory(new HangupWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -21,4 +24,5 @@ diagramEngine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
 diagramEngine.registerInstanceFactory(new RJD.LinkInstanceFactory());
 diagramEngine.registerInstanceFactory(new StartNodeFactory());
 diagramEngine.registerInstanceFactory(new StopNodeFactory());
-diagramEngine.registerInstanceFactory(new ConnectionNodeFactory());
+diagramEngine.registerInstanceFactory(new AnswerNodeFactory());
+diagramEngine.registerInstanceFactory(new HangupNodeFactory());

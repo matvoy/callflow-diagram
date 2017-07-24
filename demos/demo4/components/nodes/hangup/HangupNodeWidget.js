@@ -1,8 +1,8 @@
 import React from 'react';
 import * as RJD from '../../../../../src/main';
-import { ConnectionNodeModel } from './ConnectionNodeModel';
+import { HangupNodeModel } from './HangupNodeModel';
 
-export class ConnectionNodeWidget extends React.Component {
+export class HangupNodeWidget extends React.Component {
   static defaultProps = {
     node: null,
     color: 'rgb(224, 98, 20)'
@@ -19,7 +19,7 @@ export class ConnectionNodeWidget extends React.Component {
     let inputNode = node;
 
     if (displayOnly) {
-      inputNode = new ConnectionNodeModel(node.name, color);
+      inputNode = new HangupNodeModel(node.name, color);
     }
 
     return inputNode.getInPort ? <RJD.DefaultPortLabel model={inputNode.getInPort()} key='in-port' /> : null;
@@ -30,7 +30,7 @@ export class ConnectionNodeWidget extends React.Component {
     let outputNode = node;
 
     if (displayOnly) {
-      outputNode = new ConnectionNodeModel(node.name, color);
+      outputNode = new HangupNodeModel(node.name, color);
     }
 
     return outputNode.getOutPort ? <RJD.DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
@@ -65,4 +65,4 @@ export class ConnectionNodeWidget extends React.Component {
   }
 }
 
-export const ConnectionNodeWidgetFactory = React.createFactory(ConnectionNodeWidget);
+export const HangupNodeWidgetFactory = React.createFactory(HangupNodeWidget);

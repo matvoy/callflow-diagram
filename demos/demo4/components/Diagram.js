@@ -4,7 +4,8 @@ import { DropTarget } from 'react-dnd';
 import * as RJD from '../../../src/main';
 import { StartNodeModel } from './nodes/start/StartNodeModel';
 import { StopNodeModel } from './nodes/stop/StopNodeModel';
-import { ConnectionNodeModel } from './nodes/connection/ConnectionNodeModel';
+import { AnswerNodeModel } from './nodes/answer/AnswerNodeModel';
+import { HangupNodeModel } from './nodes/hangup/HangupNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
@@ -27,7 +28,10 @@ const nodesTarget = {
       node = new StopNodeModel('Stop', item.color);
     }
     if (item.type === 'answer') {
-      node = new ConnectionNodeModel('Answer', item.color);
+      node = new AnswerNodeModel('Answer', item.color);
+    }
+    if (item.type === 'hangup') {
+      node = new HangupNodeModel('Hangup', item.color);
     }
 
     node.x = x;

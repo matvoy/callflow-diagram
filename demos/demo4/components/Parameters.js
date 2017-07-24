@@ -13,7 +13,7 @@ export class Parameters extends React.Component {
     }
     propertyChanged(e){
         this.props.node.extras.value=e.target.value;
-        this.props.node.selected=false;
+       // this.props.node.selected=false;
         //this.props.node.selected=true;
     }
     getParameters(nodeType){

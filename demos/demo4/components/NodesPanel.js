@@ -2,7 +2,8 @@ import React from 'react';
 import { DragWrapper } from './DragWrapper';
 import { StartNodeWidget } from './nodes/start/StartNodeWidget';
 import { StopNodeWidget } from './nodes/stop/StopNodeWidget';
-import { ConnectionNodeWidget } from './nodes/connection/ConnectionNodeWidget';
+import { AnswerNodeWidget } from './nodes/answer/AnswerNodeWidget';
+import { HangupNodeWidget } from './nodes/hangup/HangupNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -15,7 +16,10 @@ class Node extends React.Component {
       return <StopNodeWidget node={{ name: 'Stop' }} displayOnly />;
     }
     if (type === 'answer') {
-      return <ConnectionNodeWidget node={{ name: 'Answer' }} color={color} displayOnly />;
+      return <AnswerNodeWidget node={{ name: 'Answer' }} color={color} displayOnly />;
+    }
+    if (type === 'hangup') {
+      return <HangupNodeWidget node={{ name: 'Hangup' }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
@@ -40,7 +44,10 @@ export class NodesPanel extends React.Component {
           <Node type='start' color='rgb(31, 211, 55)'/>
         </div>
         <div className='node-wrapper'>
-          <Node type='answer' color='rgb(224, 98, 20)' />
+          <Node type='answer' color='rgb(100, 218, 229)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='hangup' color='rgb(224, 98, 20)' />
         </div>
         <div className='node-wrapper'>
           <Node type='stop' color='rgb(224, 24, 24)'/>

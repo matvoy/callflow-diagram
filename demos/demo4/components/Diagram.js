@@ -6,6 +6,7 @@ import { StartNodeModel } from './nodes/start/StartNodeModel';
 import { StopNodeModel } from './nodes/stop/StopNodeModel';
 import { AnswerNodeModel } from './nodes/answer/AnswerNodeModel';
 import { HangupNodeModel } from './nodes/hangup/HangupNodeModel';
+import { PlaybackNodeModel } from './nodes/playback/PlaybackNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
@@ -33,6 +34,9 @@ const nodesTarget = {
     if (item.type === 'hangup') {
       node = new HangupNodeModel('Hangup', item.color);
     }
+    /*if (item.type === 'playback') {
+      node = new PlaybackNodeModel('Playback', item.color);
+    }*/
 
     node.x = x;
     node.y = y;

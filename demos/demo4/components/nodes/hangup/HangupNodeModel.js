@@ -2,13 +2,13 @@ import _ from 'lodash';
 import * as RJD from '../../../../../src/main';
 
 export class HangupNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(224, 98, 20)', extras = {value:'UNSPECIFIED'}) {
+  constructor(name = 'Untitled', color = 'rgb(224, 98, 20)', extras = {hangup:'UNSPECIFIED'}) {
     super('hangup');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
     this.name = name;
     this.color = color;
-    this.extras = extras
+    this.extras = extras;
   }
 
   deSerialize(object) {

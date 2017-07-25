@@ -4,6 +4,7 @@ import { StartNodeWidget } from './nodes/start/StartNodeWidget';
 import { StopNodeWidget } from './nodes/stop/StopNodeWidget';
 import { AnswerNodeWidget } from './nodes/answer/AnswerNodeWidget';
 import { HangupNodeWidget } from './nodes/hangup/HangupNodeWidget';
+import { PlaybackNodeWidget } from './nodes/playback/PlaybackNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -21,6 +22,9 @@ class Node extends React.Component {
     if (type === 'hangup') {
       return <HangupNodeWidget node={{ name: 'Hangup' }} color={color} displayOnly />;
     }
+    /*if (type === 'playback') {
+      return <PlaybackNodeWidget node={{ name: 'Playback' }} color={color} displayOnly />;
+    }*/
     console.warn('Unknown node type');
     return null;
   }
@@ -49,6 +53,9 @@ export class NodesPanel extends React.Component {
         <div className='node-wrapper'>
           <Node type='hangup' color='rgb(224, 98, 20)' />
         </div>
+        {/*<div className='node-wrapper'>*/}
+          {/*<Node type='playback' color='rgb(73, 72, 79)' />*/}
+        {/*</div>*/}
         <div className='node-wrapper'>
           <Node type='stop' color='rgb(224, 24, 24)'/>
         </div>

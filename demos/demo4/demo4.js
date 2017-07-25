@@ -28,6 +28,7 @@ class Demo extends React.Component {
   	        onRedo={onRedo}
   	        canUndo={canUndo}
   	        canRedo={canRedo}
+			model={model}
   	       />
     	  </div>
   	  </DragDropContextProvider>

@@ -9,15 +9,11 @@ export class Parameters extends React.Component {
     constructor(props){
         super(props);
         this.propertyChanged = this.propertyChanged.bind(this);
-        this.property = '';
     }
     propertyChanged(e){
-        this.props.node.extras.value=e.target.value;
-       // this.props.node.selected=false;
-        //this.props.node.selected=true;
+        this.props.node.extras[this.props.node.nodeType]=e.target.value;
     }
     getParameters(nodeType){
-        if(!this.props.node.extras.value)this.props.node.extras.value='';
         let node = Element[nodeType];
         //SINGLE PARAMS ELEMENT
         if(!Array.isArray(node)){
@@ -25,7 +21,7 @@ export class Parameters extends React.Component {
                 return(
                     <div>
                         <label>{node.name}</label>
-                        <select defaultValue={this.props.node.extras.value} onChange={(e)=>{this.propertyChanged(e)}}>
+                        <select defaultValue={this.props.node.extras[this.props.node.nodeType]} onChange={(e)=>{this.propertyChanged(e)}}>
                             {node.values.map( (i, index) => {
                                 return <option key={index} value={i}>{i}</option>
                             })}
@@ -37,7 +33,7 @@ export class Parameters extends React.Component {
                 return(
                     <div>
                         <label>{node.name}</label>
-                        <input type="text" value={this.props.node.extras.value}></input>
+                        <input type="text" value={this.props.node.extras[this.props.node.nodeType]}></input>
                     </div>
                 );
             }

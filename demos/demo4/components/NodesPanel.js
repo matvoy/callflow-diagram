@@ -22,9 +22,9 @@ class Node extends React.Component {
     if (type === 'hangup') {
       return <HangupNodeWidget node={{ name: 'Hangup' }} color={color} displayOnly />;
     }
-    /*if (type === 'playback') {
+    if (type === 'playback') {
       return <PlaybackNodeWidget node={{ name: 'Playback' }} color={color} displayOnly />;
-    }*/
+    }
     console.warn('Unknown node type');
     return null;
   }
@@ -45,19 +45,19 @@ export class NodesPanel extends React.Component {
     return (
       <div className='nodes-panel'>
         <div className='node-wrapper'>
-          <Node type='start' color='rgb(31, 211, 55)'/>
+          <Node type='start' color='rgb(215, 225, 239)'/>
         </div>
         <div className='node-wrapper'>
-          <Node type='answer' color='rgb(100, 218, 229)' />
+          <Node type='answer' color='rgb(114, 128, 150)' />
         </div>
         <div className='node-wrapper'>
-          <Node type='hangup' color='rgb(224, 98, 20)' />
+          <Node type='hangup' color='rgb(114, 128, 150)' />
         </div>
-        {/*<div className='node-wrapper'>*/}
-          {/*<Node type='playback' color='rgb(73, 72, 79)' />*/}
-        {/*</div>*/}
         <div className='node-wrapper'>
-          <Node type='stop' color='rgb(224, 24, 24)'/>
+          <Node type='playback' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='stop' color='rgb(67, 71, 76)'/>
         </div>
       </div>
     );

@@ -34,9 +34,9 @@ const nodesTarget = {
     if (item.type === 'hangup') {
       node = new HangupNodeModel('Hangup', item.color);
     }
-    /*if (item.type === 'playback') {
+    if (item.type === 'playback') {
       node = new PlaybackNodeModel('Playback', item.color);
-    }*/
+    }
 
     node.x = x;
     node.y = y;

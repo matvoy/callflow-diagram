@@ -4,7 +4,8 @@
 var Elements = {
     answer: {
         name: 'Sip code: ',
-        type: 'select',
+        single: true,
+        isSelect: true,
         values:[
             '200 OK',
             '183 Session Progress',
@@ -13,15 +14,16 @@ var Elements = {
     },
     hangup: {
         name: 'Hangup Cause Code:',
-        type: 'select',
+        single: true,
+        isSelect: true,
         values:[
+            'NORMAL_CLEARING',
             'UNSPECIFIED',
             'UNALLOCATED_NUMBER',
             'NO_ROUTE_TRANSIT_NET',
             'NO_ROUTE_DESTINATION',
             'CHANNEL_UNACCEPTABLE',
             'CALL_AWARDED_DELIVERED',
-            'NORMAL_CLEARING',
             'USER_BUSY',
             'NO_USER_RESPONSE',
             'NO_ANSWER',
@@ -83,25 +85,28 @@ var Elements = {
         ]
     },
     log:{
-        type:'text'
+        name: 'Log',
+        single: true,
+        isSelect: false,
     },
-    playback:[
-        {
-            name:'type',
-            type:'select',
-            values:[
-                'mp3',
-                'wav',
-                'shout',
-                'tone',
-                'silence'
-            ]
-        },
-        {
-            name:'name',
-            type:'media',
-        }
-    ]
+    playback:{
+        files:[
+            {
+                name:'type',
+                values:[
+                    'mp3',
+                    'wav',
+                    'shout',
+                    'tone',
+                    'silence'
+                ]
+            },
+            {
+                name:'name'
+            }
+        ]
+    }
+
 }
 
 export default Elements;

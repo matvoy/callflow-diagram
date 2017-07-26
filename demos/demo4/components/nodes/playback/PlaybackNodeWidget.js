@@ -52,6 +52,10 @@ export class PlaybackNodeWidget extends React.Component {
           </div>
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
+        <div>
+          <span className="app-img-playback">
+          </span>
+        </div>
         <div className='ports'>
           <div className='in'>
             {this.getInPort()}

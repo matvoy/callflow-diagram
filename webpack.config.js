@@ -53,6 +53,17 @@ module.exports = [{
         }]
       },
       {
+          test: /\.(png|jpg|gif|svg)$/,
+          use: [
+              {
+                  loader: 'url-loader',
+                  options: {
+                      limit: 8192
+                  }
+              }
+          ]
+      },
+      {
         enforce: 'pre',
         test: /\.js$/,
         loader: "source-map-loader"

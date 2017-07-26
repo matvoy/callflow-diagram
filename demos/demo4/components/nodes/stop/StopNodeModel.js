@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from '../../../../../src/main';
 
 export class StopNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(224, 24, 24)') {
+  constructor(name = 'Untitled', color = 'rgb(67, 71, 76)') {
     super('stop');
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
     this.name = name;

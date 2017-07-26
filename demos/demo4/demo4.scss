@@ -62,6 +62,7 @@ html, body, #root {
 }
 
 .basic-node {
+  width: 100px;
   background-color: rgb(30,30,30);
   border-radius: 5px;
   font-family:Arial;
@@ -93,6 +94,36 @@ html, body, #root {
       flex-grow: 1;
       padding: 5px 5px;
     }
+  }
+
+  .app-img {
+    text-align: center;
+    content: "";
+    display:block;
+    height:25px;
+    width:100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  .app-img-start{
+    @extend .app-img;
+    background-image: url("./images/press-play-button.svg");
+  }
+  .app-img-stop{
+    @extend .app-img;
+    background-image: url("./images/checked.svg");
+  }
+  .app-img-answer{
+    @extend .app-img;
+    background-image: url("./images/phone-call.svg");
+  }
+  .app-img-hangup{
+    @extend .app-img;
+    background-image: url("./images/phone-call (1).svg");
+  }
+  .app-img-playback{
+    @extend .app-img;
+    background-image: url("./images/play-button-sing.svg");
   }
 
   .ports{

@@ -8,6 +8,8 @@ import { AnswerWidgetFactory } from './nodes/answer/AnswerWidgetFactory';
 import { AnswerNodeFactory } from './nodes/answer/AnswerInstanceFactories';
 import { HangupWidgetFactory } from './nodes/hangup/HangupWidgetFactory';
 import { HangupNodeFactory } from './nodes/hangup/HangupInstanceFactories';
+import { PlaybackWidgetFactory } from './nodes/playback/PlaybackWidgetFactory';
+import { PlaybackNodeFactory } from './nodes/playback/PlaybackInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -17,6 +19,7 @@ diagramEngine.registerNodeFactory(new StartWidgetFactory());
 diagramEngine.registerNodeFactory(new StopWidgetFactory());
 diagramEngine.registerNodeFactory(new AnswerWidgetFactory());
 diagramEngine.registerNodeFactory(new HangupWidgetFactory());
+diagramEngine.registerNodeFactory(new PlaybackWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -26,3 +29,4 @@ diagramEngine.registerInstanceFactory(new StartNodeFactory());
 diagramEngine.registerInstanceFactory(new StopNodeFactory());
 diagramEngine.registerInstanceFactory(new AnswerNodeFactory());
 diagramEngine.registerInstanceFactory(new HangupNodeFactory());
+diagramEngine.registerInstanceFactory(new PlaybackNodeFactory());

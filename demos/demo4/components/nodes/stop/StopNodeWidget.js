@@ -5,7 +5,7 @@ import { StopNodeModel } from './StopNodeModel';
 export class StopNodeWidget extends React.Component {
   static defaultProps = {
     node: null,
-    color: 'rgb(224, 24, 24)'
+    color: 'rgb(67, 71, 76)'
   };
 
   onRemove() {
@@ -42,6 +42,10 @@ export class StopNodeWidget extends React.Component {
             {name}
           </div>
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
+        </div>
+        <div>
+          <span className="app-img-stop">
+          </span>
         </div>
         <div className='ports'>
           <div className='in'>

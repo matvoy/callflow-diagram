@@ -52,6 +52,10 @@ export class AnswerNodeWidget extends React.Component {
           </div>
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
+        <div>
+          <span className="app-img-answer">
+          </span>
+        </div>
         <div className='ports'>
           <div className='in'>
             {this.getInPort()}

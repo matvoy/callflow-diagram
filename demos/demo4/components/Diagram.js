@@ -78,6 +78,18 @@ export class Diagram extends React.Component {
     diagramEngine.setDiagramModel(diagramModel);
   }
 
+  checkLinks(model, linkModel) {
+    for(let i=0; i<model.links.length; i++) {
+        if(model.links[i].id===linkModel.id)continue;
+        if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
+            || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
+            model.links.splice(i,1);
+            i--;
+        }
+    };
+    this.props.updateModel(model);
+  }
+
   onChange(model, action) {
     console.log('ON DIAGRAM CHANGE');
     console.log(action);
@@ -85,6 +97,11 @@ export class Diagram extends React.Component {
     // Ignore some events
     if (['items-copied'].indexOf(action.type) !== -1) {
       return;
+    }
+
+    // Check for links
+    if(['link-connected'].indexOf(action.type) !== -1){
+      this.checkLinks(model, action.linkModel);
     }
 
     // Check for single selected items

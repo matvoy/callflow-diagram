@@ -38,6 +38,7 @@ export class Controls extends React.Component {
 
 	}
 	render() {
+
 		const { model, selectedNode } = this.props;
 		const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
 		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters model={model} node={selectedNode}/>) : null;

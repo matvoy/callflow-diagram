@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as RJD from '../../../../../src/main';
 
+
 export class AnswerNodeModel extends RJD.NodeModel {
   constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {answer:'200 OK'}) {
     super('answer');

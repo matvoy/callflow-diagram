@@ -79,6 +79,7 @@ export class Diagram extends React.Component {
   }
 
   checkLinks(model, linkModel) {
+
     for(let i=0; i<model.links.length; i++) {
         if(model.links[i].id===linkModel.id)continue;
         if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id

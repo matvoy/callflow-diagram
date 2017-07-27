@@ -79,15 +79,21 @@ export class Diagram extends React.Component {
   }
 
   checkLinks(model, linkModel) {
-
-    for(let i=0; i<model.links.length; i++) {
-        if(model.links[i].id===linkModel.id)continue;
-        if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
-            || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
-            model.links.splice(i,1);
-            i--;
+    if(linkModel.sourcePort.in === linkModel.targetPort.in
+        || linkModel.sourcePort.parentNode.id === linkModel.targetPort.parentNode.id) {
+      for(let i=0;i<model.links.length;i++)
+        if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
+    }
+    else{
+        for(let i=0; i<model.links.length; i++) {
+            if(model.links[i].id===linkModel.id)continue;
+            if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
+                || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
+                model.links.splice(i,1);
+                i--;
+            }
         }
-    };
+    }
     this.props.updateModel(model);
   }
 

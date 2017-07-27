@@ -108,11 +108,17 @@ export class Diagram extends React.Component {
   }
 
   render() {
-    const { connectDropTarget } = this.props;
+    const { connectDropTarget, onUndo, onRedo, canUndo, canRedo} = this.props;
 
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
+        <div className="do-buttons-container">
+          <a onClick={canUndo ? onUndo : null} disabled={!canUndo} className="undo-img">
+          </a>
+          <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">
+          </a>
+        </div>
         <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
       </div>
     );

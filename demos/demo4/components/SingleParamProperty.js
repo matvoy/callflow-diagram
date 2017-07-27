@@ -47,10 +47,6 @@ export class SingleProperty extends React.Component {
     }
     render() {
         if(!this.props.node||!this.props.node.nodeType)return;
-        return (
-            <div style={{margin:'10px'}}>
-                {this.getParameters(this.props.node.nodeType)}
-            </div>
-        );
+        return this.getParameters(this.props.node.nodeType);
     }
 }

@@ -18,16 +18,16 @@ class Demo extends React.Component {
     	  <div className='parent-container'>
     	    <NodesPanel />
   	      <Diagram
+			onUndo={onUndo}
+			onRedo={onRedo}
+			canUndo={canUndo}
+			canRedo={canRedo}
   	        model={model}
   	        updateModel={updateModel}
   	        onNodeSelected={onNodeSelected}
   	       />
   	      <Controls
   	        selectedNode={selectedNode}
-  	        onUndo={onUndo}
-  	        onRedo={onRedo}
-  	        canUndo={canUndo}
-  	        canRedo={canRedo}
 			model={model}
   	       />
     	  </div>

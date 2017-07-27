@@ -44,13 +44,13 @@ export class PlaybackProperties extends React.Component {
     getParameters(){
         return(
             <div>
-                <label>{this.node.files[0].name}</label>
+                <label>Type</label>
                 <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}>
                     {this.node.files[0].values.map( (i, index) => {
                         return <option key={index} value={i}>{i}</option>;
                     })}
                 </select>
-                <label>{this.node.files[1].name}</label>
+                <label>Name</label>
                 <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}></input>
                 <button onClick={this.addMedia}>push</button>
                 <ul>
@@ -69,10 +69,6 @@ export class PlaybackProperties extends React.Component {
     }
     render() {
         if(!this.props.node||!this.props.node.nodeType)return;
-        return (
-            <div style={{margin:'10px'}}>
-                {this.getParameters()}
-            </div>
-        );
+        return this.getParameters();
     }
 }

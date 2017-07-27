@@ -15,10 +15,10 @@ html, body, #root {
   flex-direction: row;
 
   .nodes-panel {
-    flex: 0 0 8rem;
+    flex: 0 0 6rem;
     display: flex;
     flex-direction: column;
-    max-width: 10rem;
+    max-width: 8rem;
     background: rgb(120, 120, 120);
     border-right: 2px solid black;
     padding: 1rem;
@@ -38,6 +38,43 @@ html, body, #root {
     display: flex;
     flex-direction: column;
 
+    .do-buttons-container{
+      position: absolute;
+      bottom: 15px;
+      right: 350px;
+      display: inherit;
+
+      .do-img {
+        z-index: 100;
+        text-align: center;
+        content: "";
+        display:block;
+        height:40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        width: 40px;
+        z-index: 1;
+        margin: auto 5px;
+        cursor: pointer;
+      }
+
+      .undo-img{
+        @extend .do-img;
+        background-image: url("./images/undo-arrow-in-a-circle.svg");
+
+      }
+
+      .redo-img{
+        @extend .do-img;
+        background-image: url("./images/redo-arrow-in-a-circle.svg");
+      }
+
+      a[disabled]{
+        opacity: 0.4;
+        cursor: default;
+      }
+    }
+
     .react-js-diagrams-canvas {
       flex: 1;
       background: rgb(60, 60, 60);
@@ -48,6 +85,56 @@ html, body, #root {
     flex: 0 0 20rem;
     max-width: 20rem;
     overflow: auto;
+    background: rgb(120, 120, 120);
+    border-left: 2px solid black;
+    .parameters{
+      margin: 15px;
+      label {
+        color: white;
+        font-size: 1.2em;
+        display: block;
+        padding-bottom: 0.25em;
+      }
+
+      select {
+        display: block;
+        font-size: 1.0em;
+        padding: 0.25em;
+        width: 100%;
+        margin-bottom: 1em;
+        border-radius: 3px;
+        border: 1px solid #BABABA;
+      }
+      input{
+        @extend select;
+        width: 97%;
+      }
+
+      button {
+        display: inline-block;
+        border-radius: 3px;
+        border: none;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8em;
+        background: #69c773;
+        border-bottom: 1px solid #498b50;
+        color: white;
+        -webkit-font-smoothing: antialiased;
+        font-weight: bold;
+        margin: 0 0.25rem;
+        text-align: center;
+      }
+
+      button:hover, button:focus {
+        opacity: 0.75;
+        cursor: pointer;
+      }
+
+      button:active {
+        opacity: 1;
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
+      }
+    }
   }
 }
 

@@ -69,6 +69,11 @@ html, body, #root {
         background-image: url("./images/redo-arrow-in-a-circle.svg");
       }
 
+      .target-img{
+        @extend .do-img;
+        background-image: url("./images/target.svg");
+      }
+
       a[disabled]{
         opacity: 0.4;
         cursor: default;

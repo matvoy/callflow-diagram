@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
 import * as RJD from '../../../src/main';
+import MoveCanvasAction from '../../../src/widgets/actions/MoveCanvasAction';
 import { StartNodeModel } from './nodes/start/StartNodeModel';
 import { StopNodeModel } from './nodes/stop/StopNodeModel';
 import { AnswerNodeModel } from './nodes/answer/AnswerNodeModel';
@@ -78,6 +79,14 @@ export class Diagram extends React.Component {
     diagramEngine.setDiagramModel(diagramModel);
   }
 
+  clearOffsets(model){
+    model.offsetX = 0;
+    model.offsetY = 0;
+    model.zoom = 100;
+    this.props.updateModel(model, { selectedNode: null });
+    this.forceUpdate();
+  }
+
   checkLinks(model, linkModel) {
     if(linkModel.sourcePort.in === linkModel.targetPort.in
         || linkModel.sourcePort.parentNode.id === linkModel.targetPort.parentNode.id) {
@@ -132,12 +141,14 @@ export class Diagram extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, onUndo, onRedo, canUndo, canRedo} = this.props;
+    const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo} = this.props;
 
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
         <div className="do-buttons-container">
+          <a onClick={()=>{this.clearOffsets(model)}} disabled={!model || (model && (model.offsetX == 0 && model.offsetY == 0 && model.zoom == 100))} className="target-img">
+          </a>
           <a onClick={canUndo ? onUndo : null} disabled={!canUndo} className="undo-img">
           </a>
           <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">

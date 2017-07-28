@@ -18,9 +18,9 @@ export class PlaybackProperties extends React.Component {
         this.addMedia = this.addMedia.bind(this);
         this.deleteMedia = this.deleteMedia.bind(this);
     }
-    // componentWillReceiveProps(nextProps) {
-    //     this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
-    // }
+    componentWillReceiveProps(nextProps) {
+        this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
+    }
     typeChanged(e){
         this.setState({
             type: e.target.value

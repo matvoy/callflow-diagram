@@ -2,12 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
 import * as RJD from '../../../src/main';
-import MoveCanvasAction from '../../../src/widgets/actions/MoveCanvasAction';
 import { StartNodeModel } from './nodes/start/StartNodeModel';
 import { StopNodeModel } from './nodes/stop/StopNodeModel';
 import { AnswerNodeModel } from './nodes/answer/AnswerNodeModel';
 import { HangupNodeModel } from './nodes/hangup/HangupNodeModel';
 import { PlaybackNodeModel } from './nodes/playback/PlaybackNodeModel';
+import { LogNodeModel } from './nodes/log/LogNodeModel';
+import { LogicNodeModel } from './nodes/if/LogicNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
@@ -37,6 +38,12 @@ const nodesTarget = {
     }
     if (item.type === 'playback') {
       node = new PlaybackNodeModel('Playback', item.color);
+    }
+    if (item.type === 'log') {
+      node = new LogNodeModel('Log', item.color);
+    }
+    if (item.type === 'if') {
+      node = new LogicNodeModel('If', item.color);
     }
 
     node.x = x;
@@ -142,12 +149,12 @@ export class Diagram extends React.Component {
 
   render() {
     const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo} = this.props;
-
+    let isOffset = !model || (model && (model.offsetX == 0 && model.offsetY == 0 && model.zoom == 100));
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
         <div className="do-buttons-container">
-          <a onClick={()=>{this.clearOffsets(model)}} disabled={!model || (model && (model.offsetX == 0 && model.offsetY == 0 && model.zoom == 100))} className="target-img">
+          <a onClick={!isOffset ? () => {this.clearOffsets(model)} : null} disabled={isOffset} className="target-img">
           </a>
           <a onClick={canUndo ? onUndo : null} disabled={!canUndo} className="undo-img">
           </a>

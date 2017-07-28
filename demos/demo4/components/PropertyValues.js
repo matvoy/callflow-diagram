@@ -4,6 +4,7 @@
 var Elements = {
     answer: {
         name: 'Sip code: ',
+        code: 'answer',
         single: true,
         isSelect: true,
         values:[
@@ -14,6 +15,7 @@ var Elements = {
     },
     hangup: {
         name: 'Hangup Cause Code:',
+        code:'hangup',
         single: true,
         isSelect: true,
         values:[
@@ -86,6 +88,7 @@ var Elements = {
     },
     log:{
         name: 'Log',
+        code: 'log',
         single: true,
         isSelect: false,
     },
@@ -105,8 +108,12 @@ var Elements = {
                 name:'name'
             }
         ]
+    },
+    if:{
+        name: 'Expression',
+        single: false,
+        isSelect: false,
     }
-
 }
 
 export default Elements;

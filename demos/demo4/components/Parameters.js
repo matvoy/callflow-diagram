@@ -5,6 +5,7 @@ import React from 'react';
 import Element from './PropertyValues';
 import { SingleProperty } from './SingleParamProperty';
 import { PlaybackProperties } from './nodes/playback/PlaybackProperties';
+import { LogicProperties } from './nodes/if/LogicProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -19,6 +20,11 @@ export class Parameters extends React.Component {
             if(nodeType === 'playback'){
                 return (
                     <PlaybackProperties node = {this.props.node}/>
+                );
+            }
+            if(nodeType === 'if'){
+                return (
+                    <LogicProperties node = {this.props.node}/>
                 );
             }
         }

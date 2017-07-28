@@ -186,6 +186,11 @@ html, body, #root {
       flex-grow: 1;
       padding: 5px 5px;
     }
+    .name-black{
+      @extend .name;
+      color:#000000;
+      font-weight: bold;
+    }
   }
 
   .app-img {
@@ -217,10 +222,23 @@ html, body, #root {
     @extend .app-img;
     background-image: url("./images/play-button-sing.svg");
   }
+  .app-img-log{
+    @extend .app-img;
+    background-image: url("./images/icon.svg");
+  }
+  .app-img-if{
+    @extend .app-img;
+    background-image: url("./images/comparision-table.svg");
+  }
+  .app-img-switch{
+    @extend .app-img;
+    background-image: url("./images/organization.svg");
+  }
 
   .ports{
     display: flex;
     background-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));
+
 
     .in, .out{
       flex-grow: 1;
@@ -247,5 +265,11 @@ html, body, #root {
       }
     }
   }
+  .ports-black{
+    @extend .ports;
+    color:#000000;
+    font-weight: bold;
+  }
+
 }
 

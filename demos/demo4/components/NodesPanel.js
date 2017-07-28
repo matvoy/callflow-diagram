@@ -5,6 +5,8 @@ import { StopNodeWidget } from './nodes/stop/StopNodeWidget';
 import { AnswerNodeWidget } from './nodes/answer/AnswerNodeWidget';
 import { HangupNodeWidget } from './nodes/hangup/HangupNodeWidget';
 import { PlaybackNodeWidget } from './nodes/playback/PlaybackNodeWidget';
+import { LogNodeWidget } from './nodes/log/LogNodeWidget';
+import { LogicNodeWidget } from './nodes/if/LogicNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -24,6 +26,12 @@ class Node extends React.Component {
     }
     if (type === 'playback') {
       return <PlaybackNodeWidget node={{ name: 'Playback' }} color={color} displayOnly />;
+    }
+    if (type === 'log') {
+      return <LogNodeWidget node={{ name: 'Log' }} color={color} displayOnly />;
+    }
+    if (type === 'if') {
+      return <LogicNodeWidget node={{ name: 'If' }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
@@ -55,6 +63,12 @@ export class NodesPanel extends React.Component {
         </div>
         <div className='node-wrapper'>
           <Node type='playback' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='log' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='if' color='rgb(200, 219, 94)' />
         </div>
         <div className='node-wrapper'>
           <Node type='stop' color='rgb(67, 71, 76)'/>

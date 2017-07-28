@@ -18,40 +18,13 @@ export class Controls extends React.Component {
             }
         }
         this.recursiveElementsParser(json, link, links, nodes, false, null);
-        // while(link){
-         //    node = nodes.filter((n)=>{
-         //        return n.id === link.target;
-         //    })[0];
-         //    if(!node)break;
-         //    if(node.type === 'stop'){
-         //    	json[json.length-1].break = true;
-         //    	break;
-         //    }
-         //    else{
-         //        json.push(Object.assign({},node.extras));
-         //    }
-         //    link =  links.filter((l)=>{
-         //        return l.source === node.id;
-         //    })[0];
-		// }
 		console.log(JSON.stringify(json));
 
 	}
 
 	recursiveElementsParser(json, link, links, nodes, isIf, logic_node){
-		if(!link){/*
-            if(logic_node){
-                for(let i=0; i<logic_node.ports; i++) {
-                    if (logic_node.ports[i].name === 'output') {
-                        link = links.filter((l) => {
-                            return logic_node.ports[i].id === l.sourcePort;
-                        })[0];
-                        break;
-                    }
-                }
-                this.recursiveElementsParser(json, link, links, nodes, false, null);
-            }
-            else */return;
+		if(!link){
+            return json;
         }
 		if(isIf){
 			for(let i=0; i<logic_node.ports.length; i++){
@@ -69,18 +42,18 @@ export class Controls extends React.Component {
             json[json.length - 1].if.then = [];
             json[json.length - 1].if.else = [];
             this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, false, logic_node);
-			this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
+            this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
 		}
 		else{
             let node = nodes.filter((n)=>{
                 return n.id === link.target;
             })[0];
 
-            if(!node)return;
+            if(!node)return json;
 
             if(node.type === 'stop'){
                 json[json.length-1].break = true;
-                return;
+                return json;
             }
             else{
                 json.push(Object.assign({},node.extras));
@@ -90,6 +63,15 @@ export class Controls extends React.Component {
                     return l.source === node.id;
                 });
             	this.recursiveElementsParser(json, link, links, nodes, true, node);
+                for(let i=0; i<node.ports.length; i++){
+                    if(node.ports[i].name === 'output'){
+                        link = link.filter((l)=>{
+                            return node.ports[i].id === l.sourcePort;
+                        })[0];
+                        this.recursiveElementsParser(json, link, links, nodes, false, null);
+                    }
+                }
+
             }
             else{
                 link =  links.filter((l)=>{

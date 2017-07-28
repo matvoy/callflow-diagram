@@ -8,7 +8,6 @@ export class Controls extends React.Component {
 		if (links.length === 0 || nodes.length === 0) return;
 		const json = []
 		let link = {};
-		let node = {}
         for	(let l of links){
             let start =  nodes.filter((n)=>{
                 return l.source === n.id && n.type === 'start';
@@ -18,27 +17,90 @@ export class Controls extends React.Component {
             	break;
             }
         }
-        while(link){
-            node = nodes.filter((n)=>{
-                return n.id === link.target;
-            })[0];
-            if(!node)break;
-            if(node.type === 'stop'){
-            	json[json.length-1].break = true;
-            	break;
-			}
-			else{
-                json.push(Object.assign({},node.extras));
-			}
-            link =  links.filter((l)=>{
-                return l.source === node.id;
-            })[0];
-		}
+        this.recursiveElementsParser(json, link, links, nodes, false, null);
+        // while(link){
+         //    node = nodes.filter((n)=>{
+         //        return n.id === link.target;
+         //    })[0];
+         //    if(!node)break;
+         //    if(node.type === 'stop'){
+         //    	json[json.length-1].break = true;
+         //    	break;
+         //    }
+         //    else{
+         //        json.push(Object.assign({},node.extras));
+         //    }
+         //    link =  links.filter((l)=>{
+         //        return l.source === node.id;
+         //    })[0];
+		// }
 		console.log(JSON.stringify(json));
 
 	}
-	render() {
 
+	recursiveElementsParser(json, link, links, nodes, isIf, logic_node){
+		if(!link){/*
+            if(logic_node){
+                for(let i=0; i<logic_node.ports; i++) {
+                    if (logic_node.ports[i].name === 'output') {
+                        link = links.filter((l) => {
+                            return logic_node.ports[i].id === l.sourcePort;
+                        })[0];
+                        break;
+                    }
+                }
+                this.recursiveElementsParser(json, link, links, nodes, false, null);
+            }
+            else */return;
+        }
+		if(isIf){
+			for(let i=0; i<logic_node.ports.length; i++){
+				if(logic_node.ports[i].name === 'if'){
+                    var trueLink = link.filter((l)=>{
+                        return logic_node.ports[i].id === l.sourcePort;
+                    })[0];
+				}
+                if(logic_node.ports[i].name === 'else'){
+                    var falseLink = link.filter((l)=>{
+                        return logic_node.ports[i].id === l.sourcePort;
+                    })[0];
+                }
+			}
+            json[json.length - 1].if.then = [];
+            json[json.length - 1].if.else = [];
+            this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, false, logic_node);
+			this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
+		}
+		else{
+            let node = nodes.filter((n)=>{
+                return n.id === link.target;
+            })[0];
+
+            if(!node)return;
+
+            if(node.type === 'stop'){
+                json[json.length-1].break = true;
+                return;
+            }
+            else{
+                json.push(Object.assign({},node.extras));
+            }
+            if(node.type === 'if'){
+                link =  links.filter((l)=>{
+                    return l.source === node.id;
+                });
+            	this.recursiveElementsParser(json, link, links, nodes, true, node);
+            }
+            else{
+                link =  links.filter((l)=>{
+                    return l.source === node.id;
+                })[0];
+                this.recursiveElementsParser(json, link, links, nodes, false, logic_node);
+			}
+		}
+	}
+
+	render() {
 		const { model, selectedNode } = this.props;
 		const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
 		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters model={model} node={selectedNode}/>) : null;

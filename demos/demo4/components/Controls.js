@@ -41,20 +41,31 @@ export class Controls extends React.Component {
         this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, logic_node);
         this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, logic_node);
     }
-    /*queueRecurse(json, link, links, nodes, logic_node){
+
+    queueRecurse(json, link, links, nodes, logic_node){
         for(let i=0; i<logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'timers'){
                 var link = link.filter((l)=>{
-                    return logic_node.ports[i].id === l.sourcePort;
+                    return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
                 });
                 break;
             }
         }
-        json[json.length - 1].if.then = [];
-        json[json.length - 1].if.else = [];
-        this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, false, logic_node);
-        this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
-    }*/
+        if(link.length > 0) json[json.length - 1].queue.timer = [];
+        for(let i = 0; i < link.length; i++){
+            let node = nodes.filter((n)=>{
+                return (n.id === link[i].target || n.id === link[i].source) && n.id !== logic_node.id;
+            })[0];
+            let tmpLink =  links.filter((l)=>{
+                return (l.source === node.id || l.target === node.id) && l.id !== link[i].id;
+            })[0];
+            json[json.length - 1].queue.timer.push(Object.assign({},node.extras));
+            json[json.length - 1].queue.timer[i].actions = [];
+            if(node.extras.actions[0].ccPosition.var !== '') json[json.length - 1].queue.timer[i].actions.push(node.extras.actions[0]);
+            this.recursiveElementsParser(json[json.length - 1].queue.timer[i].actions, tmpLink, links, nodes, node);
+        }
+    }
+
 	recursiveElementsParser(json, link, links, nodes, prev_node){
 		if(!link) return json;
         //SEARCH NEXT NODE BY LINK TARGET
@@ -71,12 +82,12 @@ export class Controls extends React.Component {
         //ADD ELEMENT TO JSON
         else{
             json.push(Object.assign({},node.extras));
-        }
-        //NODE TYPE === IF
-        if(node.type === 'if'){
             link =  links.filter((l)=>{
                 return (l.source === node.id || l.target === node.id) && l.id !== link.id;
             });
+        }
+        //NODE TYPE === IF
+        if(node.type === 'if'){
             this.ifRecurse(json, link, links, nodes, node);
             for(let i=0; i<node.ports.length; i++){
                 if(node.ports[i].name === 'output'){
@@ -88,10 +99,20 @@ export class Controls extends React.Component {
             }
         }
         else{
-            link =  links.filter((l)=>{
-                return (l.source === node.id || l.target === node.id) && l.id !== link.id;
-            })[0];
-            this.recursiveElementsParser(json, link, links, nodes, node);
+            if(node.type === 'queue'){
+                this.queueRecurse(json, link, links, nodes, node);
+                for(let i=0; i<node.ports.length; i++){
+                    if(node.ports[i].name === 'output'){
+                        link = link.filter((l)=>{
+                            return (node.ports[i].id === l.sourcePort || node.ports[i].id === l.targetPort);
+                        })[0];
+                        this.recursiveElementsParser(json, link, links, nodes, node);
+                    }
+                }
+            }
+            else{
+                this.recursiveElementsParser(json, link[0], links, nodes, node);
+            }
         }
 
 	}

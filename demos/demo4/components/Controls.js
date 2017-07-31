@@ -6,10 +6,11 @@ export class Controls extends React.Component {
 		if(!this.props.model)return;
 		const { links, nodes } = this.props.model;
 		if (links.length === 0 || nodes.length === 0) return;
-		const json = []
+		const json = [];
+		let start = {};
 		let link = {};
         for	(let l of links){
-            let start =  nodes.filter((n)=>{
+            start =  nodes.filter((n)=>{
                 return (l.source === n.id || l.target === n.id) && n.type === 'start';
             })
             if(start.length > 0){
@@ -17,7 +18,7 @@ export class Controls extends React.Component {
             	break;
             }
         }
-        this.recursiveElementsParser(json, link, links, nodes, false, null);
+        this.recursiveElementsParser(json, link, links, nodes, start[0]);
 		console.log(JSON.stringify(json));
 
 	}
@@ -26,19 +27,19 @@ export class Controls extends React.Component {
         for(let i=0; i<logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'if'){
                 var trueLink = link.filter((l)=>{
-                    return logic_node.ports[i].id === l.sourcePort/* || logic_node.ports[i].id === l.targetPort*/;
+                    return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
                 })[0];
             }
             if(logic_node.ports[i].name === 'else'){
                 var falseLink = link.filter((l)=>{
-                    return logic_node.ports[i].id === l.sourcePort/* || logic_node.ports[i].id === l.targetPort*/;
+                    return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
                 })[0];
             }
         }
         json[json.length - 1].if.then = [];
         json[json.length - 1].if.else = [];
-        this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, false, logic_node);
-        this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
+        this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, logic_node);
+        this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, logic_node);
     }
     /*queueRecurse(json, link, links, nodes, logic_node){
         for(let i=0; i<logic_node.ports.length; i++){
@@ -54,16 +55,14 @@ export class Controls extends React.Component {
         this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, false, logic_node);
         this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, false, logic_node);
     }*/
-	recursiveElementsParser(json, link, links, nodes){
+	recursiveElementsParser(json, link, links, nodes, prev_node){
 		if(!link) return json;
         //SEARCH NEXT NODE BY LINK TARGET
         let node = nodes.filter((n)=>{
-            return n.id === link.target /*|| n.id === link.source*/;
+            return (n.id === link.target || n.id === link.source) && n.id !== prev_node.id;
         })[0];
-
         //END OF ELEMENTS
         if(!node) return json;
-
         //STOP
         if(node.type === 'stop'){
             json[json.length-1].break = true;
@@ -73,27 +72,26 @@ export class Controls extends React.Component {
         else{
             json.push(Object.assign({},node.extras));
         }
-
         //NODE TYPE === IF
         if(node.type === 'if'){
             link =  links.filter((l)=>{
-                return l.source === node.id;
+                return (l.source === node.id || l.target === node.id) && l.id !== link.id;
             });
             this.ifRecurse(json, link, links, nodes, node);
             for(let i=0; i<node.ports.length; i++){
                 if(node.ports[i].name === 'output'){
                     link = link.filter((l)=>{
-                        return node.ports[i].id === l.sourcePort /*|| node.ports[i].id === l.targetPort*/;
+                        return (node.ports[i].id === l.sourcePort || node.ports[i].id === l.targetPort);
                     })[0];
-                    this.recursiveElementsParser(json, link, links, nodes);
+                    this.recursiveElementsParser(json, link, links, nodes, node);
                 }
             }
         }
         else{
             link =  links.filter((l)=>{
-                return l.source === node.id/* || l.target === node.id) && l.id !== link.id*/;
+                return (l.source === node.id || l.target === node.id) && l.id !== link.id;
             })[0];
-            this.recursiveElementsParser(json, link, links, nodes);
+            this.recursiveElementsParser(json, link, links, nodes, node);
         }
 
 	}

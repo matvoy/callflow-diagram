@@ -4,7 +4,7 @@
 var Elements = {
     answer: {
         name: 'Sip code: ',
-        code: 'answer',
+        //code: 'answer',
         single: true,
         isSelect: true,
         values:[
@@ -15,7 +15,7 @@ var Elements = {
     },
     hangup: {
         name: 'Hangup Cause Code:',
-        code:'hangup',
+        //code:'hangup',
         single: true,
         isSelect: true,
         values:[
@@ -88,7 +88,7 @@ var Elements = {
     },
     log:{
         name: 'Log',
-        code: 'log',
+        //code: 'log',
         single: true,
         isSelect: false,
     },
@@ -110,7 +110,17 @@ var Elements = {
         ]
     },
     if:{
-        name: 'Expression',
+        //name: 'Expression',
+        single: false,
+        isSelect: false,
+    },
+    queue:{
+        //name: 'Name',
+        single: false,
+        isSelect: false,
+    },
+    queueTimer:{
+        //name: 'Expression',
         single: false,
         isSelect: false,
     }

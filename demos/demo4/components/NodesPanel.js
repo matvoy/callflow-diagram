@@ -7,6 +7,8 @@ import { HangupNodeWidget } from './nodes/hangup/HangupNodeWidget';
 import { PlaybackNodeWidget } from './nodes/playback/PlaybackNodeWidget';
 import { LogNodeWidget } from './nodes/log/LogNodeWidget';
 import { LogicNodeWidget } from './nodes/if/LogicNodeWidget';
+import { QueueNodeWidget } from './nodes/queue/QueueNodeWidget';
+import { QueueTimerNodeWidget } from './nodes/queue_timer/QueueTimerNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -32,6 +34,12 @@ class Node extends React.Component {
     }
     if (type === 'if') {
       return <LogicNodeWidget node={{ name: 'If' }} color={color} displayOnly />;
+    }
+    if (type === 'queue') {
+      return <QueueNodeWidget node={{ name: 'Queue' }} color={color} displayOnly />;
+    }
+    if (type === 'queueTimer') {
+      return <QueueTimerNodeWidget node={{ name: 'Queue Timer' }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
@@ -66,6 +74,12 @@ export class NodesPanel extends React.Component {
         </div>
         <div className='node-wrapper'>
           <Node type='log' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='queue' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='queueTimer' color='rgb(114, 128, 150)' />
         </div>
         <div className='node-wrapper'>
           <Node type='if' color='rgb(200, 219, 94)' />

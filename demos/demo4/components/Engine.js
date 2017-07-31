@@ -14,6 +14,10 @@ import { LogWidgetFactory } from './nodes/log/LogWidgetFactory';
 import { LogNodeFactory } from './nodes/log/LogInstanceFactories';
 import { LogicWidgetFactory } from './nodes/if/LogicWidgetFactory';
 import { LogicNodeFactory } from './nodes/if/LogicInstanceFactories';
+import { QueueTimerWidgetFactory } from './nodes/queue_timer/QueueTimerWidgetFactory';
+import { QueueTimerNodeFactory } from './nodes/queue_timer/QueueTimerInstanceFactories';
+import { QueueWidgetFactory } from './nodes/queue/QueueWidgetFactory';
+import { QueueNodeFactory } from './nodes/queue/QueueInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -26,6 +30,8 @@ diagramEngine.registerNodeFactory(new HangupWidgetFactory());
 diagramEngine.registerNodeFactory(new PlaybackWidgetFactory());
 diagramEngine.registerNodeFactory(new LogWidgetFactory());
 diagramEngine.registerNodeFactory(new LogicWidgetFactory());
+diagramEngine.registerNodeFactory(new QueueWidgetFactory());
+diagramEngine.registerNodeFactory(new QueueTimerWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -38,3 +44,5 @@ diagramEngine.registerInstanceFactory(new HangupNodeFactory());
 diagramEngine.registerInstanceFactory(new PlaybackNodeFactory());
 diagramEngine.registerInstanceFactory(new LogNodeFactory());
 diagramEngine.registerInstanceFactory(new LogicNodeFactory());
+diagramEngine.registerInstanceFactory(new QueueNodeFactory());
+diagramEngine.registerInstanceFactory(new QueueTimerNodeFactory());

@@ -9,6 +9,8 @@ import { HangupNodeModel } from './nodes/hangup/HangupNodeModel';
 import { PlaybackNodeModel } from './nodes/playback/PlaybackNodeModel';
 import { LogNodeModel } from './nodes/log/LogNodeModel';
 import { LogicNodeModel } from './nodes/if/LogicNodeModel';
+import { QueueNodeModel } from './nodes/queue/QueueNodeModel';
+import { QueueTimerNodeModel } from './nodes/queue_timer/QueueTimerNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
@@ -44,6 +46,12 @@ const nodesTarget = {
     }
     if (item.type === 'if') {
       node = new LogicNodeModel('If', item.color);
+    }
+    if (item.type === 'queue') {
+        node = new QueueNodeModel('Queue', item.color);
+    }
+    if (item.type === 'queueTimer') {
+        node = new QueueTimerNodeModel('Queue Timer', item.color);
     }
 
     node.x = x;
@@ -94,23 +102,69 @@ export class Diagram extends React.Component {
     this.forceUpdate();
   }
 
+  checkTimers(model, linkModel){
+      if(linkModel.sourcePort.name === 'timers') {
+          if (linkModel.targetPort.parentNode.nodeType !== 'queueTimer') {
+              for (let i = 0; i < model.links.length; i++)
+                  if (model.links[i].id === linkModel.id) model.links.splice(i, 1);
+              return;
+          }
+          if (Object.keys(linkModel.targetPort.links).length !== 1) {
+              for (let i = 0; i < model.links.length; i++) {
+                  if (model.links[i].id === linkModel.id) continue;
+                  if (model.links[i].targetPort === linkModel.targetPort.id || model.links[i].sourcePort === linkModel.targetPort.id) {
+                      model.links.splice(i, 1);
+                      i--;
+                  }
+              }
+          }
+      }
+      else {
+          if(linkModel.sourcePort.parentNode.nodeType !== 'queueTimer'){
+              for(let i=0;i<model.links.length;i++)
+                  if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
+              return;
+          }
+          if(Object.keys(linkModel.sourcePort.links).length !== 1) {
+              for(let i = 0; i < model.links.length; i++){
+                  if(model.links[i].id === linkModel.id) continue;
+                  if(model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.sourcePort.id){
+                      model.links.splice(i,1);
+                      i--;
+                  }
+              }
+          }
+      }
+  }
+
   checkLinks(model, linkModel) {
+    //BASE RULES
     if(linkModel.sourcePort.in === linkModel.targetPort.in
         || linkModel.sourcePort.parentNode.id === linkModel.targetPort.parentNode.id) {
       for(let i=0;i<model.links.length;i++)
         if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
     }
     else{
-        for(let i=0; i<model.links.length; i++) {
-            if(model.links[i].id===linkModel.id)continue;
-            if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
-                || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
-                model.links.splice(i,1);
-                i--;
-            }
-        }
+      //TIMERS
+      if(linkModel.sourcePort.name === 'timers' || linkModel.targetPort.name === 'timers'){
+          this.checkTimers(model, linkModel);
+          return;
+      }
+      //QUEUE TIMER INPUT
+      if((linkModel.sourcePort.name !== 'timers' &&  linkModel.targetPort.parentNode.nodeType === 'queueTimer' && linkModel.targetPort.in)
+          || (linkModel.targetPort.name !== 'timers' &&  linkModel.sourcePort.parentNode.nodeType === 'queueTimer' && linkModel.sourcePort.in))
+          for(let i=0;i<model.links.length;i++)
+              if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
+      //ONE LINK ON PORT
+      for(let i = 0; i < model.links.length; i++) {
+          if(model.links[i].id === linkModel.id) continue;
+          if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
+              || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
+              model.links.splice(i,1);
+              i--;
+          }
+      }
     }
-    this.props.updateModel(model);
   }
 
   onChange(model, action) {

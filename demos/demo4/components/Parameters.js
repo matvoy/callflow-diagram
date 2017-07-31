@@ -6,6 +6,8 @@ import Element from './PropertyValues';
 import { SingleProperty } from './SingleParamProperty';
 import { PlaybackProperties } from './nodes/playback/PlaybackProperties';
 import { LogicProperties } from './nodes/if/LogicProperties';
+import { QueueProperties } from './nodes/queue/QueueProperties';
+import { QueueTimerProperties } from './nodes/queue_timer/QueueTimerProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -25,6 +27,16 @@ export class Parameters extends React.Component {
             if(nodeType === 'if'){
                 return (
                     <LogicProperties node = {this.props.node}/>
+                );
+            }
+            if(nodeType === 'queue'){
+                return (
+                    <QueueProperties node = {this.props.node}/>
+                );
+            }
+            if(nodeType === 'queueTimer'){
+                return (
+                    <QueueTimerProperties node = {this.props.node}/>
                 );
             }
         }

@@ -38,12 +38,18 @@ export class QueueTimerProperties extends React.Component {
     getParameters(){
         return(
             <div>
-                <label>Interval</label>
-                <input type="number" value={this.state.interval} onInput={(e)=>{this.intervalChanged(e)}}></input>
-                <label>Retries</label>
-                <input type="number" value={this.state.tries} onInput={(e)=>{this.triesChanged(e)}}></input>
-                <label>Set current positions</label>
-                <input type="text" value={this.state.position} onInput={(e)=>{this.positionChanged(e)}}></input>
+                <div>
+                    <label>Interval</label>
+                    <input type="number" value={this.state.interval} onInput={(e)=>{this.intervalChanged(e)}}></input>
+                </div>
+                <div>
+                    <label>Retries</label>
+                    <input type="number" value={this.state.tries} onInput={(e)=>{this.triesChanged(e)}}></input>
+                </div>
+                <div>
+                    <label>Set current positions</label>
+                    <input type="text" value={this.state.position} onInput={(e)=>{this.positionChanged(e)}}></input>
+                </div>
             </div>
         );
     }

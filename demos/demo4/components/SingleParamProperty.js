@@ -24,25 +24,35 @@ export class SingleProperty extends React.Component {
     }
     getParameters(nodeType){
         let node = Element[nodeType];
-        if(node.isSelect){
-            return(
-                <div>
-                    <label>{node.name}</label>
-                    <select value={this.state.value} onChange={(e)=>{this.propertyChanged(e)}}>
-                        {node.values.map( (i, index) => {
-                            return <option key={index} value={i}>{i}</option>
-                        })}
-                    </select>
-                </div>
-            );
-        }
-        else{
-            return(
-                <div>
-                    <label>{node.name}</label>
-                    <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
-                </div>
-            );
+        switch(node.type){
+            case 'select':{
+                return(
+                    <div>
+                        <label>{node.name}</label>
+                        <select value={this.state.value} onChange={(e)=>{this.propertyChanged(e)}}>
+                            {node.values.map( (i, index) => {
+                                return <option key={index} value={i}>{i}</option>
+                            })}
+                        </select>
+                    </div>
+                );
+            }
+            case 'text':{
+                return(
+                    <div>
+                        <label>{node.name}</label>
+                        <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
+                    </div>
+                );
+            }
+            case 'number':{
+                return(
+                    <div>
+                        <label>{node.name}</label>
+                        <input type="number" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
+                    </div>
+                );
+            }
         }
     }
     render() {

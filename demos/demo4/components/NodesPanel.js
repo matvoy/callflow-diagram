@@ -9,6 +9,11 @@ import { LogNodeWidget } from './nodes/log/LogNodeWidget';
 import { LogicNodeWidget } from './nodes/if/LogicNodeWidget';
 import { QueueNodeWidget } from './nodes/queue/QueueNodeWidget';
 import { QueueTimerNodeWidget } from './nodes/queue_timer/QueueTimerNodeWidget';
+import { EchoNodeWidget } from './nodes/echo/EchoNodeWidget';
+import { SleepNodeWidget } from './nodes/sleep/SleepNodeWidget';
+import { RecordFileNodeWidget } from './nodes/recordFile/RecordFileNodeWidget';
+import { RecordSessionNodeWidget } from './nodes/recordSession/RecordSessionNodeWidget';
+import { SwitchNodeWidget } from './nodes/switch/SwitchNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -40,6 +45,21 @@ class Node extends React.Component {
     }
     if (type === 'queueTimer') {
       return <QueueTimerNodeWidget node={{ name: 'Queue Timer' }} color={color} displayOnly />;
+    }
+    if (type === 'echo') {
+      return <EchoNodeWidget node={{ name: 'Echo' }} color={color} displayOnly />;
+    }
+    if (type === 'sleep') {
+      return <SleepNodeWidget node={{ name: 'Sleep' }} color={color} displayOnly />;
+    }
+    if (type === 'recordFile') {
+      return <RecordFileNodeWidget node={{ name: 'Record File' }} color={color} displayOnly />;
+    }
+    if (type === 'recordSession') {
+      return <RecordSessionNodeWidget node={{ name: 'Record Session' }} color={color} displayOnly />;
+    }
+    if (type === 'switch') {
+      return <SwitchNodeWidget node={{ name: 'Switch' }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
@@ -80,6 +100,21 @@ export class NodesPanel extends React.Component {
         </div>
         <div className='node-wrapper'>
           <Node type='queueTimer' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='echo' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='sleep' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='recordFile' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='recordSession' color='rgb(114, 128, 150)' />
+        </div>
+        <div className='node-wrapper'>
+          <Node type='switch' color='rgb(55, 209, 165)' />
         </div>
         <div className='node-wrapper'>
           <Node type='if' color='rgb(200, 219, 94)' />

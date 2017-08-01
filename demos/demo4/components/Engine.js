@@ -18,6 +18,16 @@ import { QueueTimerWidgetFactory } from './nodes/queue_timer/QueueTimerWidgetFac
 import { QueueTimerNodeFactory } from './nodes/queue_timer/QueueTimerInstanceFactories';
 import { QueueWidgetFactory } from './nodes/queue/QueueWidgetFactory';
 import { QueueNodeFactory } from './nodes/queue/QueueInstanceFactories';
+import { EchoWidgetFactory } from './nodes/echo/EchoWidgetFactory';
+import { EchoNodeFactory } from './nodes/echo/EchoInstanceFactories';
+import { SleepWidgetFactory } from './nodes/sleep/SleepWidgetFactory';
+import { SleepNodeFactory } from './nodes/sleep/SleepInstanceFactories';
+import { RecordSessionWidgetFactory } from './nodes/recordSession/RecordSessionWidgetFactory';
+import { RecordSessionNodeFactory } from './nodes/recordSession/RecordSessionInstanceFactories';
+import { RecordFileWidgetFactory } from './nodes/recordFile/RecordFileWidgetFactory';
+import { RecordFileNodeFactory } from './nodes/recordFile/RecordFileInstanceFactories';
+import { SwitchWidgetFactory } from './nodes/switch/SwitchWidgetFactory';
+import { SwitchNodeFactory } from './nodes/switch/SwitchInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -32,6 +42,11 @@ diagramEngine.registerNodeFactory(new LogWidgetFactory());
 diagramEngine.registerNodeFactory(new LogicWidgetFactory());
 diagramEngine.registerNodeFactory(new QueueWidgetFactory());
 diagramEngine.registerNodeFactory(new QueueTimerWidgetFactory());
+diagramEngine.registerNodeFactory(new EchoWidgetFactory());
+diagramEngine.registerNodeFactory(new SleepWidgetFactory());
+diagramEngine.registerNodeFactory(new RecordSessionWidgetFactory());
+diagramEngine.registerNodeFactory(new RecordFileWidgetFactory());
+diagramEngine.registerNodeFactory(new SwitchWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -46,3 +61,8 @@ diagramEngine.registerInstanceFactory(new LogNodeFactory());
 diagramEngine.registerInstanceFactory(new LogicNodeFactory());
 diagramEngine.registerInstanceFactory(new QueueNodeFactory());
 diagramEngine.registerInstanceFactory(new QueueTimerNodeFactory());
+diagramEngine.registerInstanceFactory(new EchoNodeFactory());
+diagramEngine.registerInstanceFactory(new SleepNodeFactory());
+diagramEngine.registerInstanceFactory(new RecordSessionNodeFactory());
+diagramEngine.registerInstanceFactory(new RecordFileNodeFactory());
+diagramEngine.registerInstanceFactory(new SwitchNodeFactory());

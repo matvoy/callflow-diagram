@@ -11,6 +11,11 @@ import { LogNodeModel } from './nodes/log/LogNodeModel';
 import { LogicNodeModel } from './nodes/if/LogicNodeModel';
 import { QueueNodeModel } from './nodes/queue/QueueNodeModel';
 import { QueueTimerNodeModel } from './nodes/queue_timer/QueueTimerNodeModel';
+import { SleepNodeModel } from './nodes/sleep/SleepNodeModel';
+import { EchoNodeModel } from './nodes/echo/EchoNodeModel';
+import { RecordFileNodeModel } from './nodes/recordFile/RecordFileNodeModel';
+import { RecordSessionNodeModel } from './nodes/recordSession/RecordSessionNodeModel';
+import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
@@ -52,6 +57,21 @@ const nodesTarget = {
     }
     if (item.type === 'queueTimer') {
         node = new QueueTimerNodeModel('Queue Timer', item.color);
+    }
+    if (item.type === 'sleep') {
+      node = new SleepNodeModel('Sleep', item.color);
+    }
+    if (item.type === 'echo') {
+      node = new EchoNodeModel('Echo', item.color);
+    }
+    if (item.type === 'recordFile') {
+      node = new RecordFileNodeModel('Record File', item.color);
+    }
+    if (item.type === 'recordSession') {
+      node = new RecordSessionNodeModel('Record Session', item.color);
+    }
+    if (item.type === 'switch') {
+      node = new SwitchNodeModel('Switch', item.color);
     }
 
     node.x = x;

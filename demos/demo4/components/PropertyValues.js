@@ -3,10 +3,9 @@
  */
 var Elements = {
     answer: {
-        name: 'Sip code: ',
-        //code: 'answer',
+        name: 'Sip code',
         single: true,
-        isSelect: true,
+        type: 'select',
         values:[
             '200 OK',
             '183 Session Progress',
@@ -14,10 +13,9 @@ var Elements = {
         ]
     },
     hangup: {
-        name: 'Hangup Cause Code:',
-        //code:'hangup',
+        name: 'Hangup Cause Code',
         single: true,
-        isSelect: true,
+        type: 'select',
         values:[
             'NORMAL_CLEARING',
             'UNSPECIFIED',
@@ -88,41 +86,49 @@ var Elements = {
     },
     log:{
         name: 'Log',
-        //code: 'log',
         single: true,
-        isSelect: false,
+        type: 'text',
+    },
+    echo:{
+        name: 'Milliseconds',
+        single: true,
+        type: 'number',
+    },
+    sleep:{
+        name: 'Milliseconds',
+        single: true,
+        type: 'number',
     },
     playback:{
+        single: false,
         files:[
-            {
-                name:'type',
-                values:[
-                    'mp3',
-                    'wav',
-                    'shout',
-                    'tone',
-                    'silence'
-                ]
-            },
-            {
-                name:'name'
-            }
+            'mp3',
+            'wav',
+            'shout',
+            'tone',
+            'silence'
         ]
     },
     if:{
-        //name: 'Expression',
-        single: false,
-        isSelect: false,
+        single: false
+    },
+    switch:{
+        single: false
     },
     queue:{
-        //name: 'Name',
         single: false,
-        isSelect: false,
     },
     queueTimer:{
-        //name: 'Expression',
+        single: false
+    },
+    recordFile:{
         single: false,
-        isSelect: false,
+        type:['mp3', 'mp4']
+    },
+    recordSession:{
+        single: false,
+        type:['mp3', 'mp4'],
+        action:['start', 'stop']
     }
 }
 

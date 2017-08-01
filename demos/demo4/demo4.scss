@@ -15,8 +15,9 @@ html, body, #root {
   flex-direction: row;
 
   .nodes-panel {
-    flex: 0 0 6rem;
+    flex: 0 0 7rem;
     display: flex;
+    overflow: auto;
     flex-direction: column;
     max-width: 8rem;
     background: rgb(120, 120, 120);
@@ -240,7 +241,23 @@ html, body, #root {
   }
   .app-img-queueTimer{
     @extend .app-img;
-    background-image: url("./images/share.svg");
+    background-image: url("./images/stopwatch-tool-to-control-test-time.svg");
+  }
+  .app-img-recordFile{
+    @extend .app-img;
+    background-image: url("./images/microphone.svg");
+  }
+  .app-img-recordSession{
+    @extend .app-img;
+    background-image: url("./images/sound-waves.svg");
+  }
+  .app-img-echo{
+    @extend .app-img;
+    background-image: url("./images/voice-speaker.svg");
+  }
+  .app-img-sleep{
+    @extend .app-img;
+    background-image: url("./images/hourglass.svg");
   }
   .ports{
     display: flex;

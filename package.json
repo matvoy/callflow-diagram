@@ -2,8 +2,6 @@
   "name": "callflow-diagram",
   "version": "1.0.0",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/matvoy/callflow-diagram.git"
   },
   "scripts": {
     "start": "node_modules/.bin/babel-node server.js --presets es2015,es2016,es2017,stage-0",

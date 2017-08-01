@@ -8,6 +8,7 @@
  * Created by matvij on 24.07.17.
  */
 import React from 'react';
+import * as RJD from '../../../../../src/main';
 
 export class SwitchProperties extends React.Component {
     constructor(props){
@@ -32,17 +33,17 @@ export class SwitchProperties extends React.Component {
         });
     }
     addCase(){
-        this.json.email.push(this.state.emailText);
+        this.props.node.ports[this.state.caseText] = new RJD.DefaultPortModel(false, this.state.caseText, 'case');
+        this.json.case[this.state.caseText]=[];
         this.setState({
-            email: this.json.email,
-            emailText:''
+            case: this.json.case,
+            caseText:''
         });
     }
     deleteCase(item){
-        let index = this.json.email.indexOf(item);
-        this.json.email.splice(index,1);
+        delete this.json.case[item];
         this.setState({
-            email: this.json.email
+            case: this.json.case
         });
     }
     componentWillReceiveProps(nextProps) {
@@ -50,6 +51,15 @@ export class SwitchProperties extends React.Component {
         this.setState({ variable: this.json.variable, case: this.json.case, caseText:''});
     }
     getParameters(){
+        let arr = [];
+        for(let i in this.state.case){
+            arr.push (
+                <li>
+                    {i}
+                    <button onClick={() => { this.deleteCase(i) }}>delete</button>
+                </li>
+            );
+        }
         return(
             <div>
                 <div>
@@ -60,17 +70,7 @@ export class SwitchProperties extends React.Component {
                     <label>Case</label>
                     <input type="text" value={this.state.caseText} onInput={(e)=>{this.caseTextChanged(e)}}></input>
                     <button onClick={this.addCase}>push</button>
-                    <ul>
-                        {this.files.map((i)=> {
-                                return (
-                                    <li>
-                                        {i.name + '\t' + i.type}
-                                        <button onClick={()=>{this.deleteCase(i)}}>delete</button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
+                    <ul>{arr}</ul>
                 </div>
             </div>
         );

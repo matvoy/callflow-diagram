@@ -35,26 +35,20 @@ export class SwitchNodeWidget extends React.Component {
 
     return outputNode.getOutPort ? <RJD.DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
   }
-  // getIfPort() {
-  //     const { node, color, displayOnly } = this.props;
-  //     let inputNode = node;
-  //
-  //     if (displayOnly) {
-  //         inputNode = new SwitchNodeModel(node.name, color);
-  //     }
-  //
-  //     return inputNode.getIfPort ? <RJD.DefaultPortLabel model={inputNode.getIfPort()} key='out-port' /> : null;
-  // }
-  // getElsePort() {
-  //     const { node, color, displayOnly } = this.props;
-  //     let inputNode = node;
-  //
-  //     if (displayOnly) {
-  //         inputNode = new SwitchNodeModel(node.name, color);
-  //     }
-  //
-  //     return inputNode.getElsePort ? <RJD.DefaultPortLabel model={inputNode.getElsePort()} key='out-port' /> : null;
-  // }
+  getCasePorts() {
+      const { node, color, displayOnly } = this.props;
+      let outputNode = node;
+
+      if (displayOnly) {
+          outputNode = new SwitchNodeModel(node.name, color);
+      }
+
+      return outputNode.getCasePort ? (
+          <div className='out'>
+            <RJD.DefaultPortLabel model={outputNode.getCasePort()} key='out-port' />
+          </div>
+      ) : null;
+  }
   render() {
     const { node, displayOnly, color: displayColor } = this.props;
     const { name, color } = node;
@@ -83,14 +77,9 @@ export class SwitchNodeWidget extends React.Component {
             {this.getOutPort()}
           </div>
         </div>
-        {/*<div className='ports-black'>*/}
-          {/*<div className='out'>*/}
-              {/*{this.getIfPort()}*/}
-          {/*</div>*/}
-          {/*<div className='out'>*/}
-              {/*{this.getElsePort()}*/}
-          {/*</div>*/}
-        {/*</div>*/}
+        <div className='ports-black'>
+            {this.getCasePorts()}
+        </div>
       </div>
     );
   }

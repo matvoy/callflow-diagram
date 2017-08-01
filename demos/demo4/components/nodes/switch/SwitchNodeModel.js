@@ -7,8 +7,7 @@ export class SwitchNodeModel extends RJD.NodeModel {
     super('switch');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
-    // this.addPort(new RJD.DefaultPortModel(false, 'if', 'true'));
-    // this.addPort(new RJD.DefaultPortModel(false, 'else', 'false'));
+    this.addPort(new RJD.DefaultPortModel(false, 'case', 'case'));
     this.name = name;
     this.color = color;
     this.extras = extras;
@@ -35,12 +34,7 @@ export class SwitchNodeModel extends RJD.NodeModel {
   getOutPort() {
     return this.ports.output;
   }
-
-  getIfPort() {
-      return this.ports.if;
-  }
-
-  getElsePort() {
-      return this.ports.else;
+  getCasePort() {
+      return this.ports.case;
   }
 }

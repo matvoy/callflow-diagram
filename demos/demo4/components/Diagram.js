@@ -118,7 +118,7 @@ export class Diagram extends React.Component {
     model.offsetX = 0;
     model.offsetY = 0;
     model.zoom = 100;
-    this.props.updateModel(model, { selectedNode: null });
+    this.setModel(model);
     this.forceUpdate();
   }
 

@@ -7,15 +7,18 @@
     "stage-0"
   ],
   "plugins": [
-    "add-module-exports",
+    "transform-runtime",
     "transform-decorators-legacy",
-    ["transform-runtime",
-      {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true
-      }
-    ]
-  ]
+    "transform-class-properties",
+    "react-hot-loader/babel"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-runtime",
+        "transform-decorators-legacy",
+        "transform-class-properties"
+      ]
+    }
+  }
 }
-

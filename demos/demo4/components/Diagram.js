@@ -17,6 +17,7 @@ import { RecordFileNodeModel } from './nodes/recordFile/RecordFileNodeModel';
 import { RecordSessionNodeModel } from './nodes/recordSession/RecordSessionNodeModel';
 import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { diagramEngine } from './Engine';
+import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 
 // Setup the diagram model
 let diagramModel = new RJD.DiagramModel();
@@ -235,7 +236,7 @@ export class Diagram extends React.Component {
           <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">
           </a>
         </div>
-        <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
+        <ExtendedDiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
       </div>
     );
   }

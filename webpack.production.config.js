@@ -14,7 +14,7 @@ loaders.push({
 module.exports = {
   entry: [
     './src/index.js',
-    './styles/index.scss'
+    './src/styles/index.scss'
   ],
   output: {
     publicPath: './',

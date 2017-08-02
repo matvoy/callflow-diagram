@@ -1,4 +1,4 @@
-@import "./sass.scss";
+//@import "./sass.scss";
 
 html, body, #root {
   width: 100%;
@@ -61,18 +61,18 @@ html, body, #root {
 
       .undo-img{
         @extend .do-img;
-        background-image: url("./images/undo-arrow-in-a-circle.svg");
+        background-image: url("../images/undo-arrow-in-a-circle.svg");
 
       }
 
       .redo-img{
         @extend .do-img;
-        background-image: url("./images/redo-arrow-in-a-circle.svg");
+        background-image: url("../images/redo-arrow-in-a-circle.svg");
       }
 
       .target-img{
         @extend .do-img;
-        background-image: url("./images/target.svg");
+        background-image: url("../images/target.svg");
       }
 
       a[disabled]{
@@ -205,59 +205,59 @@ html, body, #root {
   }
   .app-img-start{
     @extend .app-img;
-    background-image: url("./images/press-play-button.svg");
+    background-image: url("../images/press-play-button.svg");
   }
   .app-img-stop{
     @extend .app-img;
-    background-image: url("./images/checked.svg");
+    background-image: url("../images/checked.svg");
   }
   .app-img-answer{
     @extend .app-img;
-    background-image: url("./images/phone-call.svg");
+    background-image: url("../images/phone-call.svg");
   }
   .app-img-hangup{
     @extend .app-img;
-    background-image: url("./images/phone-call (1).svg");
+    background-image: url("../images/phone-call (1).svg");
   }
   .app-img-playback{
     @extend .app-img;
-    background-image: url("./images/play-button-sing.svg");
+    background-image: url("../images/play-button-sing.svg");
   }
   .app-img-log{
     @extend .app-img;
-    background-image: url("./images/icon.svg");
+    background-image: url("../images/icon.svg");
   }
   .app-img-if{
     @extend .app-img;
-    background-image: url("./images/comparision-table.svg");
+    background-image: url("../images/comparision-table.svg");
   }
   .app-img-switch{
     @extend .app-img;
-    background-image: url("./images/organization.svg");
+    background-image: url("../images/organization.svg");
   }
   .app-img-queue{
     @extend .app-img;
-    background-image: url("./images/line.svg");
+    background-image: url("../images/line.svg");
   }
   .app-img-queueTimer{
     @extend .app-img;
-    background-image: url("./images/stopwatch-tool-to-control-test-time.svg");
+    background-image: url("../images/stopwatch-tool-to-control-test-time.svg");
   }
   .app-img-recordFile{
     @extend .app-img;
-    background-image: url("./images/microphone.svg");
+    background-image: url("../images/microphone.svg");
   }
   .app-img-recordSession{
     @extend .app-img;
-    background-image: url("./images/sound-waves.svg");
+    background-image: url("../images/sound-waves.svg");
   }
   .app-img-echo{
     @extend .app-img;
-    background-image: url("./images/voice-speaker.svg");
+    background-image: url("../images/voice-speaker.svg");
   }
   .app-img-sleep{
     @extend .app-img;
-    background-image: url("./images/hourglass.svg");
+    background-image: url("../images/hourglass.svg");
   }
   .ports{
     display: flex;

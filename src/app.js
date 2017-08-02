@@ -7,7 +7,7 @@ import * as actions from './actions';
 import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
-import './styles.scss';
+import './styles/index.scss';
 
 class Application extends React.Component {
   render() {

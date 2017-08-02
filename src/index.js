@@ -1,20 +1,3 @@
-// import React from 'react';
-// import { render } from 'react-dom';
-// import { AppContainer } from 'react-hot-loader';
-// import App from './demo4.js';
-//
-// render( <AppContainer><App/></AppContainer>, document.querySelector("#app"));
-//
-// if (module && module.hot) {
-//   module.hot.accept('./demo4', () => {
-//     render(
-//       <AppContainer>
-//         <App/>
-//       </AppContainer>,
-//       document.querySelector("#app")
-//     );
-//   });
-// }
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';

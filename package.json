@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-babel",
-  "version": "0.0.4",
-  "description": "React Webpack Babel Starter Kit",
+  "name": "callflow-diagram",
+  "version": "1.0.0",
+  "description": "",
   "main": "''",
   "scripts": {
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
@@ -12,11 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
+    "url": "https://github.com/matvoy/callflow-diagram"
   },
-  "author": "Ali Al Dallal",
+  "author": "matvoy",
   "license": "MIT",
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
     "node-sass": "^4.3.0",
     "react": "15.6.1",

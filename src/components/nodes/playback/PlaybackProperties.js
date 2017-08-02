@@ -43,7 +43,8 @@ export class PlaybackProperties extends React.Component {
             <div>
                 <div>
                     <label>Type</label>
-                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}>
+                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.files.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
                         })}
@@ -51,7 +52,8 @@ export class PlaybackProperties extends React.Component {
                 </div>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}></input>
+                    <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addMedia}>push</button>
                     <ul>
                         {this.files.map((i)=> {

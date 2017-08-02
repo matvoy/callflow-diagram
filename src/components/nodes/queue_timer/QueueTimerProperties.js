@@ -40,15 +40,18 @@ export class QueueTimerProperties extends React.Component {
             <div>
                 <div>
                     <label>Interval</label>
-                    <input type="number" value={this.state.interval} onInput={(e)=>{this.intervalChanged(e)}}></input>
+                    <input type="number" value={this.state.interval} onInput={(e)=>{this.intervalChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Retries</label>
-                    <input type="number" value={this.state.tries} onInput={(e)=>{this.triesChanged(e)}}></input>
+                    <input type="number" value={this.state.tries} onInput={(e)=>{this.triesChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Set current positions</label>
-                    <input type="text" value={this.state.position} onInput={(e)=>{this.positionChanged(e)}}></input>
+                    <input type="text" value={this.state.position} onInput={(e)=>{this.positionChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
             </div>
         );

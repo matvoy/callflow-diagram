@@ -28,7 +28,8 @@ export class LogicProperties extends React.Component {
         return(
             <div>
                 <label>Expression</label>
-                <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
+                <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}
+											 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
             </div>
         );
     }

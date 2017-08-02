@@ -18,43 +18,43 @@ export class Parameters extends React.Component {
         //SINGLE PARAMS ELEMENT
         if(node.single) {
             return (
-              <SingleProperty node = {this.props.node}/>
+              <SingleProperty setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
             );
         }
         else{
             if(nodeType === 'playback'){
                 return (
-                    <PlaybackProperties node = {this.props.node}/>
+                    <PlaybackProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'if'){
                 return (
-                    <LogicProperties node = {this.props.node}/>
+                    <LogicProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'queue'){
                 return (
-                    <QueueProperties node = {this.props.node}/>
+                    <QueueProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'queueTimer'){
                 return (
-                    <QueueTimerProperties node = {this.props.node}/>
+                    <QueueTimerProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'recordFile'){
                 return (
-                    <RecordFileProperties node = {this.props.node}/>
+                    <RecordFileProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'recordSession'){
                 return (
-                    <RecordSessionProperties node = {this.props.node}/>
+                    <RecordSessionProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
             if(nodeType === 'switch'){
                 return (
-                    <SwitchProperties node = {this.props.node}/>
+                    <SwitchProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
                 );
             }
         }

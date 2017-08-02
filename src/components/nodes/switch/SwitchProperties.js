@@ -64,11 +64,13 @@ export class SwitchProperties extends React.Component {
             <div>
                 <div>
                     <label>Variable</label>
-                    <input type="text" value={this.state.variable} onInput={(e)=>{this.variableChanged(e)}}></input>
+                    <input type="text" value={this.state.variable} onInput={(e)=>{this.variableChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Case</label>
-                    <input type="text" value={this.state.caseText} onInput={(e)=>{this.caseTextChanged(e)}}></input>
+                    <input type="text" value={this.state.caseText} onInput={(e)=>{this.caseTextChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addCase}>push</button>
                     <ul>{arr}</ul>
                 </div>

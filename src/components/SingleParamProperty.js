@@ -29,7 +29,7 @@ export class SingleProperty extends React.Component {
                 return(
                     <div>
                         <label>{node.name}</label>
-                        <select value={this.state.value} onChange={(e)=>{this.propertyChanged(e)}}>
+                        <select value={this.state.value} onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}} onChange={(e)=>{this.propertyChanged(e)}}>
                             {node.values.map( (i, index) => {
                                 return <option key={index} value={i}>{i}</option>
                             })}
@@ -41,7 +41,7 @@ export class SingleProperty extends React.Component {
                 return(
                     <div>
                         <label>{node.name}</label>
-                        <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
+                        <input type="text" value={this.state.value} onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}} onInput={(e)=>{this.propertyChanged(e)}}></input>
                     </div>
                 );
             }
@@ -49,7 +49,7 @@ export class SingleProperty extends React.Component {
                 return(
                     <div>
                         <label>{node.name}</label>
-                        <input type="number" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}></input>
+                        <input type="number" value={this.state.value} onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}} onInput={(e)=>{this.propertyChanged(e)}}></input>
                     </div>
                 );
             }

@@ -95,15 +95,18 @@ export class RecordFileProperties extends React.Component {
             <div>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}></input>
+                    <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Terminators</label>
-                    <input type="text" value={ this.state.terminators} onInput={(e)=>{this.terminatorsChanged(e)}}></input>
+                    <input type="text" value={ this.state.terminators} onInput={(e)=>{this.terminatorsChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Type</label>
-                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}>
+                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.type.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
                         })}
@@ -111,15 +114,18 @@ export class RecordFileProperties extends React.Component {
                 </div>
                 <div>
                     <label>Max Seconds</label>
-                    <input type="number" value={ this.state.maxSec} onInput={(e)=>{this.maxSecChanged(e)}}></input>
+                    <input type="number" value={ this.state.maxSec} onInput={(e)=>{this.maxSecChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Silence Hits</label>
-                    <input type="number" value={ this.state.silenceHits} onInput={(e)=>{this.silenceHitsChanged(e)}}></input>
+                    <input type="number" value={ this.state.silenceHits} onInput={(e)=>{this.silenceHitsChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}></input>
+                    <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addEmail}>push</button>
                     <ul>
                         {this.state.email.map((i)=> {

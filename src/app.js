@@ -10,6 +10,18 @@ import { Controls } from './components/Controls';
 import './styles/index.scss';
 
 class Application extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			propertyFocused: false
+		}
+		this.setIsFocused = this.setIsFocused.bind(this);
+	}
+	setIsFocused(value){
+		this.setState({
+			propertyFocused: value
+		})
+	}
   render() {
     const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
 
@@ -18,17 +30,19 @@ class Application extends React.Component {
     	  <div className='parent-container'>
     	    <NodesPanel />
   	      <Diagram
-			onUndo={onUndo}
-			onRedo={onRedo}
-			canUndo={canUndo}
-			canRedo={canRedo}
+						onUndo={onUndo}
+						onRedo={onRedo}
+						canUndo={canUndo}
+						canRedo={canRedo}
   	        model={model}
   	        updateModel={updateModel}
   	        onNodeSelected={onNodeSelected}
+						allowDelete={!this.state.propertyFocused}
   	       />
   	      <Controls
   	        selectedNode={selectedNode}
-			model={model}
+						model={model}
+						setIsFocused={this.setIsFocused}
   	       />
     	  </div>
   	  </DragDropContextProvider>

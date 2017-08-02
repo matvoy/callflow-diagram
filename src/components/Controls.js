@@ -45,7 +45,7 @@ export class Controls extends React.Component {
     queueRecurse(json, link, links, nodes, logic_node){
         for(let i=0; i<logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'timers'){
-                var link = link.filter((l)=>{
+                link = link.filter((l)=>{
                     return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
                 });
                 break;
@@ -120,7 +120,7 @@ export class Controls extends React.Component {
 	render() {
 		const { model, selectedNode } = this.props;
 		const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
-		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters model={model} node={selectedNode}/>) : null;
+		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} node={selectedNode}/>) : null;
 		return (
 		  <div className='controls'>
 			  <button onClick={this.getCallflowJSON.bind(this)}>Generate Callflow</button>

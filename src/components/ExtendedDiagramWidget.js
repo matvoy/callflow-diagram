@@ -3,63 +3,93 @@
  */
 import React from 'react';
 import _ from 'lodash';
-// import { DiagramModel } from '../DiagramModel';
-// import { PointModel, NodeModel, LinkModel, PortModel } from '../Common';
-// import { SelectingAction, MoveCanvasAction, MoveItemsAction } from './actions';
-// import { LinkLayerWidget } from './LinkLayerWidget';
-// import { NodeLayerWidget } from './NodeLayerWidget';
-// import { Toolkit } from '../Toolkit';
 import * as RJD from 'react-js-diagrams';
 
 export class ExtendedDiagramWidget extends RJD.DiagramWidget {
+		constructor(props){
+			super(props);
+			this.keydownListener = this.keydownListener.bind(this);
+		}
+		componentWillUpdate(nextProps) {
+			if (this.props.diagramEngine.diagramModel.id !== nextProps.diagramEngine.diagramModel.id) {
+				this.setState({ renderedNodes: false });
+				nextProps.diagramEngine.diagramModel.rendered = true;
+			}
+			if (!nextProps.diagramEngine.diagramModel.rendered) {
+				this.setState({ renderedNodes: false });
+				nextProps.diagramEngine.diagramModel.rendered = true;
+			}
+			this.isChanged= this.props.actions.deleteItems !== nextProps.actions.deleteItems ? true : false;
+		}
+
+		componentDidUpdate() {
+			if (!this.state.renderedNodes) {
+				this.setState({
+					renderedNodes: true
+				});
+			}
+			if(this.isChanged){
+				let self = this;
+				const { diagramEngine, onChange } = this.props;
+				const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
+				this.arguments = {diagramEngine, onChange, selectAll, deselectAll, copy, paste, deleteItems};
+				window.removeEventListener('keydown', this.state.windowListener);
+				this.setState({
+					windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
+				})
+			}
+		}
+
+		keydownListener(event){
+			const selectedItems = this.arguments.diagramEngine.getDiagramModel().getSelectedItems();
+			const ctrl = (event.metaKey || event.ctrlKey);
+
+			// Select all
+			if (event.keyCode === 65 && ctrl && this.arguments.selectAll) {
+				this.selectAll(true);
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			// Deselect all
+			if (event.keyCode === 68 && ctrl && this.arguments.deselectAll) {
+				this.selectAll(false);
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			// Copy selected
+			if (event.keyCode === 67 && ctrl && selectedItems.length && this.arguments.copy) {
+				this.copySelectedItems(selectedItems);
+			}
+
+			// Paste from clipboard
+			if (event.keyCode === 86 && ctrl && this.state.clipboard && this.arguments.paste) {
+				this.pasteSelectedItems(selectedItems);
+			}
+
+			// Delete all selected
+			if ([8, 46].indexOf(event.keyCode) !== -1 && selectedItems.length && this.arguments.deleteItems) {
+				selectedItems.forEach(element => {
+					element.remove();
+				});
+
+				this.arguments.onChange(this.arguments.diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-deleted', items: selectedItems });
+				this.forceUpdate();
+			}
+		}
 
     componentDidMount() {
         const { diagramEngine, onChange } = this.props;
         diagramEngine.setCanvas(this.refs['canvas']);
         diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
         const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
-
+				this.arguments = {diagramEngine, onChange, selectAll, deselectAll, copy, paste, deleteItems};
+				let self = this;
         // Add a keyboard listener
         this.setState({
             renderedNodes: true,
-            windowListener: window.addEventListener('keydown', event => {
-                const selectedItems = diagramEngine.getDiagramModel().getSelectedItems();
-                const ctrl = (event.metaKey || event.ctrlKey);
-
-                // Select all
-                if (event.keyCode === 65 && ctrl && selectAll) {
-                    this.selectAll(true);
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                // Deselect all
-                if (event.keyCode === 68 && ctrl && deselectAll) {
-                    this.selectAll(false);
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                // Copy selected
-                if (event.keyCode === 67 && ctrl && selectedItems.length && copy) {
-                    this.copySelectedItems(selectedItems);
-                }
-
-                // Paste from clipboard
-                if (event.keyCode === 86 && ctrl && this.state.clipboard && paste) {
-                    this.pasteSelectedItems(selectedItems);
-                }
-
-                // Delete all selected
-                if ([46].indexOf(event.keyCode) !== -1 && selectedItems.length && deleteItems) {
-                    selectedItems.forEach(element => {
-                        element.remove();
-                    });
-
-                    onChange(diagramEngine.getDiagramModel().serializeDiagram(), { type: 'items-deleted', items: selectedItems });
-                    this.forceUpdate();
-                }
-            })
+            windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
         });
         window.focus();
     }

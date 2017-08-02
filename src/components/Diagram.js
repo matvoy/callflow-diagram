@@ -218,12 +218,11 @@ export class Diagram extends React.Component {
     if (isDeselect && action.items.length < 1 && action.model.nodeType) {
       return this.props.updateModel(model, { selectedNode: action.model });
     }
-
     this.props.updateModel(model);
   }
 
   render() {
-    const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo} = this.props;
+    const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo, allowDelete} = this.props;
     let isOffset = !model || (model && (model.offsetX == 0 && model.offsetY == 0 && model.zoom == 100));
     // Render the canvas
     return connectDropTarget (
@@ -236,7 +235,7 @@ export class Diagram extends React.Component {
           <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">
           </a>
         </div>
-        <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
+        <ExtendedDiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} actions={{deleteItems: allowDelete}} />
       </div>
     );
   }

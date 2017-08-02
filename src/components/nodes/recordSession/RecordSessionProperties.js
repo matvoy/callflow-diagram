@@ -105,7 +105,8 @@ export class RecordSessionProperties extends React.Component {
             <div>
                 <div>
                     <label>Action</label>
-                    <select value={this.state.action} onChange={(e)=>{this.actionChanged(e)}}>
+                    <select value={this.state.action} onChange={(e)=>{this.actionChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.action.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
                         })}
@@ -113,7 +114,8 @@ export class RecordSessionProperties extends React.Component {
                 </div>
                 <div>
                     <label>Type</label>
-                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}>
+                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.type.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
                         })}
@@ -121,23 +123,28 @@ export class RecordSessionProperties extends React.Component {
                 </div>
                 <div>
                     <label>Stereo</label>
-                    <input type="checkbox" value={ this.state.stereo} onInput={(e)=>{this.stereoChanged(e)}}></input>
+                    <input type="checkbox" value={ this.state.stereo} onInput={(e)=>{this.stereoChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Bridged</label>
-                    <input type="checkbox" value={ this.state.bridged} onInput={(e)=>{this.bridgedChanged(e)}}></input>
+                    <input type="checkbox" value={ this.state.bridged} onInput={(e)=>{this.bridgedChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Min Seconds</label>
-                    <input type="number" value={ this.state.minSec} onInput={(e)=>{this.minSecChanged(e)}}></input>
+                    <input type="number" value={ this.state.minSec} onInput={(e)=>{this.minSecChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Follow Transfer</label>
-                    <input type="checkbox" value={ this.state.followTransfer} onInput={(e)=>{this.followTransferChanged(e)}}></input>
+                    <input type="checkbox" value={ this.state.followTransfer} onInput={(e)=>{this.followTransferChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}></input>
+                    <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addEmail}>push</button>
                     <ul>
                         {this.state.email.map((i)=> {

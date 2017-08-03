@@ -26,9 +26,9 @@ const nodesTarget = {
   drop(props, monitor, component) {
     const { x: pageX, y: pageY } = monitor.getSourceClientOffset();
     const { left = 0, top = 0 } = diagramEngine.canvas.getBoundingClientRect();
-    const { offsetX, offsetY } = diagramEngine.diagramModel;
-    const x = pageX - left - offsetX;
-    const y = pageY - top - offsetY;
+    const { offsetX, offsetY, zoom } = diagramEngine.diagramModel;
+    const x = (pageX - left)*100/zoom - offsetX;
+    const y = (pageY - top)*100/zoom - offsetY;
     const item = monitor.getItem();
 
     let node;

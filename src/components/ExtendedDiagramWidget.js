@@ -10,6 +10,13 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			super(props);
 			this.keydownListener = this.keydownListener.bind(this);
 		}
+
+  	attachDiagramEngine() {
+		   const { diagramEngine } = this.props;
+	     diagramEngine.setCanvas(this.refs['canvas']);
+	     diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
+	  }
+
 		componentWillUpdate(nextProps) {
 			if (this.props.diagramEngine.diagramModel.id !== nextProps.diagramEngine.diagramModel.id) {
 				this.setState({ renderedNodes: false });
@@ -23,6 +30,7 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 		}
 
 		componentDidUpdate() {
+			//this.attachDiagramEngine();
 			if (!this.state.renderedNodes) {
 				this.setState({
 					renderedNodes: true
@@ -38,6 +46,44 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 					windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
 				})
 			}
+		}
+
+		componentDidMount() {
+			this.attachDiagramEngine();
+			const { diagramEngine, onChange } = this.props;
+			const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
+			this.arguments = {diagramEngine, onChange, selectAll, deselectAll, copy, paste, deleteItems};
+			let self = this;
+			// Add a keyboard listener
+			this.setState({
+				renderedNodes: true,
+				windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
+			});
+			window.focus();
+		}
+
+		onWheel(event) {
+			const { diagramEngine } = this.props;
+			const actions = this.getActions();
+			if (!actions.zoom) {
+				return;
+			}
+			const diagramModel = diagramEngine.getDiagramModel();
+			event.preventDefault();
+			event.stopPropagation();
+			const relativeMouse = diagramEngine.getRelativeMousePoint(event);
+			const initialOffsetX = diagramModel.getOffsetX();
+			const initialOffsetY = diagramModel.getOffsetY();
+			const initialZoom = diagramModel.getZoomLevel();
+			const zoom = initialZoom + (event.deltaY * (initialZoom / 100.0) * 0.2);
+
+			diagramModel.setOffset(
+				(relativeMouse.x + initialOffsetX) * (initialZoom/zoom) - relativeMouse.x,
+				(relativeMouse.y + initialOffsetY) * (initialZoom/zoom) - relativeMouse.y
+			);
+			diagramModel.setZoomLevel(zoom);
+			diagramEngine.enableRepaintEntities([]);
+			this.forceUpdate();
 		}
 
 		keydownListener(event){
@@ -78,19 +124,4 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 				this.forceUpdate();
 			}
 		}
-
-    componentDidMount() {
-        const { diagramEngine, onChange } = this.props;
-        diagramEngine.setCanvas(this.refs['canvas']);
-        diagramEngine.setForceUpdate(this.forceUpdate.bind(this));
-        const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
-				this.arguments = {diagramEngine, onChange, selectAll, deselectAll, copy, paste, deleteItems};
-				let self = this;
-        // Add a keyboard listener
-        this.setState({
-            renderedNodes: true,
-            windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
-        });
-        window.focus();
-    }
 }

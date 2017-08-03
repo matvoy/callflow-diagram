@@ -35,6 +35,26 @@ export class Controls extends React.Component {
 			}
 		}
 
+		blackListRecurse(json, link, links, nodes, logic_node){
+			let flag = false;
+			for(let i=0; i<logic_node.ports.length; i++){
+				if(logic_node.ports[i].name === 'actions'){
+					var tmpLink = link.filter((l)=>{
+						return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+					})[0];
+					flag = !!tmpLink ? true : false;
+					break;
+				}
+			}
+			if(flag){
+				json[json.length - 1].blackList.action = [];
+				this.recursiveElementsParser(json[json.length - 1].blackList.action, tmpLink, links, nodes, logic_node);
+			}
+			else{
+				delete json[json.length - 1].blackList.action;
+			}
+		}
+
     ifRecurse(json, link, links, nodes, logic_node){
         for(let i=0; i<logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'if'){
@@ -111,6 +131,7 @@ export class Controls extends React.Component {
             }
         }
         else{
+					//NODE TYPE === QUEUE
             if(node.type === 'queue'){
                 this.queueRecurse(json, link, links, nodes, node);
                 for(let i=0; i<node.ports.length; i++){
@@ -123,6 +144,7 @@ export class Controls extends React.Component {
                 }
             }
             else{
+							//NODE TYPE === SWITCH
             	if(node.type === 'switch'){
 								this.switchRecurse(json, link, links, nodes, node);
 								for(let i=0; i<node.ports.length; i++){
@@ -135,7 +157,21 @@ export class Controls extends React.Component {
 								}
 							}
 							else{
-            		this.recursiveElementsParser(json, link[0], links, nodes, node);
+								//NODE TYPE === BLACKLIST
+            		if(node.type === 'blackList'){
+									this.blackListRecurse(json, link, links, nodes, node);
+									for(let i=0; i<node.ports.length; i++){
+										if(node.ports[i].name === 'output'){
+											link = link.filter((l)=>{
+												return (node.ports[i].id === l.sourcePort || node.ports[i].id === l.targetPort);
+											})[0];
+											this.recursiveElementsParser(json, link, links, nodes, node);
+										}
+									}
+								}
+								else{
+									this.recursiveElementsParser(json, link[0], links, nodes, node);
+								}
 							}
             }
         }

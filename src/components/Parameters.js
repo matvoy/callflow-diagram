@@ -11,6 +11,9 @@ import { QueueTimerProperties } from './nodes/queue_timer/QueueTimerProperties';
 import { RecordSessionProperties } from './nodes/recordSession/RecordSessionProperties';
 import { RecordFileProperties } from './nodes/recordFile/RecordFileProperties';
 import { SwitchProperties } from './nodes/switch/SwitchProperties';
+import { BlackListProperties } from './nodes/blackList/BlackListProperties';
+import { CalendarProperties } from './nodes/calendar/CalendarProperties';
+import { ConferenceProperties } from './nodes/conference/ConferenceProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -57,6 +60,21 @@ export class Parameters extends React.Component {
                     <SwitchProperties setIsFocused={this.props.setIsFocused} model={this.props.model} node = {this.props.node}/>
                 );
             }
+						if(nodeType === 'blackList'){
+							return (
+								<BlackListProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'calendar'){
+							return (
+								<CalendarProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'conference'){
+							return (
+								<ConferenceProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
         }
     }
     render() {

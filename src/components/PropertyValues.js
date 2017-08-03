@@ -115,6 +115,9 @@ var Elements = {
     switch:{
         single: false
     },
+		blackList:{
+			single: false
+		},
     queue:{
         single: false,
     },
@@ -129,7 +132,14 @@ var Elements = {
         single: false,
         type:['mp3', 'mp4'],
         action:['start', 'stop']
-    }
+    },
+		conference:{
+			single: false,
+			flags:['moderator', 'join-only', 'vmute', 'mute', 'deaf', 'endconf', 'mintwo', 'nomoh']
+		},
+		calendar:{
+			single: false
+		}
 }
 
 export default Elements;

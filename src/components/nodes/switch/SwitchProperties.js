@@ -35,13 +35,14 @@ export class SwitchProperties extends React.Component {
         });
     }
     addCase(){
-        this.props.node.addPort(new RJD.DefaultPortModel(false, this.state.caseText, 'case: '+this.state.caseText));
+        this.props.node.addPort(new RJD.DefaultPortModel(false, this.state.caseText, 'case: ' + this.state.caseText));
 				this.json.case[this.state.caseText]=[];
 				let diagramModel = new ExtendedDiagramModel();
 			  diagramModel.deSerializeDiagram(this.props.model, diagramEngine);
 				diagramModel.setNode(this.props.node);
 			  diagramEngine.setDiagramModel(diagramModel);
 			  this.props.setIsFocused(false);
+
         this.setState({
             case: this.json.case,
             caseText:''

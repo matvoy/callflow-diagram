@@ -16,6 +16,9 @@ import { EchoNodeModel } from './nodes/echo/EchoNodeModel';
 import { RecordFileNodeModel } from './nodes/recordFile/RecordFileNodeModel';
 import { RecordSessionNodeModel } from './nodes/recordSession/RecordSessionNodeModel';
 import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
+import { BlackListNodeModel } from './nodes/blackList/BlackListNodeModel';
+import { CalendarNodeModel } from './nodes/calendar/CalendarNodeModel';
+import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -75,6 +78,15 @@ const nodesTarget = {
     if (item.type === 'switch') {
       node = new SwitchNodeModel('Switch', item.color);
     }
+		if (item.type === 'blackList') {
+			node = new BlackListNodeModel('BlackList', item.color);
+		}
+		if (item.type === 'calendar') {
+			node = new CalendarNodeModel('Calendar', item.color);
+		}
+		if (item.type === 'conference') {
+			node = new ConferenceNodeModel('Conference', item.color);
+		}
 
     node.x = x;
     node.y = y;
@@ -168,7 +180,8 @@ export class Diagram extends React.Component {
     }
     else{
       //TIMERS
-      if(linkModel.sourcePort.name === 'timers' || linkModel.targetPort.name === 'timers'){
+      if((linkModel.sourcePort.name === 'timers' && linkModel.sourcePort.parentNode.nodeType === 'queue' )
+				|| (linkModel.targetPort.name === 'timers' && linkModel.targetPort.parentNode.nodeType === 'queue' )){
           this.checkTimers(model, linkModel);
           return;
       }

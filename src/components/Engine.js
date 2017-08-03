@@ -28,6 +28,12 @@ import { RecordFileWidgetFactory } from './nodes/recordFile/RecordFileWidgetFact
 import { RecordFileNodeFactory } from './nodes/recordFile/RecordFileInstanceFactories';
 import { SwitchWidgetFactory } from './nodes/switch/SwitchWidgetFactory';
 import { SwitchNodeFactory } from './nodes/switch/SwitchInstanceFactories';
+import { BlackListWidgetFactory } from './nodes/blackList/BlackListWidgetFactory';
+import { BlackListNodeFactory } from './nodes/blackList/BlackListInstanceFactories';
+import { CalendarWidgetFactory } from './nodes/calendar/CalendarWidgetFactory';
+import { CalendarNodeFactory } from './nodes/calendar/CalendarInstanceFactories';
+import { ConferenceWidgetFactory } from './nodes/conference/ConferenceWidgetFactory';
+import { ConferenceNodeFactory } from './nodes/conference/ConferenceInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -47,6 +53,9 @@ diagramEngine.registerNodeFactory(new SleepWidgetFactory());
 diagramEngine.registerNodeFactory(new RecordSessionWidgetFactory());
 diagramEngine.registerNodeFactory(new RecordFileWidgetFactory());
 diagramEngine.registerNodeFactory(new SwitchWidgetFactory());
+diagramEngine.registerNodeFactory(new BlackListWidgetFactory());
+diagramEngine.registerNodeFactory(new CalendarWidgetFactory());
+diagramEngine.registerNodeFactory(new ConferenceWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -66,3 +75,6 @@ diagramEngine.registerInstanceFactory(new SleepNodeFactory());
 diagramEngine.registerInstanceFactory(new RecordSessionNodeFactory());
 diagramEngine.registerInstanceFactory(new RecordFileNodeFactory());
 diagramEngine.registerInstanceFactory(new SwitchNodeFactory());
+diagramEngine.registerInstanceFactory(new BlackListNodeFactory());
+diagramEngine.registerInstanceFactory(new CalendarNodeFactory());
+diagramEngine.registerInstanceFactory(new ConferenceNodeFactory());

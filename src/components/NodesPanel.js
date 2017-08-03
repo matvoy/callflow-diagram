@@ -14,6 +14,9 @@ import { SleepNodeWidget } from './nodes/sleep/SleepNodeWidget';
 import { RecordFileNodeWidget } from './nodes/recordFile/RecordFileNodeWidget';
 import { RecordSessionNodeWidget } from './nodes/recordSession/RecordSessionNodeWidget';
 import { SwitchNodeWidget } from './nodes/switch/SwitchNodeWidget';
+import { BlackListNodeWidget } from './nodes/blackList/BlackListNodeWidget';
+import { CalendarNodeWidget } from './nodes/calendar/CalendarNodeWidget';
+import { ConferenceNodeWidget } from './nodes/conference/ConferenceNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -61,6 +64,15 @@ class Node extends React.Component {
     if (type === 'switch') {
       return <SwitchNodeWidget node={{ name: 'Switch' }} color={color} displayOnly />;
     }
+		if (type === 'blackList') {
+			return <BlackListNodeWidget node={{ name: 'BlackList' }} color={color} displayOnly />;
+		}
+		if (type === 'calendar') {
+			return <CalendarNodeWidget node={{ name: 'Calendar' }} color={color} displayOnly />;
+		}
+		if (type === 'conference') {
+			return <ConferenceNodeWidget node={{ name: 'Conference' }} color={color} displayOnly />;
+		}
     console.warn('Unknown node type');
     return null;
   }
@@ -113,6 +125,15 @@ export class NodesPanel extends React.Component {
         <div className='node-wrapper'>
           <Node type='recordSession' color='rgb(114, 128, 150)' />
         </div>
+				<div className='node-wrapper'>
+					<Node type='blackList' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='calendar' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='conference' color='rgb(114, 128, 150)' />
+				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />
         </div>

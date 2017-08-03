@@ -34,7 +34,18 @@ export class SwitchNodeModel extends RJD.NodeModel {
   getOutPort() {
     return this.ports.output;
   }
-  getCasePort() {
-      return this.ports.case;
+
+  getCustomPort(port) {
+      return this.ports[port];
   }
+
+  getCasePorts(){
+  	let arr = [];
+		for(let port in this.ports) {
+			if(port !== 'input'&& port !== 'output'){
+				arr.push(port);
+			}
+		}
+		return arr;
+	}
 }

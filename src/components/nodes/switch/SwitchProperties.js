@@ -33,7 +33,7 @@ export class SwitchProperties extends React.Component {
         });
     }
     addCase(){
-        this.props.node.ports[this.state.caseText] = new RJD.DefaultPortModel(false, this.state.caseText, 'case');
+        this.props.node.addPort(new RJD.DefaultPortModel(false, this.state.caseText, 'case'));
         this.json.case[this.state.caseText]=[];
         this.setState({
             case: this.json.case,
@@ -47,8 +47,10 @@ export class SwitchProperties extends React.Component {
         });
     }
     componentWillReceiveProps(nextProps) {
-        this.json = nextProps.node.extras.switch;
-        this.setState({ variable: this.json.variable, case: this.json.case, caseText:''});
+    	if(nextProps.node.id!==this.props.node.id){
+				this.json = nextProps.node.extras.switch;
+				this.setState({ variable: this.json.variable, case: this.json.case, caseText:''});
+			}
     }
     getParameters(){
         let arr = [];
@@ -71,7 +73,7 @@ export class SwitchProperties extends React.Component {
                     <label>Case</label>
                     <input type="text" value={this.state.caseText} onInput={(e)=>{this.caseTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                    <button onClick={this.addCase}>push</button>
+                    <button onClick={()=>{this.addCase()}}>push</button>
                     <ul>{arr}</ul>
                 </div>
             </div>

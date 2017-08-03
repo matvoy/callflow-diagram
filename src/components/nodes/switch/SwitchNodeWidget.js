@@ -43,11 +43,19 @@ export class SwitchNodeWidget extends React.Component {
           outputNode = new SwitchNodeModel(node.name, color);
       }
 
-      return outputNode.getCasePort ? (
-          <div className='out'>
-            <RJD.DefaultPortLabel model={outputNode.getCasePort()} key='out-port' />
-          </div>
-      ) : null;
+			let arr=[];
+      if(outputNode.getCasePorts().length>0){
+				for(let port of outputNode.getCasePorts()) {
+					arr.push((
+						<div className='out'>
+							<RJD.DefaultPortLabel model={outputNode.getCustomPort(port)} key='out-port' />
+						</div>))
+				}
+				return arr;
+      }
+      else{
+      	return null;
+			}
   }
   render() {
     const { node, displayOnly, color: displayColor } = this.props;

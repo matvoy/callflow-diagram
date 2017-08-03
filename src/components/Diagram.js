@@ -18,9 +18,10 @@ import { RecordSessionNodeModel } from './nodes/recordSession/RecordSessionNodeM
 import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
+import { ExtendedDiagramModel } from './ExtendedDiagramModel';
 
 // Setup the diagram model
-let diagramModel = new RJD.DiagramModel();
+let diagramModel = new ExtendedDiagramModel();
 
 const nodesTarget = {
   drop(props, monitor, component) {
@@ -108,7 +109,7 @@ export class Diagram extends React.Component {
   }
 
   setModel(model) {
-    diagramModel = new RJD.DiagramModel();
+    diagramModel = new ExtendedDiagramModel();
     if (model) {
       diagramModel.deSerializeDiagram(model, diagramEngine);
     }

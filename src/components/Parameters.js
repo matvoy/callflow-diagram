@@ -54,7 +54,7 @@ export class Parameters extends React.Component {
             }
             if(nodeType === 'switch'){
                 return (
-                    <SwitchProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+                    <SwitchProperties setIsFocused={this.props.setIsFocused} model={this.props.model} node = {this.props.node}/>
                 );
             }
         }

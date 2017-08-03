@@ -23,6 +23,18 @@ export class Controls extends React.Component {
 
 	}
 
+		switchRecurse(json, link, links, nodes, logic_node){
+			for(let i=0; i<logic_node.ports.length; i++){
+				if(logic_node.ports[i].name !== 'input' && logic_node.ports[i].name !== 'output'){
+					let tmpLink = link.filter((l)=>{
+						return (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+					})[0];
+					json[json.length - 1].switch.case[logic_node.ports[i].name] = [];
+					this.recursiveElementsParser(json[json.length - 1].switch.case[logic_node.ports[i].name], tmpLink, links, nodes, logic_node);
+				}
+			}
+		}
+
     ifRecurse(json, link, links, nodes, logic_node){
         for(let i=0; i<logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'if'){
@@ -111,7 +123,20 @@ export class Controls extends React.Component {
                 }
             }
             else{
-                this.recursiveElementsParser(json, link[0], links, nodes, node);
+            	if(node.type === 'switch'){
+								this.switchRecurse(json, link, links, nodes, node);
+								for(let i=0; i<node.ports.length; i++){
+									if(node.ports[i].name === 'output'){
+										link = link.filter((l)=>{
+											return (node.ports[i].id === l.sourcePort || node.ports[i].id === l.targetPort);
+										})[0];
+										this.recursiveElementsParser(json, link, links, nodes, node);
+									}
+								}
+							}
+							else{
+            		this.recursiveElementsParser(json, link[0], links, nodes, node);
+							}
             }
         }
 

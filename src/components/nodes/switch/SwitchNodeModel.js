@@ -7,12 +7,15 @@ export class SwitchNodeModel extends RJD.NodeModel {
     super('switch');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
-    this.addPort(new RJD.DefaultPortModel(false, 'case', 'case'));
     this.name = name;
     this.color = color;
     this.extras = extras;
   }
 
+  componentDidUpdate(){
+  	debugger;
+  	this.forceUpdate();
+	}
   deSerialize(object) {
     super.deSerialize(object);
     this.name = object.name;

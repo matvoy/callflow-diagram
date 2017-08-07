@@ -34,6 +34,13 @@ import { CalendarWidgetFactory } from './nodes/calendar/CalendarWidgetFactory';
 import { CalendarNodeFactory } from './nodes/calendar/CalendarInstanceFactories';
 import { ConferenceWidgetFactory } from './nodes/conference/ConferenceWidgetFactory';
 import { ConferenceNodeFactory } from './nodes/conference/ConferenceInstanceFactories';
+import { UsersWidgetFactory } from './nodes/users/UsersWidgetFactory';
+import { UsersNodeFactory } from './nodes/users/UsersInstanceFactories';
+import { OutboundCallWidgetFactory } from './nodes/outboundCall/OutboundCallWidgetFactory';
+import { OutboundCallNodeFactory } from './nodes/outboundCall/OutboundCallInstanceFactories';
+import { PlayNDigitsWidgetFactory } from './nodes/playNdigits/PlayNDigitsWidgetFactory';
+import { PlayNDigitsNodeFactory } from './nodes/playNdigits/PlayNDigitsInstanceFactories';
+import { LinkInstanceFactory } from './ExtendedLinkModel'
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -56,11 +63,14 @@ diagramEngine.registerNodeFactory(new SwitchWidgetFactory());
 diagramEngine.registerNodeFactory(new BlackListWidgetFactory());
 diagramEngine.registerNodeFactory(new CalendarWidgetFactory());
 diagramEngine.registerNodeFactory(new ConferenceWidgetFactory());
+diagramEngine.registerNodeFactory(new UsersWidgetFactory());
+diagramEngine.registerNodeFactory(new OutboundCallWidgetFactory());
+diagramEngine.registerNodeFactory(new PlayNDigitsWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
 diagramEngine.registerInstanceFactory(new RJD.DefaultPortInstanceFactory());
-diagramEngine.registerInstanceFactory(new RJD.LinkInstanceFactory());
+diagramEngine.registerInstanceFactory(new LinkInstanceFactory());
 diagramEngine.registerInstanceFactory(new StartNodeFactory());
 diagramEngine.registerInstanceFactory(new StopNodeFactory());
 diagramEngine.registerInstanceFactory(new AnswerNodeFactory());
@@ -78,3 +88,6 @@ diagramEngine.registerInstanceFactory(new SwitchNodeFactory());
 diagramEngine.registerInstanceFactory(new BlackListNodeFactory());
 diagramEngine.registerInstanceFactory(new CalendarNodeFactory());
 diagramEngine.registerInstanceFactory(new ConferenceNodeFactory());
+diagramEngine.registerInstanceFactory(new UsersNodeFactory());
+diagramEngine.registerInstanceFactory(new OutboundCallNodeFactory());
+diagramEngine.registerInstanceFactory(new PlayNDigitsNodeFactory());

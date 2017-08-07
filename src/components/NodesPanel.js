@@ -17,6 +17,9 @@ import { SwitchNodeWidget } from './nodes/switch/SwitchNodeWidget';
 import { BlackListNodeWidget } from './nodes/blackList/BlackListNodeWidget';
 import { CalendarNodeWidget } from './nodes/calendar/CalendarNodeWidget';
 import { ConferenceNodeWidget } from './nodes/conference/ConferenceNodeWidget';
+import { UsersNodeWidget } from './nodes/users/UsersNodeWidget';
+import { OutboundCallNodeWidget } from './nodes/outboundCall/OutboundCallNodeWidget';
+import { PlayNDigitsNodeWidget } from './nodes/playNdigits/PlayNDigitsNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -73,6 +76,15 @@ class Node extends React.Component {
 		if (type === 'conference') {
 			return <ConferenceNodeWidget node={{ name: 'Conference' }} color={color} displayOnly />;
 		}
+		if (type === 'users') {
+			return <UsersNodeWidget node={{ name: 'Users' }} color={color} displayOnly />;
+		}
+		if (type === 'outboundCall') {
+			return <OutboundCallNodeWidget node={{ name: 'Outbound Call' }} color={color} displayOnly />;
+		}
+		if (type === 'playNdigits') {
+			return <PlayNDigitsNodeWidget node={{ name: 'Play and get digits' }} color={color} displayOnly />;
+		}
     console.warn('Unknown node type');
     return null;
   }
@@ -104,6 +116,9 @@ export class NodesPanel extends React.Component {
         <div className='node-wrapper'>
           <Node type='playback' color='rgb(114, 128, 150)' />
         </div>
+				<div className='node-wrapper'>
+					<Node type='playNdigits' color='rgb(114, 128, 150)' />
+				</div>
         <div className='node-wrapper'>
           <Node type='log' color='rgb(114, 128, 150)' />
         </div>
@@ -133,6 +148,12 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='conference' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='users' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='outboundCall' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

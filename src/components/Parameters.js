@@ -14,6 +14,9 @@ import { SwitchProperties } from './nodes/switch/SwitchProperties';
 import { BlackListProperties } from './nodes/blackList/BlackListProperties';
 import { CalendarProperties } from './nodes/calendar/CalendarProperties';
 import { ConferenceProperties } from './nodes/conference/ConferenceProperties';
+import { UsersProperties } from './nodes/users/UsersProperties';
+import { OutboundCallProperties } from './nodes/outboundCall/OutboundCallProperties';
+import { PlayNDigitsProperties } from './nodes/playNdigits/PlayNDigitsProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -73,6 +76,21 @@ export class Parameters extends React.Component {
 						if(nodeType === 'conference'){
 							return (
 								<ConferenceProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'users'){
+							return (
+								<UsersProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'outboundCall'){
+							return (
+								<OutboundCallProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'playNdigits'){
+							return (
+								<PlayNDigitsProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

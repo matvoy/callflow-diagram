@@ -223,6 +223,10 @@ html, body, #root {
     @extend .app-img;
     background-image: url("../images/play-button-sing.svg");
   }
+  .app-img-playNdigits{
+    @extend .app-img;
+    background-image: url("../images/dial-pad.svg");
+  }
   .app-img-log{
     @extend .app-img;
     background-image: url("../images/icon.svg");
@@ -270,6 +274,14 @@ html, body, #root {
   .app-img-calendar{
     @extend .app-img;
     background-image: url("../images/calendar.svg");
+  }
+  .app-img-users{
+    @extend .app-img;
+    background-image: url("../images/operator.svg");
+  }
+  .app-img-outboundCall{
+    @extend .app-img;
+    background-image: url("../images/telephone-receiver-with-up-arrow.svg");
   }
   .ports{
     display: flex;

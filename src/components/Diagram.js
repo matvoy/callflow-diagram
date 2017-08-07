@@ -19,6 +19,9 @@ import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { BlackListNodeModel } from './nodes/blackList/BlackListNodeModel';
 import { CalendarNodeModel } from './nodes/calendar/CalendarNodeModel';
 import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
+import { UsersNodeModel } from './nodes/users/UsersNodeModel';
+import { OutboundCallNodeModel } from './nodes/outboundCall/OutboundCallNodeModel';
+import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -86,6 +89,15 @@ const nodesTarget = {
 		}
 		if (item.type === 'conference') {
 			node = new ConferenceNodeModel('Conference', item.color);
+		}
+		if (item.type === 'users') {
+			node = new UsersNodeModel('Users', item.color);
+		}
+		if (item.type === 'outboundCall') {
+			node = new OutboundCallNodeModel('Outbound call', item.color);
+		}
+		if (item.type === 'playNdigits') {
+			node = new PlayNDigitsNodeModel('Play and get digits', item.color);
 		}
 
     node.x = x;

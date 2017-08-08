@@ -20,6 +20,7 @@ import { ConferenceNodeWidget } from './nodes/conference/ConferenceNodeWidget';
 import { UsersNodeWidget } from './nodes/users/UsersNodeWidget';
 import { OutboundCallNodeWidget } from './nodes/outboundCall/OutboundCallNodeWidget';
 import { PlayNDigitsNodeWidget } from './nodes/playNdigits/PlayNDigitsNodeWidget';
+import { SendEmailNodeWidget } from './nodes/sendEmail/SendEmailNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -84,6 +85,9 @@ class Node extends React.Component {
 		}
 		if (type === 'playNdigits') {
 			return <PlayNDigitsNodeWidget node={{ name: 'Play and get digits' }} color={color} displayOnly />;
+		}
+		if (type === 'sendEmail') {
+			return <SendEmailNodeWidget node={{ name: 'Send Email' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -154,6 +158,9 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='outboundCall' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='sendEmail' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
-export class OutboundCallNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(73, 72, 79)', extras = { bridge: { strategy: 'multiple', codecs: [], parameters: [], endpoints: [] } }) {
-    super('outboundCall');
+export class SendEmailNodeModel extends RJD.NodeModel {
+  constructor(name = 'Untitled', color = 'rgb(73, 72, 79)', extras = { sendEmail: { to: [], subject: '', message: '' } }) {
+    super('sendEmail');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
     this.name = name;

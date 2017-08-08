@@ -17,6 +17,7 @@ import { ConferenceProperties } from './nodes/conference/ConferenceProperties';
 import { UsersProperties } from './nodes/users/UsersProperties';
 import { OutboundCallProperties } from './nodes/outboundCall/OutboundCallProperties';
 import { PlayNDigitsProperties } from './nodes/playNdigits/PlayNDigitsProperties';
+import { SendEmailProperties } from './nodes/sendEmail/SendEmailProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -91,6 +92,11 @@ export class Parameters extends React.Component {
 						if(nodeType === 'playNdigits'){
 							return (
 								<PlayNDigitsProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'sendEmail'){
+							return (
+								<SendEmailProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

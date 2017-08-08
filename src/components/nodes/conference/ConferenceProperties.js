@@ -7,30 +7,23 @@ import Element from '../../PropertyValues';
 export class ConferenceProperties extends React.Component {
     constructor(props){
         super(props);
-        this.nameChanged = this.nameChanged.bind(this);
-				this.pinChanged = this.pinChanged.bind(this);
-				this.flagChanged = this.flagChanged.bind(this);
+				this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
+        this.propertyChanged = this.propertyChanged.bind(this);
 				this.addFlag = this.addFlag.bind(this);
 				this.deleteFlag = this.deleteFlag.bind(this);
 				this.json = this.props.node.extras.conference;
 				this.defValues = Element[this.props.node.nodeType];
         this.state = { name: this.json.name, pin: this.json.pin, flags:this.json.flags, flag:'moderator'};
     }
-    nameChanged(e){
-			this.json.name=e.target.value;
-        this.setState({
-            name: e.target.value
-        });
-    }
-		pinChanged(e){
-			this.json.pin=e.target.value;
-				this.setState({
-					pin: e.target.value
-				});
-		}
-		flagChanged(e){
+		jsonPropertyChanged(e){
+			this.json[e.target.name]=e.target.value;
 			this.setState({
-				flag: e.target.value
+				[e.target.name]: e.target.value
+			});
+		}
+		propertyChanged(e){
+			this.setState({
+				[e.target.name]: e.target.value
 			});
 		}
 		addFlag(){
@@ -59,17 +52,17 @@ export class ConferenceProperties extends React.Component {
         	<div>
 						<div>
 							<label>Name</label>
-							<input type="text" value={this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+							<input name="name" type="text" value={this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>PIN</label>
-							<input type="text" value={this.state.pin} onInput={(e)=>{this.pinChanged(e)}}
+							<input name="pin" type="text" value={this.state.pin} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Flags</label>
-							<select value={this.state.flag} onChange={(e)=>{this.flagChanged(e)}}
+							<select name="flag" value={this.state.flag} onChange={(e)=>{this.propertyChanged(e)}}
 											onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
 								{this.defValues.flags.map( (i, index) => {
 									return <option key={index} value={i}>{i}</option>;

@@ -161,6 +161,9 @@ var Elements = {
 			codecs: [ 'PCMA', 'PCMU', 'G729', 'G722', 'OPUS', 'GSM', 'ilbc', 'VP8', 'VP9', 'H264', 'H263', 'H263-1998'],
 			type: [{name: 'SIP Gateway', value: 'sipGateway'}, {name: 'SIP URI', value: 'sipUri'}],
 			profile: ['nonreg', 'external', 'internal']
+		},
+		sendEmail:{
+				singe: false
 		}
 }
 

@@ -23,14 +23,8 @@ export class PlayNDigitsProperties extends React.Component {
 			name: '',
 			type: this.defValues.files[0]
 		};
-		this.typeChanged = this.typeChanged.bind(this);
-		this.nameChanged = this.nameChanged.bind(this);
-		this.setVarChanged = this.setVarChanged.bind(this);
-		this.minChanged = this.minChanged.bind(this);
-		this.maxChanged = this.maxChanged.bind(this);
-		this.triesChanged = this.triesChanged.bind(this);
-		this.timeoutChanged = this.timeoutChanged.bind(this);
-		this.flushDTMFChanged = this.flushDTMFChanged.bind(this);
+		this.jsonGetDigitsPropertyChanged = this.jsonGetDigitsPropertyChanged.bind(this);
+		this.propertyChanged = this.propertyChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
 
@@ -51,50 +45,15 @@ export class PlayNDigitsProperties extends React.Component {
 			});
 		}
 	}
-	nameChanged(e){
+	propertyChanged(e){
 		this.setState({
-			name: e.target.value
+			[e.target.name]: e.target.value
 		});
 	}
-	typeChanged(e){
+	jsonGetDigitsPropertyChanged(e){
+		this.json.getDigits[e.target.name] = e.target.value;
 		this.setState({
-			type: e.target.value
-		});
-	}
-	setVarChanged(e){
-		this.json.getDigits.setVar = e.target.value;
-		this.setState({
-			setVar: e.target.value
-		});
-	}
-	minChanged(e){
-		this.json.getDigits.min = e.target.value;
-		this.setState({
-			min: e.target.value
-		});
-	}
-	maxChanged(e){
-		this.json.getDigits.max = e.target.value;
-		this.setState({
-			max: e.target.value
-		});
-	}
-	triesChanged(e){
-		this.json.getDigits.tries = e.target.value;
-		this.setState({
-			tries: e.target.value
-		});
-	}
-	timeoutChanged(e){
-		this.json.getDigits.timeout = e.target.value;
-		this.setState({
-			timeout: e.target.value
-		});
-	}
-	flushDTMFChanged(e){
-		this.json.getDigits.flushDTMF = e.target.value;
-		this.setState({
-			flushDTMF: e.target.value
+			[e.target.name]: e.target.value
 		});
 	}
 	addFile(){
@@ -117,32 +76,32 @@ export class PlayNDigitsProperties extends React.Component {
 			<div>
 				<div>
 					<label>Variable</label>
-					<input type="text" value={ this.state.setVar} onInput={(e)=>{this.setVarChanged(e)}}
+					<input name="setVar" type="text" value={ this.state.setVar} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
 					<label>Minimum digits</label>
-					<input type="number" value={ this.state.min} onInput={(e)=>{this.minChanged(e)}}
+					<input name="min" type="number" value={ this.state.min} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
 					<label>Maximum digits</label>
-					<input type="number" value={ this.state.max} onInput={(e)=>{this.maxChanged(e)}}
+					<input name="max" type="number" value={ this.state.max} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
 					<label>Number of tries</label>
-					<input type="number" value={ this.state.tries} onInput={(e)=>{this.triesChanged(e)}}
+					<input name="tries" type="number" value={ this.state.tries} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
 					<label>Timeout</label>
-					<input type="number" value={ this.state.timeout} onInput={(e)=>{this.timeoutChanged(e)}}
+					<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
 					<label>Flush DTMF</label>
-					<input type="checkbox" value={ this.state.flushDTMF} onInput={(e)=>{this.flushDTMFChanged(e)}}
+					<input name="flushDTMF" type="checkbox" value={ this.state.flushDTMF} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>
@@ -150,7 +109,7 @@ export class PlayNDigitsProperties extends React.Component {
 					<div>
 						<div>
 							<label>Type</label>
-							<select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
+							<select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
 											onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
 								{this.defValues.files.map( (i, index) => {
 									return <option key={index} value={i}>{i}</option>;
@@ -159,7 +118,7 @@ export class PlayNDigitsProperties extends React.Component {
 						</div>
 						<div>
 							<label>Name</label>
-							<input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+							<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<button onClick={this.addFile}>push</button>

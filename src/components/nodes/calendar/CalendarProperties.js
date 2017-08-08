@@ -6,36 +6,32 @@ import React from 'react';
 export class CalendarProperties extends React.Component {
     constructor(props){
         super(props);
-        this.nameChanged = this.nameChanged.bind(this);
-				this.setVarChanged = this.setVarChanged.bind(this);
-        this.state = { name: this.props.node.extras.calendar.name, setVar: this.props.node.extras.calendar.setVar};
+        this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
+				this.json = this.props.extras.calendar;
+        this.state = { name: this.json.name, setVar: this.json.setVar};
     }
-    nameChanged(e){
-        this.props.node.extras.calendar.name=e.target.value;
+		jsonPropertyChanged(e){
+        this.json[e.target.name]=e.target.value;
         this.setState({
-            name: e.target.value
+					[e.target.name]: e.target.value
         });
     }
-		setVarChanged(e){
-				this.props.node.extras.calendar.setVar=e.target.value;
-				this.setState({
-					setVar: e.target.value
-				});
-		}
     componentWillReceiveProps(nextProps) {
-        this.setState({ name: nextProps.node.extras.calendar.name, setVar: nextProps.node.extras.calendar.setVar});
+			if(this.props.node.id === nextProps.node.id) return;
+				this.json = nextProps.node.extras.calendar;
+        this.setState({ name: this.json.name, setVar: this.json.setVar});
     }
     getParameters(){
         return(
         	<div>
 						<div>
 							<label>Name</label>
-							<input type="text" value={this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+							<input name="name" type="text" value={this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Variable</label>
-							<input type="text" value={this.state.setVar} onInput={(e)=>{this.setVarChanged(e)}}
+							<input name="setVar" type="text" value={this.state.setVar} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 					</div>

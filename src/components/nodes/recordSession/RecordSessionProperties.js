@@ -22,17 +22,14 @@ export class RecordSessionProperties extends React.Component {
             email: this.json.email,
             emailText: ''
         };
-        this.typeChanged = this.typeChanged.bind(this);
-        this.actionChanged = this.actionChanged.bind(this);
-        this.stereoChanged = this.stereoChanged.bind(this);
-        this.bridgedChanged = this.bridgedChanged.bind(this);
-        this.minSecChanged = this.minSecChanged.bind(this);
-        this.followTransferChanged = this.followTransferChanged.bind(this);
+        this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
         this.emailTextChanged = this.emailTextChanged.bind(this);
         this.addEmail = this.addEmail.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
     }
     componentWillReceiveProps(nextProps) {
+				if(this.props.node.id === nextProps.node.id)
+					return;
         this.json = nextProps.node.extras.recordSession;
         this.setState({
             action: this.json.action,
@@ -45,42 +42,12 @@ export class RecordSessionProperties extends React.Component {
             emailText: ''
         });
     }
-    actionChanged(e){
-        this.json.action = e.target.value;
-        this.setState({
-            action: e.target.value
-        });
-    }
-    stereoChanged(e){
-        this.json.stereo = e.target.value;
-        this.setState({
-            stereo: e.target.value
-        });
-    }
-    followTransferChanged(e){
-        this.json.followTransfer = e.target.value;
-        this.setState({
-            followTransfer: e.target.value
-        });
-    }
-    typeChanged(e){
-        this.json.type = e.target.value;
-        this.setState({
-            type: e.target.value
-        });
-    }
-    minSecChanged(e){
-        this.json.minSec = e.target.value;
-        this.setState({
-            minSec: e.target.value
-        });
-    }
-    bridgedChanged(e){
-        this.json.bridged = e.target.value;
-        this.setState({
-            bridged: e.target.value
-        });
-    }
+    jsonPropertyChanged(e){
+			this.json[e.targe.name] = e.target.value;
+			this.setState({
+				[e.targe.name]: e.target.value
+			});
+		}
     emailTextChanged(e){
         this.setState({
             emailText: e.target.value
@@ -105,7 +72,7 @@ export class RecordSessionProperties extends React.Component {
             <div>
                 <div>
                     <label>Action</label>
-                    <select value={this.state.action} onChange={(e)=>{this.actionChanged(e)}}
+                    <select name="action" value={this.state.action} onChange={(e)=>{this.jsonPropertyChanged(e)}}
 														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.action.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
@@ -114,7 +81,7 @@ export class RecordSessionProperties extends React.Component {
                 </div>
                 <div>
                     <label>Type</label>
-                    <select value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
+                    <select name="type" value={this.state.type} onChange={(e)=>{this.jsonPropertyChanged(e)}}
 														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
                         {this.defValues.type.map( (i, index) => {
                             return <option key={index} value={i}>{i}</option>;
@@ -123,22 +90,22 @@ export class RecordSessionProperties extends React.Component {
                 </div>
                 <div>
                     <label>Stereo</label>
-                    <input type="checkbox" value={ this.state.stereo} onInput={(e)=>{this.stereoChanged(e)}}
+                    <input name="stereo" type="checkbox" value={ this.state.stereo} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Bridged</label>
-                    <input type="checkbox" value={ this.state.bridged} onInput={(e)=>{this.bridgedChanged(e)}}
+                    <input name='bridged' type="checkbox" value={ this.state.bridged} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Min Seconds</label>
-                    <input type="number" value={ this.state.minSec} onInput={(e)=>{this.minSecChanged(e)}}
+                    <input name="minSec" type="number" value={ this.state.minSec} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Follow Transfer</label>
-                    <input type="checkbox" value={ this.state.followTransfer} onInput={(e)=>{this.followTransferChanged(e)}}
+                    <input name="followTransfer" type="checkbox" value={ this.state.followTransfer} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>

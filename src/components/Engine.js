@@ -40,6 +40,8 @@ import { OutboundCallWidgetFactory } from './nodes/outboundCall/OutboundCallWidg
 import { OutboundCallNodeFactory } from './nodes/outboundCall/OutboundCallInstanceFactories';
 import { PlayNDigitsWidgetFactory } from './nodes/playNdigits/PlayNDigitsWidgetFactory';
 import { PlayNDigitsNodeFactory } from './nodes/playNdigits/PlayNDigitsInstanceFactories';
+import { SendEmailWidgetFactory } from './nodes/sendEmail/SendEmailWidgetFactory';
+import { SendEmailNodeFactory } from './nodes/sendEmail/SendEmailInstanceFactories';
 import { LinkInstanceFactory } from './ExtendedLinkModel'
 
 // Setup the diagram engine
@@ -66,6 +68,7 @@ diagramEngine.registerNodeFactory(new ConferenceWidgetFactory());
 diagramEngine.registerNodeFactory(new UsersWidgetFactory());
 diagramEngine.registerNodeFactory(new OutboundCallWidgetFactory());
 diagramEngine.registerNodeFactory(new PlayNDigitsWidgetFactory());
+diagramEngine.registerNodeFactory(new SendEmailWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -91,3 +94,4 @@ diagramEngine.registerInstanceFactory(new ConferenceNodeFactory());
 diagramEngine.registerInstanceFactory(new UsersNodeFactory());
 diagramEngine.registerInstanceFactory(new OutboundCallNodeFactory());
 diagramEngine.registerInstanceFactory(new PlayNDigitsNodeFactory());
+diagramEngine.registerInstanceFactory(new SendEmailNodeFactory());

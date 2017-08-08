@@ -9,21 +9,15 @@ import React from 'react';
 export class QueueTimerProperties extends React.Component {
     constructor(props){
         super(props);
-        this.intervalChanged = this.intervalChanged.bind(this);
-        this.triesChanged = this.triesChanged.bind(this);
+        this.propertyChanged = this.propertyChanged.bind(this);
         this.positionChanged = this.positionChanged.bind(this);
-        this.state = { interval: this.props.node.extras.interval, tries: this.props.node.extras.tries, position: this.props.node.extras.actions[0].ccPosition.var};
+        this.json = this.props.node.extras;
+        this.state = { interval: this.json.interval, tries: this.json.tries, position: this.json.actions[0].ccPosition.var};
     }
-    intervalChanged(e){
-        this.props.node.extras.interval=parseInt(e.target.value);
+    propertyChanged(e){
+				this.json[e.target.name]=parseInt(e.target.value);
         this.setState({
-            interval: e.target.value
-        });
-    }
-    triesChanged(e){
-        this.props.node.extras.timer=parseInt(e.target.value);
-        this.setState({
-            tries: e.target.value
+					[e.target.name]: e.target.value
         });
     }
     positionChanged(e){
@@ -33,19 +27,21 @@ export class QueueTimerProperties extends React.Component {
         });
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({ interval: nextProps.node.extras.interval, tries: nextProps.node.extras.tries, position: nextProps.node.extras.actions[0].ccPosition.var});
+    	if(this.props.node.id === nextProps.node.id) return;
+    		this.json = nextProps.node.extras;
+        this.setState({ interval: this.json.interval, tries: this.json.tries, position: this.json.actions[0].ccPosition.var});
     }
     getParameters(){
         return(
             <div>
                 <div>
                     <label>Interval</label>
-                    <input type="number" value={this.state.interval} onInput={(e)=>{this.intervalChanged(e)}}
+                    <input name="interval" type="number" value={this.state.interval} onInput={(e)=>{this.propertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Retries</label>
-                    <input type="number" value={this.state.tries} onInput={(e)=>{this.triesChanged(e)}}
+                    <input name="tries" type="number" value={this.state.tries} onInput={(e)=>{this.propertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>

@@ -22,6 +22,7 @@ import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
 import { UsersNodeModel } from './nodes/users/UsersNodeModel';
 import { OutboundCallNodeModel } from './nodes/outboundCall/OutboundCallNodeModel';
 import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
+import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -98,6 +99,9 @@ const nodesTarget = {
 		}
 		if (item.type === 'playNdigits') {
 			node = new PlayNDigitsNodeModel('Play and get digits', item.color);
+		}
+		if (item.type === 'sendEmail') {
+			node = new SendEmailNodeModel('Send Email', item.color);
 		}
 
     node.x = x;

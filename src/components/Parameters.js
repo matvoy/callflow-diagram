@@ -18,6 +18,8 @@ import { UsersProperties } from './nodes/users/UsersProperties';
 import { OutboundCallProperties } from './nodes/outboundCall/OutboundCallProperties';
 import { PlayNDigitsProperties } from './nodes/playNdigits/PlayNDigitsProperties';
 import { SendEmailProperties } from './nodes/sendEmail/SendEmailProperties';
+import { ReceiveFaxProperties } from './nodes/receiveFax/ReceiveFaxProperties';
+import { HttpRequestProperties } from './nodes/httpRequest/HttpRequestProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -97,6 +99,16 @@ export class Parameters extends React.Component {
 						if(nodeType === 'sendEmail'){
 							return (
 								<SendEmailProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'receiveFax'){
+							return (
+								<ReceiveFaxProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'httpRequest'){
+							return (
+								<HttpRequestProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

@@ -21,6 +21,8 @@ import { UsersNodeWidget } from './nodes/users/UsersNodeWidget';
 import { OutboundCallNodeWidget } from './nodes/outboundCall/OutboundCallNodeWidget';
 import { PlayNDigitsNodeWidget } from './nodes/playNdigits/PlayNDigitsNodeWidget';
 import { SendEmailNodeWidget } from './nodes/sendEmail/SendEmailNodeWidget';
+import { ReceiveFaxNodeWidget } from './nodes/receiveFax/ReceiveFaxNodeWidget';
+import { HttpRequestNodeWidget } from './nodes/httpRequest/HttpRequestNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -88,6 +90,12 @@ class Node extends React.Component {
 		}
 		if (type === 'sendEmail') {
 			return <SendEmailNodeWidget node={{ name: 'Send Email' }} color={color} displayOnly />;
+		}
+		if (type === 'receiveFax') {
+			return <ReceiveFaxNodeWidget node={{ name: 'Receive Fax' }} color={color} displayOnly />;
+		}
+		if (type === 'httpRequest') {
+			return <HttpRequestNodeWidget node={{ name: 'HTTP Request' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -161,6 +169,12 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='sendEmail' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='receiveFax' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='httpRequest' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

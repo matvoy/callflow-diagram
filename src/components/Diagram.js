@@ -23,6 +23,8 @@ import { UsersNodeModel } from './nodes/users/UsersNodeModel';
 import { OutboundCallNodeModel } from './nodes/outboundCall/OutboundCallNodeModel';
 import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';
+import { ReceiveFaxNodeModel } from './nodes/receiveFax/ReceiveFaxNodeModel';
+import { HttpRequestNodeModel } from './nodes/httpRequest/HttpRequestNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -102,6 +104,12 @@ const nodesTarget = {
 		}
 		if (item.type === 'sendEmail') {
 			node = new SendEmailNodeModel('Send Email', item.color);
+		}
+		if (item.type === 'receiveFax') {
+			node = new ReceiveFaxNodeModel('Receive Fax', item.color);
+		}
+		if (item.type === 'httpRequest') {
+			node = new HttpRequestNodeModel('HTTP Request', item.color);
 		}
 
     node.x = x;

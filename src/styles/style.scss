@@ -287,6 +287,14 @@ html, body, #root {
     @extend .app-img;
     background-image: url("../images/mail.svg");
   }
+  .app-img-receiveFax{
+    @extend .app-img;
+    background-image: url("../images/fax.svg");
+  }
+  .app-img-httpRequest{
+    @extend .app-img;
+    background-image: url("../images/http.svg");
+  }
   .ports{
     display: flex;
     background-image: linear-gradient(rgba(black,0.1),rgba(black,0.2));

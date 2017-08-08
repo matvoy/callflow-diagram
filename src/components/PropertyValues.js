@@ -164,6 +164,13 @@ var Elements = {
 		},
 		sendEmail:{
 				singe: false
+		},
+		receiveFax:{
+    	single: false
+		},
+	  httpRequest:{
+    	single: false,
+			method: ['POST', 'GET', 'DELETE', 'PUT', 'PATCH']
 		}
 }
 

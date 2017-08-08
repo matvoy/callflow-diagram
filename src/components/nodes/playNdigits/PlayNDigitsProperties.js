@@ -24,6 +24,7 @@ export class PlayNDigitsProperties extends React.Component {
 			type: this.defValues.files[0]
 		};
 		this.jsonGetDigitsPropertyChanged = this.jsonGetDigitsPropertyChanged.bind(this);
+		this.jsonGetDigitsCheckboxChanged = this.jsonGetDigitsCheckboxChanged.bind(this);
 		this.propertyChanged = this.propertyChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
@@ -52,6 +53,12 @@ export class PlayNDigitsProperties extends React.Component {
 	}
 	jsonGetDigitsPropertyChanged(e){
 		this.json.getDigits[e.target.name] = e.target.value;
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	}
+	jsonGetDigitsCheckboxChanged(e){
+		this.json.getDigits[e.target.name] = e.target.checked;
 		this.setState({
 			[e.target.name]: e.target.value
 		});
@@ -101,7 +108,7 @@ export class PlayNDigitsProperties extends React.Component {
 				</div>
 				<div>
 					<label>Flush DTMF</label>
-					<input name="flushDTMF" type="checkbox" value={ this.state.flushDTMF} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+					<input name="flushDTMF" type="checkbox" checked={ this.state.flushDTMF} onChange={(e)=>{this.jsonGetDigitsCheckboxChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 				</div>
 				<div>

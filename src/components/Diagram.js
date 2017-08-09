@@ -25,6 +25,9 @@ import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';
 import { ReceiveFaxNodeModel } from './nodes/receiveFax/ReceiveFaxNodeModel';
 import { HttpRequestNodeModel } from './nodes/httpRequest/HttpRequestNodeModel';
+import { TtsNodeModel } from './nodes/tts/TtsNodeModel';
+import { PickupNodeModel } from './nodes/pickup/PickupNodeModel';
+import { ParkNodeModel } from './nodes/park/ParkNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -110,6 +113,15 @@ const nodesTarget = {
 		}
 		if (item.type === 'httpRequest') {
 			node = new HttpRequestNodeModel('HTTP Request', item.color);
+		}
+		if (item.type === 'park') {
+			node = new ParkNodeModel('Park', item.color);
+		}
+		if (item.type === 'pickup') {
+			node = new PickupNodeModel('Pickup', item.color);
+		}
+		if (item.type === 'tts') {
+			node = new TtsNodeModel('Text-To-Speech', item.color);
 		}
 
     node.x = x;

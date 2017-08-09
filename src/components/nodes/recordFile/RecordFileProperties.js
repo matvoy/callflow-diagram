@@ -100,7 +100,7 @@ export class RecordFileProperties extends React.Component {
                     <label>Email</label>
                     <input name="emailText" type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                    <button onClick={this.addEmail}>push</button>
+                    <button onClick={()=>{this.addEmail()}}>push</button>
                     <ul>
                         {this.state.email.map((i)=> {
                                 return (

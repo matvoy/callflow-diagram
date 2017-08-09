@@ -46,6 +46,12 @@ import { ReceiveFaxWidgetFactory } from './nodes/receiveFax/ReceiveFaxWidgetFact
 import { ReceiveFaxNodeFactory } from './nodes/receiveFax/ReceiveFaxInstanceFactories';
 import { HttpRequestWidgetFactory } from './nodes/httpRequest/HttpRequestWidgetFactory';
 import { HttpRequestNodeFactory } from './nodes/httpRequest/HttpRequestInstanceFactories';
+import { ParkWidgetFactory } from './nodes/park/ParkWidgetFactory';
+import { ParkNodeFactory } from './nodes/park/ParkInstanceFactories';
+import { PickupWidgetFactory } from './nodes/pickup/PickupWidgetFactory';
+import { PickupNodeFactory } from './nodes/pickup/PickupInstanceFactories';
+import { TtsWidgetFactory } from './nodes/tts/TtsWidgetFactory';
+import { TtsNodeFactory } from './nodes/tts/TtsInstanceFactories';
 import { LinkInstanceFactory } from './ExtendedLinkModel'
 
 // Setup the diagram engine
@@ -75,6 +81,9 @@ diagramEngine.registerNodeFactory(new PlayNDigitsWidgetFactory());
 diagramEngine.registerNodeFactory(new SendEmailWidgetFactory());
 diagramEngine.registerNodeFactory(new ReceiveFaxWidgetFactory());
 diagramEngine.registerNodeFactory(new HttpRequestWidgetFactory());
+diagramEngine.registerNodeFactory(new ParkWidgetFactory());
+diagramEngine.registerNodeFactory(new PickupWidgetFactory());
+diagramEngine.registerNodeFactory(new TtsWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -103,3 +112,6 @@ diagramEngine.registerInstanceFactory(new PlayNDigitsNodeFactory());
 diagramEngine.registerInstanceFactory(new SendEmailNodeFactory());
 diagramEngine.registerInstanceFactory(new ReceiveFaxNodeFactory());
 diagramEngine.registerInstanceFactory(new HttpRequestNodeFactory());
+diagramEngine.registerInstanceFactory(new ParkNodeFactory());
+diagramEngine.registerInstanceFactory(new PickupNodeFactory());
+diagramEngine.registerInstanceFactory(new TtsNodeFactory());

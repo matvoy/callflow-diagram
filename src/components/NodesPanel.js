@@ -23,6 +23,9 @@ import { PlayNDigitsNodeWidget } from './nodes/playNdigits/PlayNDigitsNodeWidget
 import { SendEmailNodeWidget } from './nodes/sendEmail/SendEmailNodeWidget';
 import { ReceiveFaxNodeWidget } from './nodes/receiveFax/ReceiveFaxNodeWidget';
 import { HttpRequestNodeWidget } from './nodes/httpRequest/HttpRequestNodeWidget';
+import { ParkNodeWidget } from './nodes/park/ParkNodeWidget';
+import { TtsNodeWidget } from './nodes/tts/TtsNodeWidget';
+import { PickupNodeWidget } from './nodes/pickup/PickupNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -96,6 +99,15 @@ class Node extends React.Component {
 		}
 		if (type === 'httpRequest') {
 			return <HttpRequestNodeWidget node={{ name: 'HTTP Request' }} color={color} displayOnly />;
+		}
+		if (type === 'park') {
+			return <ParkNodeWidget node={{ name: 'Park' }} color={color} displayOnly />;
+		}
+		if (type === 'pickup') {
+			return <PickupNodeWidget node={{ name: 'Pickup' }} color={color} displayOnly />;
+		}
+		if (type === 'tts') {
+			return <TtsNodeWidget node={{ name: 'Text-To-Speech' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -175,6 +187,15 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='httpRequest' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='park' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='pickup' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='tts' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

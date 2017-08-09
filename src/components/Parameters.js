@@ -20,6 +20,8 @@ import { PlayNDigitsProperties } from './nodes/playNdigits/PlayNDigitsProperties
 import { SendEmailProperties } from './nodes/sendEmail/SendEmailProperties';
 import { ReceiveFaxProperties } from './nodes/receiveFax/ReceiveFaxProperties';
 import { HttpRequestProperties } from './nodes/httpRequest/HttpRequestProperties';
+import { ParkProperties } from './nodes/park/ParkProperties';
+import { TtsProperties } from './nodes/tts/TtsProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -109,6 +111,16 @@ export class Parameters extends React.Component {
 						if(nodeType === 'httpRequest'){
 							return (
 								<HttpRequestProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'park'){
+							return (
+								<ParkProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'tts'){
+							return (
+								<TtsProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

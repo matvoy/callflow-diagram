@@ -13,109 +13,237 @@ export class HttpRequestProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras.httpRequest;
         this.state={
-            name: this.json.name,
-            terminators: this.json.terminators,
-            type: this.json.type,
-            maxSec: this.json.maxSec,
-            silenceHits: this.json.silenceHits,
-            email: this.json.email,
-            emailText: ''
+            url: this.json.url,
+            method: this.json.method,
+						timeout: this.json.timeout,
+						exportCookie: this.json.exportCookie,
+						headers: this.json.headers,
+						path: this.json.path,
+						data: this.json.data,
+						exportVariables: this.json.exportVariables,
+						headerKey: '',
+						headerValue: '',
+						pathKey: '',
+						pathValue: '',
+						dataKey: '',
+						dataValue: '',
+						exportVariablesKey: '',
+						exportVariablesValue: ''
         };
-        this.propertyChanged = this.propertyChanged.bind(this);
-        this.addEmail = this.addEmail.bind(this);
-        this.deleteEmail = this.deleteEmail.bind(this);
+        this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
+				this.propertyChanged = this.propertyChanged.bind(this);
+        this.addKeyValue = this.addKeyValue.bind(this);
+        this.deleteKeyValue = this.deleteKeyValue.bind(this);
+        this.getData = this.getData.bind(this);
+        this.getHeaders = this.getHeaders.bind(this);
+				this.getExportVariables = this.getExportVariables.bind(this);
+				this.getPath = this.getPath.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
     		if(this.props.node.id === nextProps.node.id)
     			return;
         this.json = nextProps.node.extras.httpRequest;
         this.setState({
-           name: this.json.name,
-           terminators: this.json.terminators,
-           type: this.json.type,
-           maxSec: this.json.maxSec,
-           silenceHits: this.json.silenceHits,
-           email: this.json.email,
-            emailText: ''
+						url: this.json.url,
+						method: this.json.method,
+						timeout: this.json.timeout,
+						exportCookie: this.json.exportCookie,
+						headers: this.json.headers,
+						path: this.json.path,
+						data: this.json.data,
+						exportVariables: this.json.exportVariables,
+						headerKey: '',
+						headerValue: '',
+						pathKey: '',
+						pathValue: '',
+						dataKey: '',
+						dataValue: '',
+						exportVariablesKey: '',
+						exportVariablesValue: ''
         });
     }
-    propertyChanged(e){
+
+		jsonPropertyChanged(e){
         this.json[e.target.name] = e.target.value;
         this.setState({
             [e.target.name]: e.target.value
         });
     }
-    emailTextChanged(e){
-        this.setState({
-            emailText: e.target.value
-        });
-    }
-    addEmail(){
-        this.json.email.push(this.state.emailText);
+
+		propertyChanged(e){
+			this.setState({
+				[e.target.name]: e.target.value
+			});
+		}
+
+    addKeyValue(e){
+        this.json[e.target.name][this.state[e.target.name + 'Key']] = this.state[e.target.name + 'Value'];
         this.setState({
             email: this.json.email,
-            emailText:''
+						[e.target.name + 'Key']: '',
+						[e.target.name + 'Value']: ''
         });
     }
-    deleteEmail(item){
-        let index = this.json.email.indexOf(item);
-        this.json.email.splice(index,1);
+
+    deleteKeyValue(e, item){
+        delete this.json[e.target.name][item];
         this.setState({
-            email: this.json.email
+					[e.target.name]: this.json[e.target.name]
         });
     }
+
     getParameters(){
         return(
             <div>
                 <div>
-                    <label>Name</label>
-                    <input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
+                    <label>URL</label>
+                    <input name="url" type="text" value={ this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
-                    <label>Terminators</label>
-                    <input name="terminators" type="text" value={ this.state.terminators} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Type</label>
-                    <select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
+                    <label>Method</label>
+										<select name="method" value={this.state.method} onChange={(e)=>{this.jsonPropertyChanged(e)}}
 														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-                        {this.defValues.type.map( (i, index) => {
-                            return <option key={index} value={i}>{i}</option>;
-                        })}
-                    </select>
+											{this.defValues.method.map( (i, index) => {
+												return <option key={index} value={i}>{i}</option>;
+											})}
+										</select>
                 </div>
                 <div>
-                    <label>Max Seconds</label>
-                    <input name="maxSec" type="number" value={ this.state.maxSec} onInput={(e)=>{this.propertyChanged(e)}}
+                    <label>Timeout, ms</label>
+                    <input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
-                    <label>Silence Hits</label>
-                    <input name="silenceHits" type="number" value={ this.state.silenceHits} onInput={(e)=>{this.propertyChanged(e)}}
+                    <label>Export cookie</label>
+                    <input name="exportCookie" type="text" value={ this.state.exportCookie} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
-                <div>
-                    <label>Email</label>
-                    <input name="emailText" type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                    <button onClick={this.addEmail}>push</button>
-                    <ul>
-                        {this.state.email.map((i)=> {
-                                return (
-                                    <li>
-                                        {i}
-                                        <button onClick={()=>{this.deleteEmail(i)}}>delete</button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
-                </div>
+								{this.getHeaders()}
+								{this.getPath()}
+								{this.getData()}
+								{this.getExportVariables()}
             </div>
         );
     }
+
+    getHeaders(){
+				let list = [];
+				for(let option in this.state.headers){
+					list.push((
+						<li>
+							{option + ': ' + this.state.headers[option]}
+							<button name="headers" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+						</li>
+					));
+				}
+				return (
+					<div>
+						<label>Headers</label>
+						<div>
+							<label>Key</label>
+							<input name="headersKey" type="text" value={ this.state.headersKey} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<label>Value</label>
+							<input name="headersValue" type="text" value={ this.state.headersValue} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<button name="headers" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
+						<ul>
+							{list}
+						</ul>
+					</div>
+				);
+		}
+
+		getPath(){
+				let list = [];
+				for(let option in this.state.path){
+					list.push((
+						<li>
+							{option + ': ' + this.state.path[option]}
+							<button name="path" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+						</li>
+					));
+				}
+				return (
+					<div>
+						<label>Path</label>
+						<div>
+							<label>Key</label>
+							<input name="pathKey" type="text" value={ this.state.pathKey} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<label>Value</label>
+							<input name="pathValue" type="text" value={ this.state.pathValue} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<button name="path" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
+						<ul>
+							{list}
+						</ul>
+					</div>
+				);
+		}
+
+		getData(){
+				let list = [];
+				for(let option in this.state.data){
+					list.push((
+						<li>
+							{option + ': ' + this.state.data[option]}
+							<button name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+						</li>
+					));
+				}
+				return (
+					<div>
+						<label>Data</label>
+						<div>
+							<label>Key</label>
+							<input name="dataKey" type="text" value={ this.state.dataKey} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<label>Value</label>
+							<input name="dataValue" type="text" value={ this.state.dataValue} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<button name="data" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
+						<ul>
+							{list}
+						</ul>
+					</div>
+				);
+		}
+
+		getExportVariables(){
+				let list = [];
+				for(let option in this.state.exportVariables){
+					list.push((
+						<li>
+							{option + ': ' + this.state.exportVariables[option]}
+							<button name="exportVariables" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+						</li>
+					));
+				}
+				return (
+					<div>
+						<label>Export variables</label>
+						<div>
+							<label>Key</label>
+							<input name="exportVariablesKey" type="text" value={ this.state.exportVariablesKey} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<label>Value</label>
+							<input name="exportVariablesValue" type="text" value={ this.state.exportVariablesValue} onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<button name="exportVariables" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
+						<ul>
+							{list}
+						</ul>
+					</div>
+				);
+		}
+
     render() {
         if(!this.props.node||!this.props.node.nodeType)return;
         return this.getParameters();

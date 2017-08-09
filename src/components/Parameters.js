@@ -22,6 +22,8 @@ import { ReceiveFaxProperties } from './nodes/receiveFax/ReceiveFaxProperties';
 import { HttpRequestProperties } from './nodes/httpRequest/HttpRequestProperties';
 import { ParkProperties } from './nodes/park/ParkProperties';
 import { TtsProperties } from './nodes/tts/TtsProperties';
+import { VariablesProperties } from './nodes/variables/VariablesProperties';
+import { VoicemailProperties } from './nodes/voicemail/VoicemailProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -121,6 +123,16 @@ export class Parameters extends React.Component {
 						if(nodeType === 'tts'){
 							return (
 								<TtsProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'variables'){
+							return (
+								<VariablesProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'voicemail'){
+							return (
+								<VoicemailProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

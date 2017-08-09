@@ -1,0 +1,3 @@
+number,name,state,status,role
+100,AGENT IGOR,NONREG,NONE,admin
+102,Igor SIP2,NONREG,NONE,user

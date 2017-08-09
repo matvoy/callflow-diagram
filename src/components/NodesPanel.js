@@ -26,6 +26,8 @@ import { HttpRequestNodeWidget } from './nodes/httpRequest/HttpRequestNodeWidget
 import { ParkNodeWidget } from './nodes/park/ParkNodeWidget';
 import { TtsNodeWidget } from './nodes/tts/TtsNodeWidget';
 import { PickupNodeWidget } from './nodes/pickup/PickupNodeWidget';
+import { VariablesNodeWidget } from './nodes/variables/VariablesNodeWidget';
+import { VoicemailNodeWidget } from './nodes/voicemail/VoicemailNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -108,6 +110,12 @@ class Node extends React.Component {
 		}
 		if (type === 'tts') {
 			return <TtsNodeWidget node={{ name: 'Text-To-Speech' }} color={color} displayOnly />;
+		}
+		if (type === 'variables') {
+			return <VariablesNodeWidget node={{ name: 'Variables' }} color={color} displayOnly />;
+		}
+		if (type === 'voicemail') {
+			return <VoicemailNodeWidget node={{ name: 'Voicemail' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -196,6 +204,12 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='tts' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='variables' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='voicemail' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

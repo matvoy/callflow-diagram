@@ -181,6 +181,14 @@ var Elements = {
     	single:false,
 			auto:['in', 'out']
 		},
+		variables:{
+    	single: false,
+			action:[ 'setVar', 'unSet', 'export']
+		},
+		voicemail:{
+    	single: false,
+			action: ['leave', 'check']
+		},
 		tts:{
     	single: false,
 			provider: ['polly'],

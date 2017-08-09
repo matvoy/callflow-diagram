@@ -28,6 +28,8 @@ import { HttpRequestNodeModel } from './nodes/httpRequest/HttpRequestNodeModel';
 import { TtsNodeModel } from './nodes/tts/TtsNodeModel';
 import { PickupNodeModel } from './nodes/pickup/PickupNodeModel';
 import { ParkNodeModel } from './nodes/park/ParkNodeModel';
+import { VariablesNodeModel } from './nodes/variables/VariablesNodeModel';
+import { VoicemailNodeModel } from './nodes/voicemail/VoicemailNodeModel';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -122,6 +124,12 @@ const nodesTarget = {
 		}
 		if (item.type === 'tts') {
 			node = new TtsNodeModel('Text-To-Speech', item.color);
+		}
+		if (item.type === 'variables') {
+			node = new VariablesNodeModel('Variables', item.color);
+		}
+		if (item.type === 'voicemail') {
+			node = new VoicemailNodeModel('Voicemail', item.color);
 		}
 
     node.x = x;
@@ -251,6 +259,15 @@ export class Diagram extends React.Component {
     if(['link-connected'].indexOf(action.type) !== -1){
       this.checkLinks(model, action.linkModel);
     }
+
+		if(['link-created'].indexOf(action.type) !== -1){
+			for(let i = 0; i < model.links.length; i++){
+				if(model.links[i].id === action.model.link.id){
+					model.links.splice(i,1);
+					break;
+				}
+			}
+		}
 
     // Check for single selected items
     if (['node-selected', 'node-moved'].indexOf(action.type) !== -1) {

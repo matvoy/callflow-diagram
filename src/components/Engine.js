@@ -1,5 +1,6 @@
 import React from 'react';
 import * as RJD from 'react-js-diagrams';
+import { LinkInstanceFactory } from './ExtendedLinkModel';
 import { StartWidgetFactory } from './nodes/start/StartWidgetFactory';
 import { StartNodeFactory } from './nodes/start/StartInstanceFactories';
 import { StopWidgetFactory } from './nodes/stop/StopWidgetFactory';
@@ -52,7 +53,10 @@ import { PickupWidgetFactory } from './nodes/pickup/PickupWidgetFactory';
 import { PickupNodeFactory } from './nodes/pickup/PickupInstanceFactories';
 import { TtsWidgetFactory } from './nodes/tts/TtsWidgetFactory';
 import { TtsNodeFactory } from './nodes/tts/TtsInstanceFactories';
-import { LinkInstanceFactory } from './ExtendedLinkModel'
+import { VariablesWidgetFactory } from './nodes/variables/VariablesWidgetFactory';
+import { VariablesNodeFactory } from './nodes/variables/VariablesInstanceFactories';
+import { VoicemailWidgetFactory } from './nodes/voicemail/VoicemailWidgetFactory';
+import { VoicemailNodeFactory } from './nodes/voicemail/VoicemailInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -84,6 +88,8 @@ diagramEngine.registerNodeFactory(new HttpRequestWidgetFactory());
 diagramEngine.registerNodeFactory(new ParkWidgetFactory());
 diagramEngine.registerNodeFactory(new PickupWidgetFactory());
 diagramEngine.registerNodeFactory(new TtsWidgetFactory());
+diagramEngine.registerNodeFactory(new VariablesWidgetFactory());
+diagramEngine.registerNodeFactory(new VoicemailWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -115,3 +121,5 @@ diagramEngine.registerInstanceFactory(new HttpRequestNodeFactory());
 diagramEngine.registerInstanceFactory(new ParkNodeFactory());
 diagramEngine.registerInstanceFactory(new PickupNodeFactory());
 diagramEngine.registerInstanceFactory(new TtsNodeFactory());
+diagramEngine.registerInstanceFactory(new VariablesNodeFactory());
+diagramEngine.registerInstanceFactory(new VoicemailNodeFactory());

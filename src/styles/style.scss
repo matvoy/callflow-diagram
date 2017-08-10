@@ -187,7 +187,7 @@ html, body, #root {
 }
 
 .basic-node {
-  width: 100px;
+  min-width: 100px;
   background-color: rgb(30,30,30);
   border-radius: 5px;
   font-family:Arial;
@@ -225,13 +225,16 @@ html, body, #root {
       font-weight: bold;
     }
   }
-
+  .app-center{
+    text-align: -webkit-center;
+    text-align: -moz-center;
+  }
   .app-img {
     text-align: center;
     content: "";
     display:block;
     height:25px;
-    width:100%;
+    width:25px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }

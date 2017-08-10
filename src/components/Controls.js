@@ -108,7 +108,7 @@ export class Controls extends React.Component {
         if(!node) return json;
         //STOP
         if(node.type === 'stop'){
-            json[json.length-1].break = true;
+            if(json.length>0)json[json.length-1].break = true;
             return json;
         }
         //ADD ELEMENT TO JSON
@@ -180,7 +180,7 @@ export class Controls extends React.Component {
 
 	render() {
 		const { model, selectedNode } = this.props;
-		const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
+		//const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
 		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} node={selectedNode}/>) : null;
 		return (
 		  <div className='controls'>
@@ -188,9 +188,9 @@ export class Controls extends React.Component {
 			<div className="parameters">
                 {param}
 			</div>
-			<pre>
-			  {content}
-			</pre>
+			{/*<pre>*/}
+			  {/*{content}*/}
+			{/*</pre>*/}
 		  </div>
 		);
 	}

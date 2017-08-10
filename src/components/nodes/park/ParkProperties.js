@@ -18,8 +18,6 @@ export class ParkProperties extends React.Component {
 						auto: this.json.auto
         };
         this.propertyChanged = this.propertyChanged.bind(this);
-        this.addEmail = this.addEmail.bind(this);
-        this.deleteEmail = this.deleteEmail.bind(this);
     }
     componentWillReceiveProps(nextProps) {
     		if(this.props.node.id === nextProps.node.id)

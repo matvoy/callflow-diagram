@@ -7,7 +7,7 @@ export class CalendarProperties extends React.Component {
     constructor(props){
         super(props);
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
-				this.json = this.props.extras.calendar;
+				this.json = this.props.node.extras.calendar;
         this.state = { name: this.json.name, setVar: this.json.setVar};
     }
 		jsonPropertyChanged(e){

@@ -35,7 +35,7 @@ export class ReceiveFaxProperties extends React.Component {
 		jsonCheckboxPropertyChanged(e){
 			this.json[e.target.name] = e.target.checked;
 			this.setState({
-				[e.target.name]: e.target.value
+				[e.target.name]: e.target.checked
 			});
 		}
     emailTextChanged(e){

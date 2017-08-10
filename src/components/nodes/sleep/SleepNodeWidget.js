@@ -52,7 +52,7 @@ export class SleepNodeWidget extends React.Component {
           </div>
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
-        <div>
+        <div className="app-center">
           <span className="app-img-sleep">
           </span>
         </div>

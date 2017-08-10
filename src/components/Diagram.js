@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
 import * as RJD from 'react-js-diagrams';
+import { diagramEngine } from './Engine';
+import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
+import { ExtendedDiagramModel } from './ExtendedDiagramModel';
 import { StartNodeModel } from './nodes/start/StartNodeModel';
 import { StopNodeModel } from './nodes/stop/StopNodeModel';
 import { AnswerNodeModel } from './nodes/answer/AnswerNodeModel';
@@ -30,9 +33,7 @@ import { PickupNodeModel } from './nodes/pickup/PickupNodeModel';
 import { ParkNodeModel } from './nodes/park/ParkNodeModel';
 import { VariablesNodeModel } from './nodes/variables/VariablesNodeModel';
 import { VoicemailNodeModel } from './nodes/voicemail/VoicemailNodeModel';
-import { diagramEngine } from './Engine';
-import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
-import { ExtendedDiagramModel } from './ExtendedDiagramModel';
+import { CustomCodeNodeModel } from './nodes/customCode/CustomCodeNodeModel';
 
 // Setup the diagram model
 let diagramModel = new ExtendedDiagramModel();
@@ -130,6 +131,9 @@ const nodesTarget = {
 		}
 		if (item.type === 'voicemail') {
 			node = new VoicemailNodeModel('Voicemail', item.color);
+		}
+		if (item.type === 'customCode') {
+			node = new CustomCodeNodeModel('Custom Code', item.color);
 		}
 
     node.x = x;

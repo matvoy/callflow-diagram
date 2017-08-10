@@ -152,12 +152,12 @@ export class VoicemailProperties extends React.Component {
 					<div>
 						<div>
 							<label>Skip greeting</label>
-							<input name="skip_greeting" type="checkbox" value={ this.state.stateObject.skip_greeting} onInput={(e)=>{this.propertyChanged(e)}}
+							<input name="skip_greeting" type="checkbox" checked={ this.state.stateObject.skip_greeting} onChange={(e)=>{this.propertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Skip instructions</label>
-							<input name="skip_instructions" type="checkbox" value={ this.state.stateObject.skip_instructions} onInput={(e)=>{this.propertyChanged(e)}}
+							<input name="skip_instructions" type="checkbox" checked={ this.state.stateObject.skip_instructions} onChange={(e)=>{this.propertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
@@ -185,12 +185,12 @@ export class VoicemailProperties extends React.Component {
 					<div>
 						<div>
 							<label>Check</label>
-							<input name="check" type="checkbox" value={ this.state.stateObject.check} onInput={(e)=>{this.propertyChanged(e)}}
+							<input name="check" type="checkbox" checked={ this.state.stateObject.check} onChange={(e)=>{this.propertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Auth</label>
-							<input name="auth" type="checkbox" value={ this.state.stateObject.auth} onInput={(e)=>{this.propertyChanged(e)}}
+							<input name="auth" type="checkbox" checked={ this.state.stateObject.auth} onChange={(e)=>{this.propertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 					</div>

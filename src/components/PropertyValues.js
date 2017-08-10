@@ -189,6 +189,9 @@ var Elements = {
     	single: false,
 			action: ['leave', 'check']
 		},
+		customCode:{
+			single: false
+		},
 		tts:{
     	single: false,
 			provider: ['polly'],

@@ -28,6 +28,7 @@ import { TtsNodeWidget } from './nodes/tts/TtsNodeWidget';
 import { PickupNodeWidget } from './nodes/pickup/PickupNodeWidget';
 import { VariablesNodeWidget } from './nodes/variables/VariablesNodeWidget';
 import { VoicemailNodeWidget } from './nodes/voicemail/VoicemailNodeWidget';
+import { CustomCodeNodeWidget } from './nodes/customCode/CustomCodeNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -116,6 +117,9 @@ class Node extends React.Component {
 		}
 		if (type === 'voicemail') {
 			return <VoicemailNodeWidget node={{ name: 'Voicemail' }} color={color} displayOnly />;
+		}
+		if (type === 'customCode') {
+			return <CustomCodeNodeWidget node={{ name: 'Custom Code' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -210,6 +214,9 @@ export class NodesPanel extends React.Component {
 				</div>
 				<div className='node-wrapper'>
 					<Node type='voicemail' color='rgb(114, 128, 150)' />
+				</div>
+				<div className='node-wrapper'>
+					<Node type='customCode' color='rgb(114, 128, 150)' />
 				</div>
         <div className='node-wrapper'>
           <Node type='switch' color='rgb(55, 209, 165)' />

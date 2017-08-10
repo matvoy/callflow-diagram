@@ -57,6 +57,8 @@ import { VariablesWidgetFactory } from './nodes/variables/VariablesWidgetFactory
 import { VariablesNodeFactory } from './nodes/variables/VariablesInstanceFactories';
 import { VoicemailWidgetFactory } from './nodes/voicemail/VoicemailWidgetFactory';
 import { VoicemailNodeFactory } from './nodes/voicemail/VoicemailInstanceFactories';
+import { CustomCodeWidgetFactory } from './nodes/customCode/CustomCodeWidgetFactory';
+import { CustomCodeNodeFactory } from './nodes/customCode/CustomCodeInstanceFactories';
 
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
@@ -90,6 +92,7 @@ diagramEngine.registerNodeFactory(new PickupWidgetFactory());
 diagramEngine.registerNodeFactory(new TtsWidgetFactory());
 diagramEngine.registerNodeFactory(new VariablesWidgetFactory());
 diagramEngine.registerNodeFactory(new VoicemailWidgetFactory());
+diagramEngine.registerNodeFactory(new CustomCodeWidgetFactory());
 
 // Register instance factories
 diagramEngine.registerInstanceFactory(new RJD.DefaultNodeInstanceFactory());
@@ -123,3 +126,4 @@ diagramEngine.registerInstanceFactory(new PickupNodeFactory());
 diagramEngine.registerInstanceFactory(new TtsNodeFactory());
 diagramEngine.registerInstanceFactory(new VariablesNodeFactory());
 diagramEngine.registerInstanceFactory(new VoicemailNodeFactory());
+diagramEngine.registerInstanceFactory(new CustomCodeNodeFactory());

@@ -24,6 +24,7 @@ import { ParkProperties } from './nodes/park/ParkProperties';
 import { TtsProperties } from './nodes/tts/TtsProperties';
 import { VariablesProperties } from './nodes/variables/VariablesProperties';
 import { VoicemailProperties } from './nodes/voicemail/VoicemailProperties';
+import { CustomCodeProperties } from './nodes/customCode/CustomCodeProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -133,6 +134,11 @@ export class Parameters extends React.Component {
 						if(nodeType === 'voicemail'){
 							return (
 								<VoicemailProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'customCode'){
+							return (
+								<CustomCodeProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

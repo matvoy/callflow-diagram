@@ -164,10 +164,15 @@ html, body, #root {
         display: block;
         font-size: 1.0em;
         padding: 0.25em;
+        background-color: transparent;//white;
+        color: white;
         width: 100%;
         margin-bottom: 1em;
         border-radius: 3px;
         border: 1px solid #BABABA;
+        option {
+          color: black;
+        }
       }
 
       input{
@@ -177,6 +182,7 @@ html, body, #root {
 
       textarea{
         @extend select;
+        //background-color: transparent;
         width: 97%;
         resize: vertical;
         min-height: 80px;
@@ -186,10 +192,10 @@ html, body, #root {
         display: inline-block;
         border-radius: 3px;
         border: none;
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8em;
-        background: #69c773;
-        border-bottom: 1px solid #498b50;
+        font-size: 1.0rem;
+        padding: 0.6rem 1.5em;
+        background: #015e16;//#69c773;
+        //border: 1px solid white;
         color: white;
         -webkit-font-smoothing: antialiased;
         font-weight: bold;
@@ -198,7 +204,10 @@ html, body, #root {
       }
 
       button:hover, button:focus {
-        opacity: 0.75;
+        color: black;
+        background-color: #69c773;
+       // border: 1px solid black;
+        //opacity: 0.75;
         cursor: pointer;
       }
 
@@ -206,6 +215,40 @@ html, body, #root {
         opacity: 1;
         box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1) inset;
       }
+      /////////////////////////CHECKBOX/////////////////////////
+      input[type=checkbox] {
+        //width: 50px;
+       // height: 50px;
+        background-color: transparent;
+        margin-right: auto;
+        margin-left: auto;
+        width: 98%;
+        cursor: pointer;
+        text-align: -webkit-center;
+        text-align: -moz-center;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: 0
+      }
+      input[type=checkbox]:after {
+        padding-right: 3px;
+        top: 1px;
+        font-family: 'Arial' !important;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1.0rem;//18px;
+        content: "true";
+        color: white;
+        background-color: #217c35;//#10661a;//green;
+        display:block;
+      }
+      input[type=checkbox]:checked:after {
+        content: "false";
+        color: white;
+        background-color: #c43c3c;//red;
+      }
+      /////////////////////////CHECKBOX/////////////////////////
     }
   }
 }

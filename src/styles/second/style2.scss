@@ -20,7 +20,7 @@ html, body, #root {
     overflow: auto;
     flex-direction: column;
     max-width: 8rem;
-    background: #272c33;//#3c3c3c;
+    background: rgb(120, 120, 120);
     border-right: 2px solid black;
     padding: 1rem;
 
@@ -61,18 +61,18 @@ html, body, #root {
 
       .undo-img{
         @extend .do-img;
-        background-image: url("../images/undo-arrow-in-a-circle (1).svg");
+        background-image: url("../images/undo-arrow-in-a-circle.svg");
 
       }
 
       .redo-img{
         @extend .do-img;
-        background-image: url("../images/redo-arrow-in-a-circle (1).svg");
+        background-image: url("../images/redo-arrow-in-a-circle.svg");
       }
 
       .target-img{
         @extend .do-img;
-        background-image: url("../images/target (1).svg");
+        background-image: url("../images/target.svg");
       }
 
       a[disabled]{
@@ -83,7 +83,7 @@ html, body, #root {
 
     .react-js-diagrams-canvas {
       flex: 1;
-      background: darkgray;
+      background: rgb(60, 60, 60);
     }
   }
 
@@ -91,8 +91,9 @@ html, body, #root {
     flex: 0 0 20rem;
     max-width: 20rem;
     overflow: auto;
-    background: #272c33;
+    background: rgb(120, 120, 120);
     border-left: 2px solid black;
+
     .parameters{
       margin: 15px;
 
@@ -182,7 +183,7 @@ html, body, #root {
   height: 15px;
   background: rgba(white,0.1);
   &:hover,&.selected{
-    background: white;
+    background: rgb(192,255,0);
   }
 }
 

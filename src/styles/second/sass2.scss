@@ -8,14 +8,14 @@
   .point {
     fill: rgba(white,0.5);
     &.selected {
-      fill: white;
+      fill: rgb(0,192,255);
     }
   }
 
   .selector {
     position: absolute;
-    background-color: rgba(60, 64, 66, 0.5);
-    border: solid 2px black;
+    background-color: rgba(0,192,255,0.2);
+    border: solid 2px rgb(0,192,255);
   }
 
   svg {
@@ -47,8 +47,8 @@
 
     &.selected {
       >* {
-        border-color: white !important;
-        -webkit-filter: drop-shadow( 0 0 30px black);
+        border-color:rgb(0,192,255) !important;
+        -webkit-filter: drop-shadow( 0 0 20px rgba(0,192,255,0.5));
       }
     }
   }
@@ -67,7 +67,7 @@
     pointer-events:all;
 
     &.selected {
-      stroke: black !important;
+      stroke: rgb(0,192,255) !important;
       stroke-dasharray: 10,2;
       animation: dash 1s linear infinite;
     }
@@ -78,7 +78,7 @@
     height: 15px;
     background: rgba(white,0.1);
     &:hover,&.selected {
-      background: white;
+      background: rgb(192,255,0);
     }
   }
 

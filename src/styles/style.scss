@@ -20,7 +20,7 @@ html, body, #root {
     overflow: auto;
     flex-direction: column;
     max-width: 8rem;
-    background: rgb(120, 120, 120);
+    background: #272c33;//#3c3c3c;
     border-right: 2px solid black;
     padding: 1rem;
 
@@ -61,18 +61,18 @@ html, body, #root {
 
       .undo-img{
         @extend .do-img;
-        background-image: url("../images/undo-arrow-in-a-circle.svg");
+        background-image: url("../images/undo-arrow-in-a-circle (1).svg");
 
       }
 
       .redo-img{
         @extend .do-img;
-        background-image: url("../images/redo-arrow-in-a-circle.svg");
+        background-image: url("../images/redo-arrow-in-a-circle (1).svg");
       }
 
       .target-img{
         @extend .do-img;
-        background-image: url("../images/target.svg");
+        background-image: url("../images/target (1).svg");
       }
 
       a[disabled]{
@@ -83,7 +83,7 @@ html, body, #root {
 
     .react-js-diagrams-canvas {
       flex: 1;
-      background: rgb(60, 60, 60);
+      background: darkgray;
     }
   }
 
@@ -91,8 +91,42 @@ html, body, #root {
     flex: 0 0 20rem;
     max-width: 20rem;
     overflow: auto;
-    background: rgb(120, 120, 120);
+    overflow-x: hidden;
+    background: #272c33;
     border-left: 2px solid black;
+
+    .hiding-button {
+      border-radius: 5px;
+      border: solid 1px black;
+      width: 15px;
+      height: 50px;
+      z-index: 1;
+      position: absolute;
+      top: 45%;
+      right: 312px;
+      background: #1e1e1e;
+
+      .arrows{
+        text-align: center;
+        content: "";
+        display:block;
+        height:100%;
+        width:100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .arrow-left {
+        @extend .arrows;
+        //background-image: url("../images/chevron-pointing-to-the-left.svg");
+        background-image: url("../images/back.svg");
+      }
+      .arrow-right {
+        @extend .arrows;
+        //background-image: url("../images/right-chevron.svg");
+        background-image: url("../images/next.svg");
+      }
+    }
+
     .parameters{
       margin: 15px;
 
@@ -182,7 +216,7 @@ html, body, #root {
   height: 15px;
   background: rgba(white,0.1);
   &:hover,&.selected{
-    background: rgb(192,255,0);
+    background: white;
   }
 }
 

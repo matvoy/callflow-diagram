@@ -293,12 +293,12 @@ export class Diagram extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo, allowDelete} = this.props;
+    const { connectDropTarget, model, onUndo, onRedo, canUndo, canRedo, allowDelete, panelOpen} = this.props;
     let isOffset = !model || (model && (model.offsetX == 0 && model.offsetY == 0 && model.zoom == 100));
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
-        <div className="do-buttons-container">
+        <div className="do-buttons-container" style={panelOpen === true ? null : {right:'50px'}}>
           <a onClick={!isOffset ? () => {this.clearOffsets(model)} : null} disabled={isOffset} className="target-img">
           </a>
           <a onClick={canUndo ? onUndo : null} disabled={!canUndo} className="undo-img">

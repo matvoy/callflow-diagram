@@ -2,6 +2,11 @@ import React from 'react';
 import { Parameters } from './Parameters';
 
 export class Controls extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {panelOpen:this.props.panelOpen};
+		this.panelChange = this.panelChange.bind(this);
+	}
 	getCallflowJSON(){
 		if(!this.props.model)return;
 		const { links, nodes } = this.props.model;
@@ -178,19 +183,29 @@ export class Controls extends React.Component {
 
 	}
 
+	panelChange(){
+		let tmp = !this.state.panelOpen;
+		this.props.setIsOpened(tmp);
+		this.setState({panelOpen:tmp});
+
+	}
+
 	render() {
 		const { model, selectedNode } = this.props;
 		//const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
 		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} node={selectedNode}/>) : null;
 		return (
-		  <div className='controls'>
+		  <div className='controls' style={this.state.panelOpen === true ? null : {width: '15px', flex: 'none'}}>
 			  <button onClick={this.getCallflowJSON.bind(this)}>Generate Callflow</button>
-			<div className="parameters">
-                {param}
-			</div>
-			{/*<pre>*/}
-			  {/*{content}*/}
-			{/*</pre>*/}
+				<div className="parameters">
+					{param}
+				</div>
+				<div className="hiding-button" style={this.state.panelOpen === true ? null : {right: '8px'}} onClick={()=>{this.panelChange()}}>
+					<a className= {this.state.panelOpen === true ? "arrow-right" : "arrow-left"}></a>
+				</div>
+				{/*<pre>*/}
+					{/*{content}*/}
+				{/*</pre>*/}
 		  </div>
 		);
 	}

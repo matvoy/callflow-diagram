@@ -124,8 +124,8 @@ export class RecordSessionProperties extends React.Component {
                         {this.state.email.map((i)=> {
                                 return (
                                     <li>
-                                        {i}
-                                        <button onClick={()=>{this.deleteEmail(i)}}>delete</button>
+																				<span>{i}</span>
+                                        <button onClick={()=>{this.deleteEmail(i)}}>x</button>
                                     </li>
                                 );
                             }

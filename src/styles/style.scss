@@ -17,7 +17,7 @@ html, body, #root {
   .nodes-panel {
     flex: 0 0 7rem;
     display: flex;
-    overflow: auto;
+    overflow: hidden;
     flex-direction: column;
     max-width: 8rem;
     background: #272c33;//#3c3c3c;
@@ -43,6 +43,7 @@ html, body, #root {
       position: absolute;
       bottom: 15px;
       right: 350px;
+      z-index: 1000000;
       display: inherit;
 
       .do-img {
@@ -90,7 +91,7 @@ html, body, #root {
   .controls {
     flex: 0 0 20rem;
     max-width: 20rem;
-    overflow: auto;
+    overflow: hidden;
     overflow-x: hidden;
     background: #272c33;
     border-left: 2px solid black;
@@ -249,6 +250,43 @@ html, body, #root {
         background-color: #c43c3c;//red;
       }
       /////////////////////////CHECKBOX/////////////////////////
+
+      ul {
+        border: 1px solid white;
+        border-radius: 15px;
+        color: white;
+        text-align: left;
+        padding: 0;
+        margin-top: 10px;
+        overflow: auto;
+        height: 350px;
+        li {
+          border-radius: 15px;
+          padding: 0.5em;
+          margin-bottom: .125em;
+          display: block;
+          list-style: none;
+          //text-transform: uppercase;
+          button{
+            background-color: transparent;
+            padding: 0.4rem 0.6rem;
+            border-radius: 10px;
+          }
+          button:hover, button:focus {
+            color: black;
+            background-color: transparent;
+            // border: 1px solid black;
+            //opacity: 0.75;
+            cursor: pointer;
+          }
+        }
+        li:nth-child(2n) {
+          background-color: lighten(#333333, 10%);
+        }
+        li:nth-child(2n+1) {
+          background-color: #333333;
+        }
+      }
     }
   }
 }

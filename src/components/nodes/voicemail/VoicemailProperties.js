@@ -165,12 +165,12 @@ export class VoicemailProperties extends React.Component {
 							<input name="ccText" type="text" value={ this.state.ccText} onInput={(e)=>{this.ccTextChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 							<button onClick={()=>{this.addCC()}}>push</button>
-							<ul>
+							<ul className="params-list">
 								{this.state.stateObject.cc.map((i)=> {
 										return (
 											<li>
-												{i}
-												<button onClick={()=>{this.deleteCC(i)}}>delete</button>
+												<span>{i}</span>
+												<button onClick={()=>{this.deleteCC(i)}}>x</button>
 											</li>
 										);
 									}

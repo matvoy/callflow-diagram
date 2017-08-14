@@ -55,12 +55,12 @@ export class PlaybackProperties extends React.Component {
                     <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addMedia}>push</button>
-                    <ul>
+                    <ul className="params-list">
                         {this.files.map((i)=> {
                                 return (
                                     <li>
-                                        {i.name + '\t' + i.type}
-                                        <button onClick={()=>{this.deleteMedia(i)}}>delete</button>
+																			<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
+																			<button onClick={()=>{this.deleteMedia(i)}}>x</button>
                                     </li>
                                 );
                             }

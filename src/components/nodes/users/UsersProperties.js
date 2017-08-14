@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import { Tabs, Pane } from '../../Tabs';
 
 export class UsersProperties extends React.Component {
     constructor(props){
@@ -145,91 +146,99 @@ export class UsersProperties extends React.Component {
     getParameters(){
         return(
             <div>
-								<div>
-									<label>Strategy</label>
-									<select name="strategy" value={this.state.strategy} onChange={(e)=>{this.jsonPropertyChanged(e)}}
-													onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-										{this.defValues.strategy.map( (i, index) => {
-											return <option key={index} value={i}>{i}</option>;
-										})}
-									</select>
-								</div>
-                <div>
-                    <label>Pickup</label>
-                    <input name="pickup" type="text" value={ this.state.pickup} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+							<Tabs>
+								<Pane label="General">
+									<div>
+										<label>Strategy</label>
+										<select name="strategy" value={this.state.strategy} onChange={(e)=>{this.jsonPropertyChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+											{this.defValues.strategy.map( (i, index) => {
+												return <option key={index} value={i}>{i}</option>;
+											})}
+										</select>
+									</div>
+									<div>
+										<label>Pickup</label>
+										<input name="pickup" type="text" value={ this.state.pickup} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-								<div>
-									<label>Codecs</label>
-									<select name="codecsSelect" value={this.state.codecsSelect} onChange={(e)=>{this.propertyChanged(e)}}
-													onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-										{this.defValues.codecs.map( (i, index) => {
-											return <option key={index} value={i}>{i}</option>;
-										})}
-									</select>
-									<button onClick={()=>{this.addCodecs()}}>push</button>
-									<ul>
-										{this.state.codecs.map((i)=> {
-												return (
-													<li>
-														{i}
-														<button onClick={()=>{this.deleteCodecs(i)}}>delete</button>
-													</li>
-												);
-											}
-										)}
-									</ul>
-								</div>
-								<div>
-									<label>Parameters</label>
-									<input name="parametersText" type="text" value={ this.state.parametersText} onInput={(e)=>{this.propertyChanged(e)}}
-												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-									<button onClick={()=>{this.addParameter()}}>push</button>
-									<ul>
-										{this.state.parameters.map((i)=> {
-												return (
-													<li>
-														{i}
-														<button onClick={()=>{this.deleteParameter(i)}}>delete</button>
-													</li>
-												);
-											}
-										)}
-									</ul>
-								</div>
-							<div>
-								<label>Username</label>
-								<input name="userNameText" type="text" value={ this.state.userNameText} onInput={(e)=>{this.propertyChanged(e)}}
-											 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-								<button onClick={()=>{this.addUser()}}>push user</button>
-								<ul>
-									{this.state.endpoints.map((i, index)=> {
-											return (
-												<li>
-													<div>
-														<label>{i.name}</label>
-														<input type="text" value={ this.state.userParametersText[index]} onInput={(e)=>{this.userParametersTextChanged(e, index)}}
-																	 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-														<button onClick={()=>{this.addUserParameter(index)}}>push param</button>
-														<ul>
-															{this.state.endpoints[index].parameters.map((j)=> {
-																	return (
-																		<li>
-																			{j}
-																			<button onClick={()=>{this.deleteUserParameter(j, index)}}>delete param</button>
-																		</li>
-																	);
-																}
-															)}
-														</ul>
-													</div>
-													<button onClick={()=>{this.deleteUser(i)}}>delete user</button>
-												</li>
-											);
-										}
-									)}
-								</ul>
-							</div>
+									</div>
+									<div>
+										<label>Codecs</label>
+										<select name="codecsSelect" value={this.state.codecsSelect} onChange={(e)=>{this.propertyChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+											{this.defValues.codecs.map( (i, index) => {
+												return <option key={index} value={i}>{i}</option>;
+											})}
+										</select>
+										<button onClick={()=>{this.addCodecs()}}>push</button>
+										<ul className="params-list">
+											{this.state.codecs.map((i)=> {
+													return (
+														<li>
+															{i}
+															<button onClick={()=>{this.deleteCodecs(i)}}>delete</button>
+														</li>
+													);
+												}
+											)}
+										</ul>
+									</div>
+								</Pane>
+								<Pane label="Params">
+									<div>
+										<label>Parameters</label>
+										<input name="parametersText" type="text" value={ this.state.parametersText} onInput={(e)=>{this.propertyChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+										<button onClick={()=>{this.addParameter()}}>push</button>
+										<ul className="params-list">
+											{this.state.parameters.map((i)=> {
+													return (
+														<li>
+															{i}
+															<button onClick={()=>{this.deleteParameter(i)}}>delete</button>
+														</li>
+													);
+												}
+											)}
+										</ul>
+									</div>
+								</Pane>
+								<Pane label="Users">
+									<div>
+										<label>Username</label>
+										<input name="userNameText" type="text" value={ this.state.userNameText} onInput={(e)=>{this.propertyChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+										<button onClick={()=>{this.addUser()}}>push user</button>
+										<ul>
+											{this.state.endpoints.map((i, index)=> {
+													return (
+														<li>
+															<div>
+																<label>{i.name}</label>
+																<input type="text" value={ this.state.userParametersText[index]} onInput={(e)=>{this.userParametersTextChanged(e, index)}}
+																			 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+																<button onClick={()=>{this.addUserParameter(index)}}>push param</button>
+																<ul className="params-list">
+																	{this.state.endpoints[index].parameters.map((j)=> {
+																			return (
+																				<li>
+																					{j}
+																					<button onClick={()=>{this.deleteUserParameter(j, index)}}>delete param</button>
+																				</li>
+																			);
+																		}
+																	)}
+																</ul>
+															</div>
+															<button onClick={()=>{this.deleteUser(i)}}>delete user</button>
+														</li>
+													);
+												}
+											)}
+										</ul>
+									</div>
+								</Pane>
+							</Tabs>
             </div>
         );
     }

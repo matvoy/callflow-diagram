@@ -89,12 +89,12 @@ export class VariablesProperties extends React.Component {
                     <input type="text" value={this.state.varText} onInput={(e)=>{this.varTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={()=>{this.addVar()}}>push</button>
-                    <ul>
+                    <ul className="params-list">
                         {this.state.stateObject[this.state.action].map((i)=> {
                                 return (
                                     <li>
-                                        {i}
-                                        <button onClick={()=>{this.deleteVar(i)}}>delete</button>
+																			<span>{i}</span>
+                                        <button onClick={()=>{this.deleteVar(i)}}>x</button>
                                     </li>
                                 );
                             }

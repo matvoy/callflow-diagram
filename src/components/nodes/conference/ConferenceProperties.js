@@ -69,11 +69,11 @@ export class ConferenceProperties extends React.Component {
 								})}
 							</select>
 							<button onClick={this.addFlag}>push</button>
-							<ul>
+							<ul className="params-list">
 								{this.state.flags.map((i)=> {
 										return (
 											<li>
-												{i}
+												<span>{i}</span>
 												<button onClick={()=>{this.deleteFlag(i)}}>delete</button>
 											</li>
 										);

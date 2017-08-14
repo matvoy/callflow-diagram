@@ -120,7 +120,7 @@ export class RecordSessionProperties extends React.Component {
                     <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addEmail}>push</button>
-                    <ul>
+                    <ul className="params-list">
                         {this.state.email.map((i)=> {
                                 return (
                                     <li>

@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import { Tabs, Pane } from '../../Tabs';
 
 export class HttpRequestProperties extends React.Component {
     constructor(props){
@@ -95,36 +96,48 @@ export class HttpRequestProperties extends React.Component {
 
     getParameters(){
         return(
-            <div>
-                <div>
-                    <label>URL</label>
-                    <input name="url" type="text" value={ this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Method</label>
-										<select name="method" value={this.state.method} onChange={(e)=>{this.jsonPropertyChanged(e)}}
-														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-											{this.defValues.method.map( (i, index) => {
-												return <option key={index} value={i}>{i}</option>;
-											})}
-										</select>
-                </div>
-                <div>
-                    <label>Timeout, ms</label>
-                    <input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Export cookie</label>
-                    <input name="exportCookie" type="text" value={ this.state.exportCookie} onInput={(e)=>{this.jsonPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
+					<div>
+						<Tabs>
+							<Pane label="General">
+								<div>
+									<label>URL</label>
+									<input name="url" type="text" value={ this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								</div>
+								<div>
+									<label>Method</label>
+									<select name="method" value={this.state.method} onChange={(e)=>{this.jsonPropertyChanged(e)}}
+													onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+										{this.defValues.method.map( (i, index) => {
+											return <option key={index} value={i}>{i}</option>;
+										})}
+									</select>
+								</div>
+								<div>
+									<label>Timeout, ms</label>
+									<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								</div>
+								<div>
+									<label>Export cookie</label>
+									<input name="exportCookie" type="text" value={ this.state.exportCookie} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								</div>
+							</Pane>
+							<Pane label="Headers">
 								{this.getHeaders()}
+							</Pane>
+							<Pane label="Path">
 								{this.getPath()}
+							</Pane>
+							<Pane label="Data">
 								{this.getData()}
+							</Pane>
+							<Pane label="Export variables">
 								{this.getExportVariables()}
-            </div>
+							</Pane>
+						</Tabs>
+					</div>
         );
     }
 
@@ -133,14 +146,14 @@ export class HttpRequestProperties extends React.Component {
 				for(let option in this.state.headers){
 					list.push((
 						<li>
-							{option + ': ' + this.state.headers[option]}
-							<button name="headers" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+							<span>{option + ': ' + this.state.headers[option]}</span>
+							<button name="headers" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
 						</li>
 					));
 				}
 				return (
 					<div>
-						<label>Headers</label>
+						<label className="header">Headers</label>
 						<div>
 							<label>Key</label>
 							<input name="headersKey" type="text" value={ this.state.headersKey} onInput={(e)=>{this.propertyChanged(e)}}
@@ -150,7 +163,7 @@ export class HttpRequestProperties extends React.Component {
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<button name="headers" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
-						<ul>
+						<ul className="params-list">
 							{list}
 						</ul>
 					</div>
@@ -162,14 +175,14 @@ export class HttpRequestProperties extends React.Component {
 				for(let option in this.state.path){
 					list.push((
 						<li>
-							{option + ': ' + this.state.path[option]}
-							<button name="path" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+							<span>{option + ': ' + this.state.path[option]}</span>
+							<button name="path" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
 						</li>
 					));
 				}
 				return (
 					<div>
-						<label>Path</label>
+						<label className="header">Path</label>
 						<div>
 							<label>Key</label>
 							<input name="pathKey" type="text" value={ this.state.pathKey} onInput={(e)=>{this.propertyChanged(e)}}
@@ -179,7 +192,7 @@ export class HttpRequestProperties extends React.Component {
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<button name="path" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
-						<ul>
+						<ul className="params-list">
 							{list}
 						</ul>
 					</div>
@@ -191,14 +204,14 @@ export class HttpRequestProperties extends React.Component {
 				for(let option in this.state.data){
 					list.push((
 						<li>
-							{option + ': ' + this.state.data[option]}
-							<button name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+							<span>{option + ': ' + this.state.data[option]}</span>
+							<button name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
 						</li>
 					));
 				}
 				return (
 					<div>
-						<label>Data</label>
+						<label className="header">Data</label>
 						<div>
 							<label>Key</label>
 							<input name="dataKey" type="text" value={ this.state.dataKey} onInput={(e)=>{this.propertyChanged(e)}}
@@ -208,7 +221,7 @@ export class HttpRequestProperties extends React.Component {
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<button name="data" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
-						<ul>
+						<ul className="params-list">
 							{list}
 						</ul>
 					</div>
@@ -220,14 +233,14 @@ export class HttpRequestProperties extends React.Component {
 				for(let option in this.state.exportVariables){
 					list.push((
 						<li>
-							{option + ': ' + this.state.exportVariables[option]}
-							<button name="exportVariables" onClick={(e)=>{this.deleteKeyValue(e, option)}}>delete</button>
+							<span>{option + ': ' + this.state.exportVariables[option]}</span>
+							<button name="exportVariables" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
 						</li>
 					));
 				}
 				return (
 					<div>
-						<label>Export variables</label>
+						<label className="header">Export variables</label>
 						<div>
 							<label>Key</label>
 							<input name="exportVariablesKey" type="text" value={ this.state.exportVariablesKey} onInput={(e)=>{this.propertyChanged(e)}}
@@ -237,7 +250,7 @@ export class HttpRequestProperties extends React.Component {
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<button name="exportVariables" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
-						<ul>
+						<ul className="params-list">
 							{list}
 						</ul>
 					</div>

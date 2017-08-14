@@ -78,12 +78,12 @@ export class SendEmailProperties extends React.Component {
                     <input type="text" value={ this.state.emailText} onInput={(e)=>{this.emailTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={this.addEmail}>push</button>
-                    <ul>
+                    <ul className="params-list">
                         {this.state.to.map((i)=> {
                                 return (
                                     <li>
-                                        {i}
-                                        <button onClick={()=>{this.deleteEmail(i)}}>delete</button>
+																			<span>{i}</span>
+																			<button onClick={()=>{this.deleteEmail(i)}}>x</button>
                                     </li>
                                 );
                             }

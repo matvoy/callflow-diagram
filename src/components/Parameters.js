@@ -146,9 +146,7 @@ export class Parameters extends React.Component {
     render() {
         if(!this.props.node||!this.props.node.nodeType)return;
         return (
-            <div>
-                {this.getParameters(this.props.node.nodeType)}
-            </div>
+                this.getParameters(this.props.node.nodeType)
         );
     }
 }

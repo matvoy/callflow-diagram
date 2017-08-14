@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import { Tabs, Pane } from '../../Tabs';
 
 export class PlayNDigitsProperties extends React.Component {
 	constructor(props){
@@ -81,67 +82,70 @@ export class PlayNDigitsProperties extends React.Component {
 	getParameters(){
 		return(
 			<div>
-				<div>
-					<label>Variable</label>
-					<input name="setVar" type="text" value={ this.state.setVar} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Minimum digits</label>
-					<input name="min" type="number" value={ this.state.min} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Maximum digits</label>
-					<input name="max" type="number" value={ this.state.max} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Number of tries</label>
-					<input name="tries" type="number" value={ this.state.tries} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Timeout</label>
-					<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Flush DTMF</label>
-					<input name="flushDTMF" type="checkbox" checked={ this.state.flushDTMF} onChange={(e)=>{this.jsonGetDigitsCheckboxChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-				</div>
-				<div>
-					<label>Audio files</label>
-					<div>
+				<Tabs selected={0}>
+					<Pane label="Digits">
 						<div>
-							<label>Type</label>
-							<select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
-											onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-								{this.defValues.files.map( (i, index) => {
-									return <option key={index} value={i}>{i}</option>;
-								})}
-							</select>
-						</div>
-						<div>
-							<label>Name</label>
-							<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
+							<label>Variable</label>
+							<input name="setVar" type="text" value={ this.state.setVar} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
-						<button onClick={this.addFile}>push</button>
-						<ul>
-							{this.state.files.map((i)=> {
-									return (
-										<li>
-											{i.name + '\t' + i.type}
-											<button onClick={()=>{this.deleteFile(i)}}>delete</button>
-										</li>
-									);
-								}
-							)}
-						</ul>
-					</div>
-				</div>
+						<div>
+							<label>Minimum digits</label>
+							<input name="min" type="number" value={ this.state.min} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<div>
+							<label>Maximum digits</label>
+							<input name="max" type="number" value={ this.state.max} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<div>
+							<label>Number of tries</label>
+							<input name="tries" type="number" value={ this.state.tries} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<div>
+							<label>Timeout</label>
+							<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+						<div>
+							<label>Flush DTMF</label>
+							<input name="flushDTMF" type="checkbox" checked={ this.state.flushDTMF} onChange={(e)=>{this.jsonGetDigitsCheckboxChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						</div>
+					</Pane>
+					<Pane label="Audio files">
+						<div>
+							<div>
+								<label>Type</label>
+								<select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
+												onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+									{this.defValues.files.map( (i, index) => {
+										return <option key={index} value={i}>{i}</option>;
+									})}
+								</select>
+							</div>
+							<div>
+								<label>Name</label>
+								<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
+											 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							</div>
+							<button onClick={this.addFile}>push</button>
+							<ul className="params-list">
+								{this.state.files.map((i)=> {
+										return (
+											<li>
+												<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
+												<button onClick={()=>{this.deleteFile(i)}}>x</button>
+											</li>
+										);
+									}
+								)}
+							</ul>
+						</div>
+					</Pane>
+				</Tabs>
 			</div>
 		);
 	}

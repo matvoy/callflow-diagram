@@ -193,7 +193,7 @@ export class OutboundCallProperties extends React.Component {
 						})}
 					</select>
 					<button onClick={this.addCodecs}>push</button>
-					<ul>
+					<ul className="params-list">
 						{this.state.codecs.map((i)=> {
 								return (
 									<li>
@@ -210,7 +210,7 @@ export class OutboundCallProperties extends React.Component {
 					<input name="parametersText" type="text" value={ this.state.parametersText} onInput={(e)=>{this.propertyChanged(e)}}
 								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 					<button onClick={this.addParameter}>push</button>
-					<ul>
+					<ul className="params-list">
 						{this.state.parameters.map((i)=> {
 								return (
 									<li>
@@ -232,7 +232,7 @@ export class OutboundCallProperties extends React.Component {
 					</select>
 					{this.getTypedParameters()}
 					<button onClick={()=>{this.addEndpoint()}}>push endpoint</button>
-					<ul>
+					<ul className="params-list">
 						{this.state.endpoints.map((i, index)=> {
 								return (
 									<li>
@@ -241,7 +241,7 @@ export class OutboundCallProperties extends React.Component {
 											<input type="text" value={ this.state.endpointParametersText[index]} onInput={(e)=>{this.endpointParametersTextChanged(e, index)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 											<button onClick={()=>{this.addEndpointParameter(index)}}>push param</button>
-											<ul>
+											<ul className="params-list">
 												{this.state.endpoints[index].parameters.map((j)=> {
 														return (
 															<li>

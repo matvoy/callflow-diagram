@@ -70,10 +70,10 @@ export class SwitchProperties extends React.Component {
         let arr = [];
         for(let i in this.state.case){
             arr.push (
-                <li>
-                    {i}
-                    <button onClick={() => { this.deleteCase(i) }}>delete</button>
-                </li>
+							<li>
+								<span>{i}</span>
+								<button onClick={() => { this.deleteCase(i) }}>x</button>
+							</li>
             );
         }
         return(
@@ -88,7 +88,7 @@ export class SwitchProperties extends React.Component {
                     <input type="text" value={this.state.caseText} onInput={(e)=>{this.caseTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                     <button onClick={()=>{this.addCase()}}>push</button>
-                    <ul>{arr}</ul>
+                    <ul className="params-list">{arr}</ul>
                 </div>
             </div>
         );

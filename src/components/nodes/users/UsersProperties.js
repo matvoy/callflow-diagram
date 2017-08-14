@@ -22,11 +22,7 @@ export class UsersProperties extends React.Component {
 					  parametersText: '',
 						userParametersText: [],
 						codecsSelect: 'PCMA',
-						endpointsObject: {
-            	name: '',
-							type: 'user',
-							parameters: []
-						}
+						showUser: false
         };
 				this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 				this.propertyChanged = this.propertyChanged.bind(this);
@@ -39,6 +35,9 @@ export class UsersProperties extends React.Component {
 				this.deleteUserParameter = this.deleteUserParameter.bind(this);
 				this.addUser = this.addUser.bind(this);
 				this.deleteUser = this.deleteUser.bind(this);
+				this.showUser = this.showUser.bind(this);
+				this.getUser = this.getUser.bind(this);
+				this.getUserInputForm = this.getUserInputForm.bind(this);
     }
     componentWillReceiveProps(nextProps) {
     	if(this.props.node.id !== nextProps.node.id){
@@ -52,7 +51,8 @@ export class UsersProperties extends React.Component {
 					parametersText: '',
 					userParametersText: [],
 					userNameText: '',
-					codecsSelect: 'PCMA'
+					codecsSelect: 'PCMA',
+					showUser: false
 				});
 			}
     }
@@ -143,6 +143,59 @@ export class UsersProperties extends React.Component {
 				endpoints: this.json.endpoints
 			});
 		}
+		showUser(value, index){
+			this.setState({
+				showUser: value,
+				userIndex: index
+			})
+		}
+		getUser(){
+			return(
+				<div>
+					<div style={{display:'inline-flex', marginBottom:'10px'}}>
+						<label className="bridge-header">User: {this.state.endpoints[this.state.userIndex].name}</label>
+						<button className="bridge-button" onClick={()=>{this.showUser(false, null)}}>back</button>
+					</div>
+
+					<label>Parameter</label>
+					<input type="text" value={ this.state.userParametersText[this.state.userIndex]} onInput={(e)=>{this.userParametersTextChanged(e, this.state.userIndex)}}
+								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+					<button onClick={()=>{this.addUserParameter(this.state.userIndex)}}>push</button>
+					<ul className="params-list">
+						{this.state.endpoints[this.state.userIndex].parameters.map((j)=> {
+								return (
+									<li>
+										<span>{j}</span>
+										<button onClick={()=>{this.deleteUserParameter(j, this.state.userIndex)}}>x</button>
+									</li>
+								);
+							}
+						)}
+					</ul>
+				</div>
+			);
+		}
+		getUserInputForm(){
+			return(
+				<div>
+					<label>Username</label>
+					<input name="userNameText" type="text" value={ this.state.userNameText} onInput={(e)=>{this.propertyChanged(e)}}
+								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+					<button onClick={()=>{this.addUser()}}>push user</button>
+					<ul className="params-list">
+						{this.state.endpoints.map((i, index)=> {
+								return (
+									<li>
+										<span className="bridge-item" onClick={()=>{this.showUser(true, index)}}>{i.name}</span>
+										<button onClick={()=>{this.deleteUser(i)}}>x</button>
+									</li>
+								);
+							}
+						)}
+					</ul>
+				</div>
+			);
+		}
     getParameters(){
         return(
             <div>
@@ -175,8 +228,8 @@ export class UsersProperties extends React.Component {
 											{this.state.codecs.map((i)=> {
 													return (
 														<li>
-															{i}
-															<button onClick={()=>{this.deleteCodecs(i)}}>delete</button>
+															<span>{i}</span>
+															<button onClick={()=>{this.deleteCodecs(i)}}>x</button>
 														</li>
 													);
 												}
@@ -194,8 +247,8 @@ export class UsersProperties extends React.Component {
 											{this.state.parameters.map((i)=> {
 													return (
 														<li>
-															{i}
-															<button onClick={()=>{this.deleteParameter(i)}}>delete</button>
+															<span>{i}</span>
+															<button onClick={()=>{this.deleteParameter(i)}}>x</button>
 														</li>
 													);
 												}
@@ -204,39 +257,7 @@ export class UsersProperties extends React.Component {
 									</div>
 								</Pane>
 								<Pane label="Users">
-									<div>
-										<label>Username</label>
-										<input name="userNameText" type="text" value={ this.state.userNameText} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-										<button onClick={()=>{this.addUser()}}>push user</button>
-										<ul>
-											{this.state.endpoints.map((i, index)=> {
-													return (
-														<li>
-															<div>
-																<label>{i.name}</label>
-																<input type="text" value={ this.state.userParametersText[index]} onInput={(e)=>{this.userParametersTextChanged(e, index)}}
-																			 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-																<button onClick={()=>{this.addUserParameter(index)}}>push param</button>
-																<ul className="params-list">
-																	{this.state.endpoints[index].parameters.map((j)=> {
-																			return (
-																				<li>
-																					{j}
-																					<button onClick={()=>{this.deleteUserParameter(j, index)}}>delete param</button>
-																				</li>
-																			);
-																		}
-																	)}
-																</ul>
-															</div>
-															<button onClick={()=>{this.deleteUser(i)}}>delete user</button>
-														</li>
-													);
-												}
-											)}
-										</ul>
-									</div>
+									{this.state.showUser === true ? this.getUser() : this.getUserInputForm()}
 								</Pane>
 							</Tabs>
             </div>

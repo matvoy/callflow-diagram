@@ -2,20 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { StartNodeModel } from './StartNodeModel';
 
-// const answerImg = require('../../../images/test.svg');
-// var answerImg = require('../../../images/test.svg');
-
-export class StartNodeWidget extends React.Component {
+export class StartNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(215, 225, 239)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getOutPorts() {
     const { node, color, displayOnly } = this.props;

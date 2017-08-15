@@ -254,6 +254,10 @@ export class Diagram extends React.Component {
     console.log('ON DIAGRAM CHANGE');
     console.log(action);
 
+		if (['item-deleted', 'items-deleted'].indexOf(action.type) !== -1) {
+			return this.props.updateModel(model, { selectedNode: null });
+		}
+
     // Ignore some events
     if (['items-copied'].indexOf(action.type) !== -1) {
       return;

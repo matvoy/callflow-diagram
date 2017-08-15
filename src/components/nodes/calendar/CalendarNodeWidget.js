@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { CalendarNodeModel } from './CalendarNodeModel';
 
-export class CalendarNodeWidget extends React.Component {
+export class CalendarNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(100, 218, 229)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;

@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { SwitchNodeModel } from './SwitchNodeModel';
 
-export class SwitchNodeWidget extends React.Component {
+export class SwitchNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(100, 218, 229)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;
@@ -35,6 +29,7 @@ export class SwitchNodeWidget extends React.Component {
 
     return outputNode.getOutPort ? <RJD.DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
   }
+
   getCasePorts() {
       const { node, color, displayOnly } = this.props;
       let outputNode = node;

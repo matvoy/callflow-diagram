@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { ReceiveFaxNodeModel } from './ReceiveFaxNodeModel';
 
-export class ReceiveFaxNodeWidget extends React.Component {
+export class ReceiveFaxNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(73, 72, 79)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;

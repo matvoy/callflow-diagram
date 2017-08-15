@@ -2,17 +2,12 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { LogNodeModel } from './LogNodeModel';
 
-export class LogNodeWidget extends React.Component {
+
+export class LogNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(100, 218, 229)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;

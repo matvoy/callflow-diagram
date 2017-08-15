@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { ParkNodeModel } from './ParkNodeModel';
 
-export class ParkNodeWidget extends React.Component {
+export class ParkNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(73, 72, 79)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;

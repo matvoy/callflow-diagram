@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { PickupNodeModel } from './PickupNodeModel';
 
-export class PickupNodeWidget extends React.Component {
+export class PickupNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(224, 98, 20)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPort() {
     const { node, color, displayOnly } = this.props;

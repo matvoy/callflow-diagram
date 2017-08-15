@@ -2,17 +2,11 @@ import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { StopNodeModel } from './StopNodeModel';
 
-export class StopNodeWidget extends React.Component {
+export class StopNodeWidget extends RJD.DefaultNodeWidget {
   static defaultProps = {
     node: null,
     color: 'rgb(67, 71, 76)'
   };
-
-  onRemove() {
-    const { node, diagramEngine } = this.props;
-    node.remove();
-    diagramEngine.forceUpdate();
-  }
 
   getInPorts() {
     const { node, color, displayOnly } = this.props;

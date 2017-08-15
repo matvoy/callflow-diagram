@@ -2,7 +2,7 @@ import undoable, { includeAction } from 'redux-undo';
 
 const getInitialState = () => ({
   selectedNode: null,
-  model: null
+  model: window.callflow||null
 });
 
 export const reducerFn = (state = getInitialState(), action) => {

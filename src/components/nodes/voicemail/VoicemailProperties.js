@@ -162,8 +162,11 @@ export class VoicemailProperties extends React.Component {
 						</div>
 						<div>
 							<label>Copy</label>
-							<input name="ccText" type="text" value={ this.state.ccText} onInput={(e)=>{this.ccTextChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<input name="ccText" type="text" value={ this.state.ccText}
+										 onInput={(e)=>{this.ccTextChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}}
+										 onBlur={()=>{this.props.setIsFocused(false)}}
+										 onKeyUp={(e)=> {if(e.keyCode==13)this.addCC()}}></input>
 							<button onClick={()=>{this.addCC()}}>push</button>
 							<ul className="params-list">
 								{this.state.stateObject.cc.map((i)=> {

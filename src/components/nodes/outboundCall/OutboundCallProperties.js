@@ -188,8 +188,10 @@ export class OutboundCallProperties extends React.Component {
 				</div>
 
 				<label>Parameter</label>
-				<input type="text" value={ this.state.endpointParametersText[this.state.endpointIndex]} onInput={(e)=>{this.endpointParametersTextChanged(e, this.state.endpointIndex)}}
-							 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+				<input type="text" value={ this.state.endpointParametersText[this.state.endpointIndex]}
+							 onInput={(e)=>{this.endpointParametersTextChanged(e, this.state.endpointIndex)}}
+							 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}
+							 onKeyUp={(e)=> {if(e.keyCode==13)this.addEndpointParameter(this.state.endpointIndex)}}></input>
 				<button onClick={()=>{this.addEndpointParameter(this.state.endpointIndex)}}>push</button>
 				<ul className="params-list">
 					{endpoint.parameters.map((j)=> {
@@ -259,7 +261,7 @@ export class OutboundCallProperties extends React.Component {
 									return <option key={index} value={i}>{i}</option>;
 								})}
 							</select>
-							<button onClick={this.addCodecs}>push</button>
+							<button onClick={()=>{this.addCodecs()}}>push</button>
 							<ul className="params-list">
 								{this.state.codecs.map((i)=> {
 										return (
@@ -275,9 +277,12 @@ export class OutboundCallProperties extends React.Component {
 					</Pane>
 					<Pane label="Params">
 						<label>Parameters</label>
-						<input name="parametersText" type="text" value={ this.state.parametersText} onInput={(e)=>{this.propertyChanged(e)}}
-									 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-						<button onClick={this.addParameter}>push</button>
+						<input name="parametersText" type="text" value={ this.state.parametersText}
+									 onInput={(e)=>{this.propertyChanged(e)}}
+									 onFocus={()=>{this.props.setIsFocused(true)}}
+									 onBlur={()=>{this.props.setIsFocused(false)}}
+									 onKeyUp={(e)=> {if(e.keyCode==13)this.addParameter()}}></input>
+						<button onClick={()=>{this.addParameter()}}>push</button>
 						<ul className="params-list">
 							{this.state.parameters.map((i)=> {
 									return (

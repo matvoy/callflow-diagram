@@ -86,8 +86,11 @@ export class VariablesProperties extends React.Component {
                 </div>
                 <div>
                     <label>Variable</label>
-                    <input type="text" value={this.state.varText} onInput={(e)=>{this.varTextChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+                    <input type="text" value={this.state.varText}
+													 onInput={(e)=>{this.varTextChanged(e)}}
+													 onFocus={()=>{this.props.setIsFocused(true)}}
+													 onBlur={()=>{this.props.setIsFocused(false)}}
+													 onKeyUp={(e)=> {if(e.keyCode==13)this.addVar()}}></input>
                     <button onClick={()=>{this.addVar()}}>push</button>
                     <ul className="params-list">
                         {this.state.stateObject[this.state.action].map((i)=> {

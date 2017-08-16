@@ -62,20 +62,35 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			window.focus();
 		}
 
-		onMouseDown(event) {
-			// if ((model.model instanceof PortModel)&& event.shiftKey){
-			//
-			// }
-			super.onMouseDown(event)
-		}
-
 		onMouseUp(event) {
 			if(event.target.className === 'fa fa-close'){
 				const { diagramEngine, onChange } = this.props;
 				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type: 'item-deleted'});
 			}
-			else{
-				super.onMouseUp(event);
+			else {
+				const element = this.getMouseElement(event);
+				if (element && (element.model instanceof RJD.PortModel) && event.shiftKey) {
+					const {diagramEngine, onChange} = this.props;
+					const {action, actionType} = this.state;
+					const actionOutput = {
+						type: actionType
+					};
+					// Connect the link
+					action.selectionModels[0].model.getLink().setTargetPort(element.model);
+
+					// Link was connected to a port, update the output
+					actionOutput.type = 'goto-created';
+					delete actionOutput.model;
+					actionOutput.linkModel = action.selectionModels[0].model.getLink();
+					actionOutput.portModel = element.model;
+					//actionOutput.linkModel.linkType = 'goto';
+
+					diagramEngine.clearRepaintEntities();
+					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+				}
+				else{
+					super.onMouseUp(event);
+				}
 			}
 		}
 

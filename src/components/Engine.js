@@ -1,6 +1,7 @@
 import React from 'react';
 import * as RJD from 'react-js-diagrams';
 import { LinkInstanceFactory } from './ExtendedLinkModel';
+import { ExtendedLinkFactory } from './ExtendedLinkWidget';
 import { StartWidgetFactory } from './nodes/start/StartWidgetFactory';
 import { StartNodeFactory } from './nodes/start/StartInstanceFactories';
 import { StopWidgetFactory } from './nodes/stop/StopWidgetFactory';
@@ -63,7 +64,7 @@ import { CustomCodeNodeFactory } from './nodes/customCode/CustomCodeInstanceFact
 // Setup the diagram engine
 export const diagramEngine = new RJD.DiagramEngine();
 diagramEngine.registerNodeFactory(new RJD.DefaultNodeFactory());
-diagramEngine.registerLinkFactory(new RJD.DefaultLinkFactory());
+diagramEngine.registerLinkFactory(new ExtendedLinkFactory);
 diagramEngine.registerNodeFactory(new StartWidgetFactory());
 diagramEngine.registerNodeFactory(new StopWidgetFactory());
 diagramEngine.registerNodeFactory(new AnswerWidgetFactory());

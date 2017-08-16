@@ -10,6 +10,10 @@ export class ExtendedLinkModel extends RJD.LinkModel {
 			this.points.splice(index, 0, pointModel);
 		}
 	}
+	deSerialize(ob){
+		super.deSerialize(ob);
+		this.extras = ob.extras;
+	}
 }
 
 export class LinkInstanceFactory extends RJD.AbstractInstanceFactory {

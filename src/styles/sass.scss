@@ -65,11 +65,17 @@
   path{
     fill:none;
     pointer-events:all;
-
+    &.goto {
+      stroke-width: 5;
+      stroke: #bfff00 !important;
+    }
     &.selected {
       stroke: black !important;
       stroke-dasharray: 10,2;
       animation: dash 1s linear infinite;
+      &.goto {
+        stroke: #bfff00 !important;
+      }
     }
   }
 

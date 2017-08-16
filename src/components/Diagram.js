@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
-import * as RJD from 'react-js-diagrams';
 import { diagramEngine } from './Engine';
 import { ExtendedDiagramWidget } from './ExtendedDiagramWidget';
 import { ExtendedDiagramModel } from './ExtendedDiagramModel';
@@ -239,14 +238,36 @@ export class Diagram extends React.Component {
           for(let i=0;i<model.links.length;i++)
               if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
       //ONE LINK ON PORT
-      for(let i = 0; i < model.links.length; i++) {
-          if(model.links[i].id === linkModel.id) continue;
-          if(model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
-              || model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
-              model.links.splice(i,1);
-              i--;
-          }
-      }
+			if(!linkModel.goto) {
+				for (let i = 0; i < model.links.length; i++) {
+					if (model.links[i].id === linkModel.id) continue;
+					if (model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].sourcePort === linkModel.targetPort.id
+						|| model.links[i].targetPort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.targetPort.id) {
+						model.links.splice(i, 1);
+						i--;
+					}
+
+				}
+			}
+			else {
+				if (linkModel.targetPort.parentNode.nodeType === 'stop' || linkModel.sourcePort.parentNode.nodeType === 'start' || linkModel.sourcePort.in) {
+					for (let i = 0; i < model.links.length; i++) {
+						if (model.links[i].id === linkModel.id) {
+							model.links.splice(i, 1);
+							i--;
+						}
+					}
+				}
+				else {
+					for (let i = 0; i < model.links.length; i++) {
+						if (model.links[i].id === linkModel.id) continue;
+						if (model.links[i].sourcePort === linkModel.sourcePort.id || model.links[i].targetPort === linkModel.sourcePort.id) {
+							model.links.splice(i, 1);
+							i--;
+						}
+					}
+				}
+			}
     }
   }
 
@@ -262,6 +283,17 @@ export class Diagram extends React.Component {
     if (['items-copied'].indexOf(action.type) !== -1) {
       return;
     }
+
+		if(['goto-created'].indexOf(action.type) !== -1){
+			for(let i = 0; i < model.links.length; i++){
+				if(model.links[i].id === action.linkModel.id){
+					model.links[i].extras.goto = true;
+					action.linkModel.goto = true;
+					this.checkLinks(model, action.linkModel)
+					break;
+				}
+			}
+		}
 
     // Check for links
     if(['link-connected'].indexOf(action.type) !== -1){

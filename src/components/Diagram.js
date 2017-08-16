@@ -145,7 +145,7 @@ const nodesTarget = {
       }
     }
     diagramModel.addNode(node);
-    props.updateModel(diagramModel.serializeDiagram());
+    props.updateModel(diagramModel.serializeDiagram(), { selectedNode: null });
   },
 };
 

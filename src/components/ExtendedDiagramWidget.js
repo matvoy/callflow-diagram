@@ -62,10 +62,17 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			window.focus();
 		}
 
+		onMouseDown(event) {
+			// if ((model.model instanceof PortModel)&& event.shiftKey){
+			//
+			// }
+			super.onMouseDown(event)
+		}
+
 		onMouseUp(event) {
-			if(event.target.className==='fa fa-close'){
+			if(event.target.className === 'fa fa-close'){
 				const { diagramEngine, onChange } = this.props;
-				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type:'item-deleted'});
+				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type: 'item-deleted'});
 			}
 			else{
 				super.onMouseUp(event);

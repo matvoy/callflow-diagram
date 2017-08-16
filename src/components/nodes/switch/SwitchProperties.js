@@ -41,8 +41,8 @@ export class SwitchProperties extends React.Component {
 			  diagramModel.deSerializeDiagram(this.props.model, diagramEngine);
 				diagramModel.setNode(this.props.node);
 			  diagramEngine.setDiagramModel(diagramModel);
+				this.props.updateModel(diagramModel.serializeDiagram());
 			  this.props.setIsFocused(false);
-
         this.setState({
             case: this.json.case,
             caseText:''
@@ -55,6 +55,7 @@ export class SwitchProperties extends React.Component {
 				diagramModel.deSerializeDiagram(this.props.model, diagramEngine);
 				diagramModel.setNode(this.props.node);
 				diagramEngine.setDiagramModel(diagramModel);
+				this.props.updateModel(diagramModel.serializeDiagram());
 				this.props.setIsFocused(false);
         this.setState({
             case: this.json.case

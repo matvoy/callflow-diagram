@@ -191,9 +191,9 @@ export class Controls extends React.Component {
 	}
 
 	render() {
-		const { model, selectedNode } = this.props;
+		const { model, selectedNode, updateModel } = this.props;
 		//const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
-		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} node={selectedNode}/>) : null;
+		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} updateModel={updateModel} node={selectedNode}/>) : null;
 		return (
 		  <div className='controls' style={this.state.panelOpen === true ? null : {width: '15px', flex: 'none'}}>
 			  <button onClick={this.getCallflowJSON.bind(this)}>Generate Callflow</button>

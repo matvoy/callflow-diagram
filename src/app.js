@@ -50,6 +50,7 @@ class Application extends React.Component {
   	      <Controls
   	        selectedNode={selectedNode}
 						model={model}
+						updateModel={updateModel}
 						setIsFocused={this.setIsFocused}
 						setIsOpened={this.setIsOpened}
 						panelOpen={this.state.panelOpen}

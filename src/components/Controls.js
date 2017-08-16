@@ -42,7 +42,7 @@ export class Controls extends React.Component {
 				let targetNode = nodes.filter((n)=>{
 					return n.id === l.target;
 				})[0];
-				if(!!targetNode.tag){
+				if(!!targetNode.extras.tag){
 					sourceNode.goto = targetNode.extras.tag;
 				}
 				else{

@@ -9,7 +9,7 @@
  */
 import React from 'react';
 import * as RJD from 'react-js-diagrams';
-import { ExtendedDiagramModel } from '../../ExtendedDiagramModel';
+import { ExtendedDiagramModel } from '../../extend/ExtendedDiagramModel';
 import { diagramEngine } from '../../Engine';
 
 export class SwitchProperties extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as RJD from 'react-js-diagrams';
-import { LinkInstanceFactory } from './ExtendedLinkModel';
-import { ExtendedLinkFactory } from './ExtendedLinkWidget';
+import { LinkInstanceFactory } from './extend/ExtendedLinkModel';
+import { ExtendedLinkFactory } from './extend/ExtendedLinkWidget';
 import { StartWidgetFactory } from './nodes/start/StartWidgetFactory';
 import { StartNodeFactory } from './nodes/start/StartInstanceFactories';
 import { StopWidgetFactory } from './nodes/stop/StopWidgetFactory';

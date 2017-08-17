@@ -15,14 +15,61 @@ html, body, #root {
   flex-direction: row;
 
   .nodes-panel {
-    flex: 0 0 7rem;
+    flex: 0 0 9rem;
     display: flex;
-    overflow: auto;//hidden;
+    overflow: hidden;
     flex-direction: column;
-    max-width: 8rem;
+    max-width: 9rem;
     background: #272c33;//#3c3c3c;
     border-right: 2px solid black;
-    padding: 1rem;
+    //padding: 1rem;
+    .group-list{
+      overflow: auto;
+      padding: 0 0;
+      list-style: none;
+      color: black;
+      //;
+      ul{
+        text-align: center;
+        //background-color: white;
+      }
+      .group-header{
+        background-color: #aab4c4;
+        //color: black;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 8px;
+        .dropdown-icon {
+          transition: transform .4s ease-in;
+          transform: rotate(0deg);
+          float  : left;
+          display   : block;
+          top       : 0.5em;
+          left      : 0.5em;
+          font-size : 1.0em;
+          padding   : 0;
+          margin-right: 10px;
+          color     : black;
+          &:before {
+            content: '\25BA';
+          }
+        }
+        .dropdown-icon-open {
+          @extend .dropdown-icon;
+          transition: transform .4s ease-out;
+          transform: rotate(90deg);
+        }
+      }
+      ul{
+        overflow: hidden;
+        max-height: 0px;
+        transition: 0.6s;
+        margin-top: 10px;
+        padding: 0px 10px;
+        position: relative;
+        list-style: none;
+      }
+    }
 
     .node-wrapper {
       flex: 0 0 auto;

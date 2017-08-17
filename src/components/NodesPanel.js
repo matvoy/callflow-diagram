@@ -137,96 +137,130 @@ class Node extends React.Component {
 }
 
 export class NodesPanel extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			lol: false,
+			kek: false,
+			cheburek: false
+		}
+	}
   render() {
     return (
       <div className='nodes-panel'>
-        <div className='node-wrapper'>
-          <Node type='start' color='rgb(215, 225, 239)'/>
-        </div>
-        <div className='node-wrapper'>
-          <Node type='answer' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='hangup' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='playback' color='rgb(114, 128, 150)' />
-        </div>
-				<div className='node-wrapper'>
-					<Node type='playNdigits' color='rgb(114, 128, 150)' />
-				</div>
-        <div className='node-wrapper'>
-          <Node type='log' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='queue' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='queueTimer' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='echo' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='sleep' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='recordFile' color='rgb(114, 128, 150)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='recordSession' color='rgb(114, 128, 150)' />
-        </div>
-				<div className='node-wrapper'>
-					<Node type='blackList' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='calendar' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='conference' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='users' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='outboundCall' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='sendEmail' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='receiveFax' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='httpRequest' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='park' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='pickup' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='tts' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='variables' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='voicemail' color='rgb(114, 128, 150)' />
-				</div>
-				<div className='node-wrapper'>
-					<Node type='customCode' color='rgb(114, 128, 150)' />
-				</div>
-        <div className='node-wrapper'>
-          <Node type='switch' color='rgb(55, 209, 165)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='if' color='rgb(200, 219, 94)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='stop' color='rgb(67, 71, 76)'/>
-        </div>
+				<ul className="group-list">
+					<li>
+						<div className="group-header" onClick={()=>{
+							let tmp = !this.state.lol;
+							this.setState({lol:tmp});
+						}}>lol<i className={this.state.lol ? 'dropdown-icon-open' : 'dropdown-icon'}></i></div>
+						<ul style={this.state.lol ? {maxHeight:'500px'} : null}>
+							<li className='node-wrapper'>
+								<Node type='start' color='rgb(215, 225, 239)'/>
+							</li>
+							<li className='node-wrapper'>
+								<Node type='answer' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='hangup' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='playback' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='playNdigits' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='log' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='queue' color='rgb(114, 128, 150)' />
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div className="group-header" onClick={()=>{
+							let tmp = !this.state.kek;
+							this.setState({kek:tmp});
+						}}>kek<i className={this.state.kek ? 'dropdown-icon-open' : 'dropdown-icon'}></i></div>
+						<ul style={this.state.kek ? {maxHeight:'500px'} : null }>
+							<li className='node-wrapper'>
+								<Node type='queueTimer' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='echo' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='sleep' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='recordFile' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='recordSession' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='blackList' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='calendar' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='conference' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='users' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='outboundCall' color='rgb(114, 128, 150)' />
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div className="group-header" onClick={()=>{
+							let tmp = !this.state.cheburek;
+							this.setState({cheburek:tmp});
+						}}>cheburek<i className={this.state.cheburek ? 'dropdown-icon-open' : 'dropdown-icon'}></i></div>
+						<ul style={this.state.cheburek ? {maxHeight:'500px'} : null}>
+							<li className='node-wrapper'>
+								<Node type='sendEmail' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='receiveFax' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='httpRequest' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='park' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='pickup' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='tts' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='variables' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='voicemail' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='customCode' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='switch' color='rgb(55, 209, 165)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='if' color='rgb(200, 219, 94)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='stop' color='rgb(67, 71, 76)'/>
+							</li>
+						</ul>
+					</li>
+				</ul>
       </div>
     );
   }

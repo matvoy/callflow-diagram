@@ -26,7 +26,7 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 				this.setState({ renderedNodes: false });
 				nextProps.diagramEngine.diagramModel.rendered = true;
 			}
-			this.isChanged= this.props.actions.deleteItems !== nextProps.actions.deleteItems ? true : false;
+			this.isChanged = this.props.actions.deleteItems !== nextProps.actions.deleteItems ? true : false;
 		}
 
 		componentDidUpdate() {
@@ -62,6 +62,14 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			window.focus();
 		}
 
+		onMouseDown(event){
+			super.onMouseDown(event);
+			const model = this.getMouseElement(event);
+			if (model && (model.model instanceof RJD.PortModel) && event.shiftKey) {
+				model.model.getLinks()[Object.keys(model.model.getLinks())[Object.keys(model.model.getLinks()).length-1]].extras.goto = true;
+			}
+		}
+
 		onMouseUp(event) {
 			if(event.target.className === 'fa fa-close'){
 				const { diagramEngine, onChange } = this.props;
@@ -69,9 +77,15 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			}
 			else {
 				const element = this.getMouseElement(event);
-				if (element && (element.model instanceof RJD.PortModel) && event.shiftKey) {
+				const {action, actionType} = this.state;
+
+				if(!(element && (element.model instanceof RJD.PortModel))) {
+					super.onMouseUp(event);
+					return;
+				}
+				if(!!action.selectionModels[0].model.getLink().extras.goto) {
 					const {diagramEngine, onChange} = this.props;
-					const {action, actionType} = this.state;
+
 					const actionOutput = {
 						type: actionType
 					};
@@ -83,7 +97,6 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 					delete actionOutput.model;
 					actionOutput.linkModel = action.selectionModels[0].model.getLink();
 					actionOutput.portModel = element.model;
-					//actionOutput.linkModel.linkType = 'goto';
 
 					diagramEngine.clearRepaintEntities();
 					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);

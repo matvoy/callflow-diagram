@@ -185,7 +185,7 @@ export class Diagram extends React.Component {
 
   checkTimers(model, linkModel){
       if(linkModel.sourcePort.name === 'timers') {
-          if (linkModel.targetPort.parentNode.nodeType !== 'queueTimer') {
+          if (linkModel.targetPort.parentNode.nodeType !== 'queueTimer' || linkModel.goto) {
               for (let i = 0; i < model.links.length; i++)
                   if (model.links[i].id === linkModel.id) model.links.splice(i, 1);
               return;
@@ -201,7 +201,7 @@ export class Diagram extends React.Component {
           }
       }
       else {
-          if(linkModel.sourcePort.parentNode.nodeType !== 'queueTimer'){
+          if(linkModel.sourcePort.parentNode.nodeType !== 'queueTimer' || linkModel.goto) {
               for(let i=0;i<model.links.length;i++)
                   if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
               return;
@@ -222,20 +222,20 @@ export class Diagram extends React.Component {
     //BASE RULES
     if(linkModel.sourcePort.in === linkModel.targetPort.in
         || linkModel.sourcePort.parentNode.id === linkModel.targetPort.parentNode.id) {
-      for(let i=0;i<model.links.length;i++)
+      for(let i = 0; i < model.links.length; i++)
         if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
     }
     else{
       //TIMERS
-      if((linkModel.sourcePort.name === 'timers' && linkModel.sourcePort.parentNode.nodeType === 'queue' )
-				|| (linkModel.targetPort.name === 'timers' && linkModel.targetPort.parentNode.nodeType === 'queue' )){
+      if((linkModel.sourcePort.name === 'timers' && linkModel.sourcePort.parentNode.nodeType === 'queue')
+				|| (linkModel.targetPort.name === 'timers' && linkModel.targetPort.parentNode.nodeType === 'queue')){
           this.checkTimers(model, linkModel);
           return;
       }
       //QUEUE TIMER INPUT
-      if((linkModel.sourcePort.name !== 'timers' &&  linkModel.targetPort.parentNode.nodeType === 'queueTimer' && linkModel.targetPort.in)
-          || (linkModel.targetPort.name !== 'timers' &&  linkModel.sourcePort.parentNode.nodeType === 'queueTimer' && linkModel.sourcePort.in))
-          for(let i=0;i<model.links.length;i++)
+      if((linkModel.sourcePort.name !== 'timers' && linkModel.targetPort.parentNode.nodeType === 'queueTimer' && linkModel.targetPort.in)
+          || (linkModel.targetPort.name !== 'timers' && linkModel.sourcePort.parentNode.nodeType === 'queueTimer' && linkModel.sourcePort.in))
+          for(let i = 0; i<model.links.length; i++)
               if(model.links[i].id === linkModel.id) model.links.splice(i, 1);
       //ONE LINK ON PORT
 			if(!linkModel.goto) {
@@ -246,11 +246,11 @@ export class Diagram extends React.Component {
 						model.links.splice(i, 1);
 						i--;
 					}
-
 				}
 			}
 			else {
-				if (linkModel.targetPort.parentNode.nodeType === 'stop' || linkModel.sourcePort.parentNode.nodeType === 'start' || linkModel.sourcePort.in) {
+				if (linkModel.targetPort.parentNode.nodeType === 'stop' || linkModel.sourcePort.parentNode.nodeType === 'start'
+					|| linkModel.sourcePort.in || Object.keys(linkModel.targetPort.links).length === 1) {
 					for (let i = 0; i < model.links.length; i++) {
 						if (model.links[i].id === linkModel.id) {
 							model.links.splice(i, 1);
@@ -289,7 +289,7 @@ export class Diagram extends React.Component {
 				if(model.links[i].id === action.linkModel.id){
 					model.links[i].extras.goto = true;
 					action.linkModel.goto = true;
-					this.checkLinks(model, action.linkModel)
+					this.checkLinks(model, action.linkModel);
 					break;
 				}
 			}
@@ -301,10 +301,12 @@ export class Diagram extends React.Component {
     }
 
 		if(['link-created'].indexOf(action.type) !== -1){
-			for(let i = 0; i < model.links.length; i++){
-				if(model.links[i].id === action.model.link.id){
-					model.links.splice(i,1);
-					break;
+			if(!!action.model){
+				for(let i = 0; i < model.links.length; i++){
+					if(model.links[i].id === action.model.link.id){
+						model.links.splice(i,1);
+						break;
+					}
 				}
 			}
 		}

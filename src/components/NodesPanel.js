@@ -148,6 +148,7 @@ export class NodesPanel extends React.Component {
   render() {
     return (
       <div className='nodes-panel'>
+				{/*<span className="header">Nodes</span>*/}
 				<ul className="group-list">
 					<li>
 						<div className="group-header" onClick={()=>{

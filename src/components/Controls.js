@@ -7,6 +7,7 @@ export class Controls extends React.Component {
 		super(props);
 		this.state = {panelOpen:this.props.panelOpen};
 		this.panelChange = this.panelChange.bind(this);
+		window.getCallflowJSON = this.getCallflowJSON.bind(this);
 	}
 	getCallflowJSON(){
 		if(!this.props.model)return;
@@ -28,7 +29,10 @@ export class Controls extends React.Component {
 		this.gotoParser(links, nodes, ()=>{
 			self.recursiveElementsParser(json, link, links, nodes, start[0]);
 		});
-		console.log(JSON.stringify(json));
+		return {
+			callflowModel: this.props.model,
+			callflowJson: json
+		}
 	}
 
 		gotoParser(links, nodes, cb){
@@ -228,7 +232,6 @@ export class Controls extends React.Component {
 		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} updateModel={updateModel} node={selectedNode}/>) : null;
 		return (
 		  <div className='controls' style={this.state.panelOpen === true ? null : {width: '15px', flex: 'none'}}>
-			  <button onClick={this.getCallflowJSON.bind(this)}>Generate Callflow</button>
 				<div className="parameters">
 					{param}
 				</div>

@@ -155,7 +155,7 @@ const nodesTarget = {
 }))
 export class Diagram extends React.Component {
   componentDidMount() {
-    const { model } = this.props;
+    const model  = window.callflow;
     if (model) {
       this.setModel(model);
     }

@@ -5,19 +5,28 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { App } from './app';
 
-window.onload = () => {
-	const rootEl = document.getElementById('root');
-	const render = Component => {
-		ReactDOM.render(
-			<Provider store={store}>
-				<AppContainer>
-					<Component />
-				</AppContainer>
-			</Provider>,
-			rootEl
-		);
-	};
+window.DiagramDesigner = {
+	init: ()=> {
+		const rootEl = document.getElementById('root');
+		const render = Component => {
+			ReactDOM.render(
+				<Provider store={store}>
+					<AppContainer>
+						<Component />
+					</AppContainer>
+				</Provider>,
+				rootEl
+			);
+		};
+		render(App);
+	},
 
-	render(App);
-	if (module.hot) module.hot.accept('./app', () => render(App));
+	getShema: () => {}
 };
+
+//
+// window.onload = () => {
+//
+//
+// 	if (module.hot) module.hot.accept('./app', () => render(App));
+// };

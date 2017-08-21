@@ -1,6 +1,9 @@
 import React from 'react';
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+// import { DragDropContextProvider } from 'react-dnd';
+// import { DragDropContext } from 'react-dnd';
+// import HTML5Backend from 'react-dnd-html5-backend';
+import withDragDropContext from './singleDnD';
+
 import { connect } from 'react-redux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import * as actions from './actions';
@@ -9,6 +12,7 @@ import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
 import './styles/index.scss';
 
+// @DragDropContext(HTML5Backend)
 class Application extends React.Component {
 	constructor(props){
 		super(props);
@@ -33,7 +37,6 @@ class Application extends React.Component {
     const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
 
   	return (
-  	  <DragDropContextProvider backend={HTML5Backend}>
     	  <div className='parent-container'>
     	    <NodesPanel />
   	      <Diagram
@@ -56,7 +59,7 @@ class Application extends React.Component {
 						panelOpen={this.state.panelOpen}
   	       />
     	  </div>
-  	  </DragDropContextProvider>
+  	  // </DragDropContextProvider>
   	);
   }
 }
@@ -75,4 +78,4 @@ const mapDispatchToProps = dispatch => ({
   onRedo: () => dispatch(UndoActionCreators.redo())
 });
 
-export const App = connect(mapStateToProps, mapDispatchToProps)(Application);
+export const App = connect(mapStateToProps, mapDispatchToProps)(withDragDropContext(Application));

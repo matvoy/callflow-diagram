@@ -29,11 +29,11 @@ html, body, #root {
   }
 
   .nodes-panel {
-    flex: 0 0 9rem;
+    flex: 0 0 144px;//9rem;
     display: flex;
     overflow: hidden;
     flex-direction: column;
-    max-width: 9rem;
+    max-width: 144px;//9rem;
     background: #272c33;//#3c3c3c;
     border-right: 2px solid black;
     color: white;
@@ -54,7 +54,7 @@ html, body, #root {
       list-style: none;
       position: absolute;
       height: 98%;
-      width: 9rem;
+      width: 144px;//9rem;
       ul{
         text-align: center;
       }
@@ -165,7 +165,7 @@ html, body, #root {
   .controls {
     //flex: 0 0 20rem;
     //max-width: 20rem;
-    width: 20rem;
+    width: 320px;//20rem;
     overflow: hidden;
     background: #272c33;
     border-left: 2px solid black;
@@ -282,13 +282,13 @@ html, body, #root {
       }
 
       .header{
-        font-size: 1.3rem;
+        font-size: 20px;//1.3rem;
         font-weight: bold;
         text-align: center;
       }
 
       .help {
-        padding: 0.5em;
+        padding: 8px;//0.5em;
         background: rgba(240, 70, 40, 0.5);
         &:empty {
           display: none;
@@ -297,19 +297,19 @@ html, body, #root {
 
       label {
         color: white;
-        font-size: 1.2em;
+        font-size: 19px;//1.2em;
         display: block;
-        padding-bottom: 0.25em;
+        padding-bottom: 4px;//0.25em;
       }
 
       select {
         display: block;
-        font-size: 1.0em;
-        padding: 0.25em;
+        font-size: 16px;//1.0em;
+        padding: 4px;//0.25em;
         background-color: transparent;//white;
         color: white;
         width: 100%;
-        margin-bottom: 1em;
+        margin-bottom: 16px;//1em;
         border-radius: 3px;
         border: 1px solid #BABABA;
         option {
@@ -334,14 +334,14 @@ html, body, #root {
         display: inline-block;
         border-radius: 3px;
         border: none;
-        font-size: 1.0rem;
-        padding: 0.6rem 1.5em;
+        font-size: 16px;//1.0rem;
+        padding: 10px 24px;//0.6rem 1.5em;
         background: #015e16;//#69c773;
         //border: 1px solid white;
         color: white;
         -webkit-font-smoothing: antialiased;
         font-weight: bold;
-        margin: 0 0.25rem;
+        margin: 0 4px;//0 0.25rem;
         text-align: center;
       }
 
@@ -379,7 +379,7 @@ html, body, #root {
         font-family: 'Arial' !important;
         font-style: normal;
         font-weight: normal;
-        font-size: 1.0rem;//18px;
+        font-size: 16px;//1.0rem;//18px;
         content: "true";
         color: white;
         background-color: #217c35;//green;
@@ -418,8 +418,8 @@ html, body, #root {
           display: inline-block;
           width: -webkit-fill-available;
           width: -moz-available;
-          padding: 0.5em;
-          margin-bottom: .125em;
+          padding: 8px;//0.5em;
+          margin-bottom: 2px;//.125em;
           //display: block;
           list-style: none;
           //text-transform: uppercase;
@@ -429,7 +429,7 @@ html, body, #root {
           }
           button{
             background-color: transparent;
-            padding: 0.4rem 0.6rem;
+            padding: 6px 10px;//0.4rem 0.6rem;
             border-radius: 10px;
             float: right;
           }

@@ -20,8 +20,9 @@ window.DiagramDesigner = {
 		};
 		render(App);
 	},
-
-	getShema: () => {}
+	removeDesigner: () => {
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+	}
 };
 
 //

@@ -22,6 +22,10 @@ class Application extends React.Component {
 		}
 		this.setIsFocused = this.setIsFocused.bind(this);
 		this.setIsOpened = this.setIsOpened.bind(this);
+		window.CallflowDiagram = {
+			clearReducer: props.onClearHistory.bind(this),
+			updateModel: props.updateModel.bind(this)
+		};
 	}
 	setIsFocused(value){
 		this.setState({
@@ -65,17 +69,18 @@ class Application extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  selectedNode: state.history.present.selectedNode,
-  model: state.history.present.model,
-  canUndo: state.history.past.length > 0,
-  canRedo: state.history.future.length > 0
+  selectedNode: state.present.selectedNode,
+  model: state.present.model,
+  canUndo: state.past.length > 1,
+  canRedo: state.future.length > 0
 });
 
 const mapDispatchToProps = dispatch => ({
   onNodeSelected: node => dispatch(actions.onNodeSelected(node)),
   updateModel: (model, props) => dispatch(actions.updateModel(model, props)),
   onUndo: () => dispatch(UndoActionCreators.undo()),
-  onRedo: () => dispatch(UndoActionCreators.redo())
+  onRedo: () => dispatch(UndoActionCreators.redo()),
+	onClearHistory: () => dispatch(UndoActionCreators.clearHistory())
 });
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(withDragDropContext(Application));

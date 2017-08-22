@@ -235,12 +235,9 @@ export class Controls extends React.Component {
 				<div className="parameters">
 					{param}
 				</div>
-				<div className="hiding-button" style={this.state.panelOpen === true ? null : {right: '8px'}} onClick={()=>{this.panelChange()}}>
+				<div className="hiding-button" style={this.state.panelOpen === true ? null : {right: '-8px'}} onClick={()=>{this.panelChange()}}>
 					<a className= {this.state.panelOpen === true ? "arrow-right" : "arrow-left"}></a>
 				</div>
-				{/*<pre>*/}
-					{/*{content}*/}
-				{/*</pre>*/}
 		  </div>
 		);
 	}

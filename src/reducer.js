@@ -13,11 +13,11 @@ export const reducerFn = (state = getInitialState(), action) => {
         selectedNode: action.node
       };
     case 'update-model':
-      return {
-        ...state,
-        model: action.model,
-        ...action.props
-      };
+			return {
+				...state,
+				model: action.model,
+				...action.props
+			};
     default:
       return state;
   }

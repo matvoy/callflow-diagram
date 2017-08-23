@@ -24,6 +24,7 @@ window.DiagramDesigner = {
 		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 	}
 };
+
 //window.DiagramDesigner.init();
 //
 // window.onload = () => {

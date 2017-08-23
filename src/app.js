@@ -16,23 +16,14 @@ import './styles/index.scss';
 class Application extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			propertyFocused: false
-		}
-		this.setIsFocused = this.setIsFocused.bind(this);
 		window.CallflowDiagram = {
 			onNodeSelected: props.onNodeSelected.bind(this),
 			clearReducer: props.onClearHistory.bind(this),
 			updateModel: props.updateModel.bind(this)
 		};
 	}
-	setIsFocused(value){
-		this.setState({
-			propertyFocused: value
-		})
-	}
   render() {
-    const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
+    const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo, propertyFocused, setIsFocused} = this.props;
 
   	return (
     	  <div className='parent-container'>
@@ -45,13 +36,13 @@ class Application extends React.Component {
   	        model={model}
   	        updateModel={updateModel}
   	        onNodeSelected={onNodeSelected}
-						allowDelete={!this.state.propertyFocused}
+						allowDelete={!propertyFocused}
   	       />
   	      <Controls
   	        selectedNode={selectedNode}
 						model={model}
 						updateModel={updateModel}
-						setIsFocused={this.setIsFocused}
+						setIsFocused={setIsFocused}
   	       />
     	  </div>
   	  // </DragDropContextProvider>
@@ -63,7 +54,8 @@ const mapStateToProps = state => ({
   selectedNode: state.present.selectedNode,
   model: state.present.model,
   canUndo: state.past.length > 1,
-  canRedo: state.future.length > 0
+  canRedo: state.future.length > 0,
+	propertyFocused: state.present.propertyFocused
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -71,7 +63,8 @@ const mapDispatchToProps = dispatch => ({
   updateModel: (model, props) => dispatch(actions.updateModel(model, props)),
   onUndo: () => dispatch(UndoActionCreators.undo()),
   onRedo: () => dispatch(UndoActionCreators.redo()),
-	onClearHistory: () => dispatch(UndoActionCreators.clearHistory())
+	onClearHistory: () => dispatch(UndoActionCreators.clearHistory()),
+	setIsFocused: focused => dispatch(actions.setIsFocused(focused))
 });
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(withDragDropContext(Application));

@@ -2,7 +2,8 @@ import undoable, { includeAction } from 'redux-undo';
 
 const getInitialState = () => ({
   selectedNode: null,
-  model: null
+  model: null,
+	propertyFocused: false
 });
 
 export const reducerFn = (state = getInitialState(), action) => {
@@ -17,6 +18,11 @@ export const reducerFn = (state = getInitialState(), action) => {
 				...state,
 				model: action.model,
 				...action.props
+			};
+		case 'focus':
+			return {
+				...state,
+				propertyFocused: action.focused
 			};
     default:
       return state;

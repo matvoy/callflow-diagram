@@ -44,7 +44,7 @@ export class ConferenceNodeWidget extends RJD.DefaultNodeWidget {
           <div className='name'>
             {name}
           </div>
-          {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
+          {!displayOnly ? <div className='fa fa-times' onClick={this.onRemove.bind(this)} /> : null}
         </div>
         <div className="app-center">
           <span className="app-img-conference">

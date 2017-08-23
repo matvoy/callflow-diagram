@@ -24,10 +24,23 @@ window.DiagramDesigner = {
 		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 	}
 };
-
+//window.DiagramDesigner.init();
 //
 // window.onload = () => {
-//
+// 	const rootEl = document.getElementById('root');
+// 	const render = Component => {
+// 		ReactDOM.render(
+// 			<Provider store={store}>
+// 				<AppContainer>
+// 					<Component />
+// 				</AppContainer>
+// 			</Provider>,
+// 			rootEl
+// 		);
+// 	};
+// 	render(App);
+// }
+
 //
 // 	if (module.hot) module.hot.accept('./app', () => render(App));
 // };

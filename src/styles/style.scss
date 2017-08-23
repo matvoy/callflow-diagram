@@ -115,10 +115,9 @@ html, body, #root {
     .do-buttons-container{
       position: absolute;
       bottom: 15px;
-      right: 350px;
+      left: 160px;
       z-index: 1000000;
       display: inherit;
-      transition: 0.7s;
 
       .do-img {
         z-index: 100;
@@ -182,7 +181,7 @@ html, body, #root {
       top: 45%;
       right: 312px;
       background: #1e1e1e;
-      transition: 0.7s;
+      transition: right 0.7s;
 
       .arrows{
         text-align: center;

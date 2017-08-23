@@ -17,12 +17,11 @@ class Application extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			propertyFocused: false,
-			panelOpen: false
+			propertyFocused: false
 		}
 		this.setIsFocused = this.setIsFocused.bind(this);
-		this.setIsOpened = this.setIsOpened.bind(this);
 		window.CallflowDiagram = {
+			onNodeSelected: props.onNodeSelected.bind(this),
 			clearReducer: props.onClearHistory.bind(this),
 			updateModel: props.updateModel.bind(this)
 		};
@@ -30,11 +29,6 @@ class Application extends React.Component {
 	setIsFocused(value){
 		this.setState({
 			propertyFocused: value
-		})
-	}
-	setIsOpened(value){
-		this.setState({
-			panelOpen: value
 		})
 	}
   render() {
@@ -52,15 +46,12 @@ class Application extends React.Component {
   	        updateModel={updateModel}
   	        onNodeSelected={onNodeSelected}
 						allowDelete={!this.state.propertyFocused}
-						panelOpen={this.state.panelOpen}
   	       />
   	      <Controls
   	        selectedNode={selectedNode}
 						model={model}
 						updateModel={updateModel}
 						setIsFocused={this.setIsFocused}
-						setIsOpened={this.setIsOpened}
-						panelOpen={this.state.panelOpen}
   	       />
     	  </div>
   	  // </DragDropContextProvider>

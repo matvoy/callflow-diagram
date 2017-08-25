@@ -8,7 +8,8 @@ import * as RJD from 'react-js-diagrams';
 export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 		constructor(props){
 			super(props);
-			this.keydownListener = this.keydownListener.bind(this);
+			//this.keydownListener = this.keydownListener.bind(this);
+			window.keydownDiagramListener = this.keydownListener.bind(this);
 		}
 
   	attachDiagramEngine() {
@@ -37,16 +38,16 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 				});
 			}
 			if(this.isChanged){
-				let self = this;
 				const { diagramEngine, onChange } = this.props;
 				const { selectAll, deselectAll, copy, paste, deleteItems } = this.getActions();
 				this.arguments = {diagramEngine, onChange, selectAll, deselectAll, copy, paste, deleteItems};
-				window.removeEventListener('keydown', this.state.windowListener);
-				this.setState({
-					windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
-				})
 			}
 		}
+
+		// componentWillUnmount() {
+		// 	this.props.diagramEngine.setCanvas(null);
+		// 	document.getElementById('rootParent').removeEventListener('keydown', this.state.windowListener);
+		// }
 
 		componentDidMount() {
 			this.attachDiagramEngine();
@@ -57,9 +58,9 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			// Add a keyboard listener
 			this.setState({
 				renderedNodes: true,
-				windowListener: window.addEventListener('keydown', (event)=>{self.keydownListener(event)})
+				windowListener: window.addEventListener('keydown', (event)=>{window.keydownDiagramListener(event)})
 			});
-			window.focus();
+			window.focus();//document.getElementById('rootParent')
 		}
 
 		onMouseDown(event){
@@ -135,6 +136,7 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 		}
 
 		keydownListener(event){
+			debugger;
 			const selectedItems = this.arguments.diagramEngine.getDiagramModel().getSelectedItems();
 			const ctrl = (event.metaKey || event.ctrlKey);
 

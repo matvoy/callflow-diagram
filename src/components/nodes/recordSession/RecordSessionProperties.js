@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import { Tabs, Pane } from '../../Tabs';
 
 export class RecordSessionProperties extends React.Component {
     constructor(props){
@@ -77,66 +78,72 @@ export class RecordSessionProperties extends React.Component {
     getParameters(){
         return(
             <div>
-                <div>
-                    <label>Action</label>
-                    <select name="action" value={this.state.action} onChange={(e)=>{this.jsonPropertyChanged(e)}}
-														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-                        {this.defValues.action.map( (i, index) => {
-                            return <option key={index} value={i}>{i}</option>;
-                        })}
-                    </select>
-                </div>
-                <div>
-                    <label>Type</label>
-                    <select name="type" value={this.state.type} onChange={(e)=>{this.jsonPropertyChanged(e)}}
-														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-                        {this.defValues.type.map( (i, index) => {
-                            return <option key={index} value={i}>{i}</option>;
-                        })}
-                    </select>
-                </div>
-                <div>
-                    <label>Stereo</label>
-                    <input name="stereo" type="checkbox" checked={ this.state.stereo} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Bridged</label>
-                    <input name='bridged' type="checkbox" checked={ this.state.bridged} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Min Seconds</label>
-                    <input name="minSec" type="number" value={ this.state.minSec} onInput={(e)=>{this.jsonPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Follow Transfer</label>
-                    <input name="followTransfer" type="checkbox" checked={ this.state.followTransfer} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-									<form onSubmit={(e)=>{e.preventDefault()}}>
-                    <label>Email</label>
-                    <input type="text" value={ this.state.emailText}
-													 onInput={(e)=>{this.emailTextChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}}
-													 onBlur={()=>{this.props.setIsFocused(false)}}
-													 ></input>
-                    <button onClick={()=>{this.addEmail()}}>push</button>
-                    <ul className="params-list">
-                        {this.state.email.map((i)=> {
-                                return (
-                                    <li>
-																				<span>{i}</span>
-                                        <button onClick={()=>{this.deleteEmail(i)}}>x</button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
-									</form>
-                </div>
+							<Tabs selected={0}>
+								<Pane label="General">
+									<div>
+											<label>Action</label>
+											<select name="action" value={this.state.action} onChange={(e)=>{this.jsonPropertyChanged(e)}}
+															onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+													{this.defValues.action.map( (i, index) => {
+															return <option key={index} value={i}>{i}</option>;
+													})}
+											</select>
+									</div>
+									<div>
+											<label>Type</label>
+											<select name="type" value={this.state.type} onChange={(e)=>{this.jsonPropertyChanged(e)}}
+															onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+													{this.defValues.type.map( (i, index) => {
+															return <option key={index} value={i}>{i}</option>;
+													})}
+											</select>
+									</div>
+									<div>
+											<label>Stereo</label>
+											<input name="stereo" type="checkbox" checked={ this.state.stereo} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Bridged</label>
+											<input name='bridged' type="checkbox" checked={ this.state.bridged} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Min Seconds</label>
+											<input name="minSec" type="number" value={ this.state.minSec} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Follow Transfer</label>
+											<input name="followTransfer" type="checkbox" checked={ this.state.followTransfer} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+								</Pane>
+								<Pane label="Email">
+									<div>
+										<form onSubmit={(e)=>{e.preventDefault()}}>
+											<label>Email</label>
+											<input type="text" value={ this.state.emailText}
+														 onInput={(e)=>{this.emailTextChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}}
+														 onBlur={()=>{this.props.setIsFocused(false)}}
+														 ></input>
+											<button onClick={()=>{this.addEmail()}}>push</button>
+											<ul className="params-list">
+													{this.state.email.map((i)=> {
+																	return (
+																			<li>
+																					<span>{i}</span>
+																					<button onClick={()=>{this.deleteEmail(i)}}>x</button>
+																			</li>
+																	);
+															}
+													)}
+											</ul>
+										</form>
+									</div>
+								</Pane>
+							</Tabs>
             </div>
         );
     }

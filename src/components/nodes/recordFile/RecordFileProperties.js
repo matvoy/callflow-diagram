@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import { Tabs, Pane } from '../../Tabs';
 
 export class RecordFileProperties extends React.Component {
     constructor(props){
@@ -67,57 +68,63 @@ export class RecordFileProperties extends React.Component {
     getParameters(){
         return(
             <div>
-                <div>
-                    <label>Name</label>
-                    <input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Terminators</label>
-                    <input name="terminators" type="text" value={ this.state.terminators} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Type</label>
-                    <select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
-														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-                        {this.defValues.type.map( (i, index) => {
-                            return <option key={index} value={i}>{i}</option>;
-                        })}
-                    </select>
-                </div>
-                <div>
-                    <label>Max Seconds</label>
-                    <input name="maxSec" type="number" value={ this.state.maxSec} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-                    <label>Silence Hits</label>
-                    <input name="silenceHits" type="number" value={ this.state.silenceHits} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
-									<form onSubmit={(e)=>{e.preventDefault()}}>
-                    <label>Email</label>
-                    <input name="emailText" type="text" value={ this.state.emailText}
-													 onInput={(e)=>{this.emailTextChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}}
-													 onBlur={()=>{this.props.setIsFocused(false)}}
-													 ></input>
-                    <button onClick={()=>{this.addEmail()}}>push</button>
-                    <ul className="params-list">
-                        {this.state.email.map((i)=> {
-                                return (
-                                    <li>
-																			<span>{i}</span>
-																			<button onClick={()=>{this.deleteEmail(i)}}>x</button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
-									</form>
-                </div>
+							<Tabs selected={0}>
+								<Pane label="General">
+									<div>
+											<label>Name</label>
+											<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Terminators</label>
+											<input name="terminators" type="text" value={ this.state.terminators} onInput={(e)=>{this.propertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Type</label>
+											<select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
+															onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+													{this.defValues.type.map( (i, index) => {
+															return <option key={index} value={i}>{i}</option>;
+													})}
+											</select>
+									</div>
+									<div>
+											<label>Max Seconds</label>
+											<input name="maxSec" type="number" value={ this.state.maxSec} onInput={(e)=>{this.propertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+									<div>
+											<label>Silence Hits</label>
+											<input name="silenceHits" type="number" value={ this.state.silenceHits} onInput={(e)=>{this.propertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+									</div>
+								</Pane>
+								<Pane label="Email">
+									<div>
+										<form onSubmit={(e)=>{e.preventDefault()}}>
+											<label>Email</label>
+											<input name="emailText" type="text" value={ this.state.emailText}
+														 onInput={(e)=>{this.emailTextChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}}
+														 onBlur={()=>{this.props.setIsFocused(false)}}
+														 ></input>
+											<button onClick={()=>{this.addEmail()}}>push</button>
+											<ul className="params-list">
+													{this.state.email.map((i)=> {
+																	return (
+																			<li>
+																				<span>{i}</span>
+																				<button onClick={()=>{this.deleteEmail(i)}}>x</button>
+																			</li>
+																	);
+															}
+													)}
+											</ul>
+										</form>
+									</div>
+								</Pane>
+							</Tabs>
             </div>
         );
     }

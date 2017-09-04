@@ -80,32 +80,62 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 				const element = this.getMouseElement(event);
 				const {action, actionType} = this.state;
 
+				if(actionType === 'link-created' && (element.model instanceof RJD.NodeModel)) {
+					const {diagramEngine, onChange} = this.props;
+					let link = action.selectionModels[0].model.getLink();
+					let node = element.model;
+					let type = !!action.selectionModels[0].model.getLink().extras.goto ? 'goto-created' : 'link-connected';
+					const actionOutput = {
+						type: actionType
+					};
+					if(!!link.sourcePort){
+						if(link.sourcePort.in){
+							if(!!node.ports.output){
+								link.setTargetPort(node.ports.output);
+								actionOutput.type = type;
+							}
+
+						}
+						else{
+							if(!!node.ports.input){
+								link.setTargetPort(node.ports.input);
+								actionOutput.type = type;
+							}
+						}
+					}
+					actionOutput.type === 'link-connected' || 'goto-created' ? actionOutput.linkModel = link : actionOutput.model = action.selectionModels[0].model;
+					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+					return;
+				}
+
 				if(!(element && (element.model instanceof RJD.PortModel))) {
 					super.onMouseUp(event);
 					return;
 				}
+
 				if(!!action.selectionModels[0].model.getLink().extras.goto) {
-					const {diagramEngine, onChange} = this.props;
-
-					const actionOutput = {
-						type: actionType
-					};
-					// Connect the link
-					action.selectionModels[0].model.getLink().setTargetPort(element.model);
-
-					// Link was connected to a port, update the output
-					actionOutput.type = 'goto-created';
-					delete actionOutput.model;
-					actionOutput.linkModel = action.selectionModels[0].model.getLink();
-					actionOutput.portModel = element.model;
-
-					diagramEngine.clearRepaintEntities();
-					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+					this.gotoCreate(element.model, action.selectionModels[0].model.getLink());
 				}
 				else{
 					super.onMouseUp(event);
 				}
 			}
+		}
+
+		gotoCreate(targetPort, link){
+			const {diagramEngine, onChange} = this.props;
+
+			const actionOutput = {};
+			// Connect the link
+			link.setTargetPort(targetPort);
+
+			// Link was connected to a port, update the output
+			actionOutput.type = 'goto-created';
+			actionOutput.linkModel = link;
+			actionOutput.portModel = targetPort;
+
+			diagramEngine.clearRepaintEntities();
+			onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
 		}
 
 		onWheel(event) {
@@ -136,7 +166,6 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 		}
 
 		keydownListener(event){
-			debugger;
 			const selectedItems = this.arguments.diagramEngine.getDiagramModel().getSelectedItems();
 			const ctrl = (event.metaKey || event.ctrlKey);
 

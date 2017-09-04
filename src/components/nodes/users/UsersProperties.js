@@ -156,49 +156,52 @@ export class UsersProperties extends React.Component {
 						<label className="bridge-header">User: {this.state.endpoints[this.state.userIndex].name}</label>
 						<button className="bridge-button" onClick={()=>{this.showUser(false, null)}}>back</button>
 					</div>
-
-					<label>Parameter</label>
-					<input type="text" value={ this.state.userParametersText[this.state.userIndex]}
-								 onInput={(e)=>{this.userParametersTextChanged(e, this.state.userIndex)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}}
-								 onBlur={()=>{this.props.setIsFocused(false)}}
-								 onKeyUp={(e)=> {if(e.keyCode==13)this.addUserParameter(this.state.userIndex)}}></input>
-					<button onClick={()=>{this.addUserParameter(this.state.userIndex)}}>push</button>
-					<ul className="params-list">
-						{this.state.endpoints[this.state.userIndex].parameters.map((j)=> {
-								return (
-									<li>
-										<span>{j}</span>
-										<button onClick={()=>{this.deleteUserParameter(j, this.state.userIndex)}}>x</button>
-									</li>
-								);
-							}
-						)}
-					</ul>
+					<form onSubmit={(e)=>{e.preventDefault()}}>
+						<label>Parameter</label>
+						<input type="text" value={ this.state.userParametersText[this.state.userIndex]}
+									 onInput={(e)=>{this.userParametersTextChanged(e, this.state.userIndex)}}
+									 onFocus={()=>{this.props.setIsFocused(true)}}
+									 onBlur={()=>{this.props.setIsFocused(false)}}
+									 ></input>
+						<button onClick={()=>{this.addUserParameter(this.state.userIndex)}}>push</button>
+						<ul className="params-list">
+							{this.state.endpoints[this.state.userIndex].parameters.map((j)=> {
+									return (
+										<li>
+											<span>{j}</span>
+											<button onClick={()=>{this.deleteUserParameter(j, this.state.userIndex)}}>x</button>
+										</li>
+									);
+								}
+							)}
+						</ul>
+					</form>
 				</div>
 			);
 		}
 		getUserInputForm(){
 			return(
 				<div>
-					<label>Username</label>
-					<input name="userNameText" type="text" value={ this.state.userNameText}
-								 onInput={(e)=>{this.propertyChanged(e)}}
-								 onFocus={()=>{this.props.setIsFocused(true)}}
-								 onBlur={()=>{this.props.setIsFocused(false)}}
-								 onKeyUp={(e)=> {if(e.keyCode==13)this.addUser()}}></input>
-					<button onClick={()=>{this.addUser()}}>push user</button>
-					<ul className="params-list">
-						{this.state.endpoints.map((i, index)=> {
-								return (
-									<li>
-										<span className="bridge-item" onClick={()=>{this.showUser(true, index)}}>{i.name}</span>
-										<button onClick={()=>{this.deleteUser(i)}}>x</button>
-									</li>
-								);
-							}
-						)}
-					</ul>
+					<form onSubmit={(e)=>{e.preventDefault()}}>
+						<label>Username</label>
+						<input name="userNameText" type="text" value={ this.state.userNameText}
+									 onInput={(e)=>{this.propertyChanged(e)}}
+									 onFocus={()=>{this.props.setIsFocused(true)}}
+									 onBlur={()=>{this.props.setIsFocused(false)}}
+									 ></input>
+						<button onClick={()=>{this.addUser()}}>push user</button>
+						<ul className="params-list">
+							{this.state.endpoints.map((i, index)=> {
+									return (
+										<li>
+											<span className="bridge-item" onClick={()=>{this.showUser(true, index)}}>{i.name}</span>
+											<button onClick={()=>{this.deleteUser(i)}}>x</button>
+										</li>
+									);
+								}
+							)}
+						</ul>
+					</form>
 				</div>
 			);
 		}
@@ -244,13 +247,13 @@ export class UsersProperties extends React.Component {
 									</div>
 								</Pane>
 								<Pane label="Params">
-									<div>
+									<form onSubmit={(e)=>{e.preventDefault()}}>
 										<label>Parameters</label>
 										<input name="parametersText" type="text" value={ this.state.parametersText}
 													 onInput={(e)=>{this.propertyChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}}
 													 onBlur={()=>{this.props.setIsFocused(false)}}
-													 onKeyUp={(e)=> {if(e.keyCode==13)this.addParameter()}}></input>
+													 ></input>
 										<button onClick={()=>{this.addParameter()}}>push</button>
 										<ul className="params-list">
 											{this.state.parameters.map((i)=> {
@@ -263,7 +266,7 @@ export class UsersProperties extends React.Component {
 												}
 											)}
 										</ul>
-									</div>
+									</form>
 								</Pane>
 								<Pane label="Users">
 									{this.state.showUser === true ? this.getUser() : this.getUserInputForm()}

@@ -161,24 +161,26 @@ export class VoicemailProperties extends React.Component {
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
-							<label>Copy</label>
-							<input name="ccText" type="text" value={ this.state.ccText}
-										 onInput={(e)=>{this.ccTextChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}}
-										 onBlur={()=>{this.props.setIsFocused(false)}}
-										 onKeyUp={(e)=> {if(e.keyCode==13)this.addCC()}}></input>
-							<button onClick={()=>{this.addCC()}}>push</button>
-							<ul className="params-list">
-								{this.state.stateObject.cc.map((i)=> {
-										return (
-											<li>
-												<span>{i}</span>
-												<button onClick={()=>{this.deleteCC(i)}}>x</button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<form onSubmit={(e)=>{e.preventDefault()}}>
+								<label>Copy</label>
+								<input name="ccText" type="text" value={ this.state.ccText}
+											 onInput={(e)=>{this.ccTextChanged(e)}}
+											 onFocus={()=>{this.props.setIsFocused(true)}}
+											 onBlur={()=>{this.props.setIsFocused(false)}}
+											 ></input>
+								<button onClick={()=>{this.addCC()}}>push</button>
+								<ul className="params-list">
+									{this.state.stateObject.cc.map((i)=> {
+											return (
+												<li>
+													<span>{i}</span>
+													<button onClick={()=>{this.deleteCC(i)}}>x</button>
+												</li>
+											);
+										}
+									)}
+								</ul>
+							</form>
 						</div>
 					</div>
 				);

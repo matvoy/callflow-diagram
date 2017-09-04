@@ -116,12 +116,13 @@ export class RecordSessionProperties extends React.Component {
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
+									<form onSubmit={(e)=>{e.preventDefault()}}>
                     <label>Email</label>
                     <input type="text" value={ this.state.emailText}
 													 onInput={(e)=>{this.emailTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}}
 													 onBlur={()=>{this.props.setIsFocused(false)}}
-													 onKeyUp={(e)=> {if(e.keyCode==13)this.addEmail()}}></input>
+													 ></input>
                     <button onClick={()=>{this.addEmail()}}>push</button>
                     <ul className="params-list">
                         {this.state.email.map((i)=> {
@@ -134,6 +135,7 @@ export class RecordSessionProperties extends React.Component {
                             }
                         )}
                     </ul>
+									</form>
                 </div>
             </div>
         );

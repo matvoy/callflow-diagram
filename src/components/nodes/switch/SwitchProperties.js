@@ -85,14 +85,16 @@ export class SwitchProperties extends React.Component {
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
+									<form onSubmit={(e)=>{e.preventDefault()}}>
                     <label>Case</label>
                     <input type="text" value={this.state.caseText}
 													 onInput={(e)=>{this.caseTextChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}}
 													 onBlur={()=>{this.props.setIsFocused(false)}}
-													 onKeyUp={(e)=> {if(e.keyCode==13)this.addCase()}}></input>
+													 ></input>
                     <button onClick={()=>{this.addCase()}}>push</button>
                     <ul className="params-list">{arr}</ul>
+									</form>
                 </div>
             </div>
         );

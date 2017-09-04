@@ -186,24 +186,25 @@ export class OutboundCallProperties extends React.Component {
 					<label className="bridge-header">{endpoint.name!==undefined ? 'Name: ' + endpoint.name : 'Host: ' + endpoint.host}</label>
 					<button className="bridge-button" onClick={()=>{this.showEndpoint(false, null)}}>back</button>
 				</div>
-
-				<label>Parameter</label>
-				<input type="text" value={ this.state.endpointParametersText[this.state.endpointIndex]}
-							 onInput={(e)=>{this.endpointParametersTextChanged(e, this.state.endpointIndex)}}
-							 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}
-							 onKeyUp={(e)=> {if(e.keyCode==13)this.addEndpointParameter(this.state.endpointIndex)}}></input>
-				<button onClick={()=>{this.addEndpointParameter(this.state.endpointIndex)}}>push</button>
-				<ul className="params-list">
-					{endpoint.parameters.map((j)=> {
-							return (
-								<li>
-									<span>{j}</span>
-									<button onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}>x</button>
-								</li>
-							);
-						}
-					)}
-				</ul>
+				<form onSubmit={(e)=>{e.preventDefault()}}>
+					<label>Parameter</label>
+					<input type="text" value={ this.state.endpointParametersText[this.state.endpointIndex]}
+								 onInput={(e)=>{this.endpointParametersTextChanged(e, this.state.endpointIndex)}}
+								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}
+								 ></input>
+					<button onClick={()=>{this.addEndpointParameter(this.state.endpointIndex)}}>push</button>
+					<ul className="params-list">
+						{endpoint.parameters.map((j)=> {
+								return (
+									<li>
+										<span>{j}</span>
+										<button onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}>x</button>
+									</li>
+								);
+							}
+						)}
+					</ul>
+				</form>
 			</div>
 		);
 	}
@@ -276,24 +277,26 @@ export class OutboundCallProperties extends React.Component {
 						</div>
 					</Pane>
 					<Pane label="Params">
-						<label>Parameters</label>
-						<input name="parametersText" type="text" value={ this.state.parametersText}
-									 onInput={(e)=>{this.propertyChanged(e)}}
-									 onFocus={()=>{this.props.setIsFocused(true)}}
-									 onBlur={()=>{this.props.setIsFocused(false)}}
-									 onKeyUp={(e)=> {if(e.keyCode==13)this.addParameter()}}></input>
-						<button onClick={()=>{this.addParameter()}}>push</button>
-						<ul className="params-list">
-							{this.state.parameters.map((i)=> {
-									return (
-										<li>
-											<span>{i}</span>
-											<button onClick={()=>{this.deleteParameter(i)}}>x</button>
-										</li>
-									);
-								}
-							)}
-						</ul>
+						<form onSubmit={(e)=>{e.preventDefault()}}>
+							<label>Parameters</label>
+							<input name="parametersText" type="text" value={ this.state.parametersText}
+										 onInput={(e)=>{this.propertyChanged(e)}}
+										 onFocus={()=>{this.props.setIsFocused(true)}}
+										 onBlur={()=>{this.props.setIsFocused(false)}}
+										 ></input>
+							<button onClick={()=>{this.addParameter()}}>push</button>
+							<ul className="params-list">
+								{this.state.parameters.map((i)=> {
+										return (
+											<li>
+												<span>{i}</span>
+												<button onClick={()=>{this.deleteParameter(i)}}>x</button>
+											</li>
+										);
+									}
+								)}
+							</ul>
+						</form>
 					</Pane>
 					<Pane label="Endpoint">
 						{this.state.showEndpoint === false ? this.getEndpointInputForm() : this.getEndpoint()}

@@ -72,16 +72,33 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 		}
 
 		onMouseUp(event) {
+			const { diagramEngine, onChange } = this.props;
 			if(event.target.className === 'fa fa-close'){
-				const { diagramEngine, onChange } = this.props;
 				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type: 'item-deleted'});
 			}
 			else {
 				const element = this.getMouseElement(event);
 				const {action, actionType} = this.state;
 
+				// if(actionType === 'link-created' && (element.model instanceof RJD.NodeModel || element.model instanceof RJD.PortModel)) {
+				// 	const actionOutput = {
+				// 		type: 'link-created',
+				// 		model: action.selectionModels[0].model
+				// 	};
+				// 	onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+				// 	return;
+				// }
+
+				if(actionType === 'items-moved' && (element.model instanceof RJD.PointModel)){
+					const actionOutput = {
+						type: 'link-created',
+						model: element.model
+					};
+					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
+					return;
+				}
+
 				if(actionType === 'link-created' && (element.model instanceof RJD.NodeModel)) {
-					const {diagramEngine, onChange} = this.props;
 					let link = action.selectionModels[0].model.getLink();
 					let node = element.model;
 					let type = !!action.selectionModels[0].model.getLink().extras.goto ? 'goto-created' : 'link-connected';
@@ -94,7 +111,6 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 								link.setTargetPort(node.ports.output);
 								actionOutput.type = type;
 							}
-
 						}
 						else{
 							if(!!node.ports.input){
@@ -103,7 +119,7 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 							}
 						}
 					}
-					actionOutput.type === 'link-connected' || 'goto-created' ? actionOutput.linkModel = link : actionOutput.model = action.selectionModels[0].model;
+					(actionOutput.type === 'link-connected' || actionOutput.type === 'goto-created') ? actionOutput.linkModel = link : actionOutput.model = action.selectionModels[0].model;
 					onChange(diagramEngine.getDiagramModel().serializeDiagram(), actionOutput);
 					return;
 				}

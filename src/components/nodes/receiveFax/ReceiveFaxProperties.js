@@ -80,7 +80,7 @@ export class ReceiveFaxProperties extends React.Component {
                                 return (
                                     <li>
 																			<span>{i}</span>
-                                        <button onClick={()=>{this.deleteEmail(i)}}>delete</button>
+																			<button onClick={()=>{this.deleteEmail(i)}}>x</button>
                                     </li>
                                 );
                             }

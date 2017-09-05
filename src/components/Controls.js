@@ -227,15 +227,16 @@ export class Controls extends React.Component {
 
 	render() {
 		const { model, selectedNode, updateModel } = this.props;
-		this.hideButton = !selectedNode;
 		//const content = selectedNode ? JSON.stringify(selectedNode.serialize(), null, 2) : '';
-		const param = selectedNode && (selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop') ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} updateModel={updateModel} node={selectedNode}/>) : null;
+		const isNotStartStop = selectedNode && selectedNode.nodeType !== 'start' && selectedNode.nodeType !== 'stop';
+		this.hideButton = !selectedNode || !isNotStartStop;
+		const param = selectedNode && isNotStartStop ? (<Parameters setIsFocused={this.props.setIsFocused} model={model} updateModel={updateModel} node={selectedNode}/>) : null;
 		return (
-		  <div className='controls' style={this.state.panelOpen && !!selectedNode === true ? null : {width: '15px', flex: 'none'}}>
+		  <div className='controls' style={this.state.panelOpen && !!selectedNode && isNotStartStop ? null : {width: '15px', flex: 'none'}}>
 				<div className="parameters">
 					{param}
 				</div>
-				<div className="hiding-button" style={this.state.panelOpen && !!selectedNode === true ? null : {right: '-8px', visibility: this.hideButton ? 'hidden' : 'visible'}} onClick={()=>{this.panelChange()}}>
+				<div className="hiding-button" style={this.state.panelOpen && !!selectedNode && isNotStartStop ? null : {right: '-8px', visibility: this.hideButton ? 'hidden' : 'visible'}} onClick={()=>{this.panelChange()}}>
 					<a className= {this.state.panelOpen === true ? "arrow-right" : "arrow-left"}></a>
 				</div>
 		  </div>

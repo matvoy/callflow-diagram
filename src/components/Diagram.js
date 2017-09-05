@@ -301,7 +301,7 @@ export class Diagram extends React.Component {
       this.checkLinks(model, action.linkModel);
     }
 
-		if(['link-created'].indexOf(action.type) !== -1){
+		if(['link-created', 'point-created'].indexOf(action.type) !== -1){
 			if(!!action.model){
 				for(let i = 0; i < model.links.length; i++){
 					if(model.links[i].id === action.model.link.id){

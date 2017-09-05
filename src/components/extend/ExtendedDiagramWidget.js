@@ -73,7 +73,7 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 
 		onMouseUp(event) {
 			const { diagramEngine, onChange } = this.props;
-			if(event.target.className === 'fa fa-close'){
+			if(event.target.className === 'fa fa-times'){
 				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type: 'item-deleted'});
 			}
 			else {

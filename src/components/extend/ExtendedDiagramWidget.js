@@ -73,12 +73,12 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 
 		onMouseUp(event) {
 			const { diagramEngine, onChange } = this.props;
-			if(event.target.className === 'fa fa-times'){
+			const {action, actionType} = this.state;
+			if(event.target.className === 'fa fa-times' && actionType !== 'link-created'){
 				onChange(diagramEngine.getDiagramModel().serializeDiagram(), {type: 'item-deleted'});
 			}
 			else {
 				const element = this.getMouseElement(event);
-				const {action, actionType} = this.state;
 
 				// if(actionType === 'link-created' && (element.model instanceof RJD.NodeModel || element.model instanceof RJD.PortModel)) {
 				// 	const actionOutput = {

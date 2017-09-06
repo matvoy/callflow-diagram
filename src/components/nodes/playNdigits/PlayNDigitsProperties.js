@@ -12,6 +12,7 @@ export class PlayNDigitsProperties extends React.Component {
 	constructor(props){
 		super(props);
 		this.defValues = Element[this.props.node.nodeType];
+		this.webitel = Element.webitelParams.media;
 		this.json = this.props.node.extras.playback;
 		this.state={
 			files: this.json.files,
@@ -29,6 +30,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.propertyChanged = this.propertyChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
+		this.getInputMedia = this.getInputMedia.bind(this);
 
 	}
 	componentWillReceiveProps(nextProps) {
@@ -79,6 +81,24 @@ export class PlayNDigitsProperties extends React.Component {
 			files: this.json.files
 		});
 	}
+	getInputMedia(){
+		if(['mp3', 'wav'].indexOf(this.state.type) !== -1){
+			return (
+				<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
+								onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+					{this.webitel.map( (i, index) => {
+						return <option key={index} value={i}>{i}</option>;
+					})}
+				</select>
+			);
+		}
+		else{
+			return (
+				<input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+							 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+			)
+		}
+	}
 	getParameters(){
 		return(
 			<div>
@@ -128,8 +148,7 @@ export class PlayNDigitsProperties extends React.Component {
 							</div>
 							<div>
 								<label>Name</label>
-								<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
-											 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								{this.getInputMedia()}
 							</div>
 							<button onClick={this.addFile}>push</button>
 							<ul className="params-list">

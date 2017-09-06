@@ -12,6 +12,7 @@ export class UsersProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
+        this.webitel = Element.webitelParams.directory;
         this.json = this.props.node.extras.bridge;
         this.state={
             strategy: this.json.strategy,
@@ -184,11 +185,12 @@ export class UsersProperties extends React.Component {
 				<div>
 					<form onSubmit={(e)=>{e.preventDefault()}}>
 						<label>Username</label>
-						<input name="userNameText" type="text" value={ this.state.userNameText}
-									 onInput={(e)=>{this.propertyChanged(e)}}
-									 onFocus={()=>{this.props.setIsFocused(true)}}
-									 onBlur={()=>{this.props.setIsFocused(false)}}
-									 ></input>
+						<select name="userNameText" value={this.state.userNameText} onChange={(e)=>{this.propertyChanged(e)}}
+										onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+							{this.webitel.map( (i, index) => {
+								return <option key={index} value={i}>{i}</option>;
+							})}
+						</select>
 						<button onClick={()=>{this.addUser()}}>push user</button>
 						<ul className="params-list">
 							{this.state.endpoints.map((i, index)=> {

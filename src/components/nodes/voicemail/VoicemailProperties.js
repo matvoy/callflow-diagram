@@ -11,6 +11,7 @@ export class VoicemailProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
+        this.webitel = Element.webitelParams.directory;
         this.json = this.props.node.extras.voicemail;
         if(this.json.hasOwnProperty('check')){
 					this.state={
@@ -137,8 +138,12 @@ export class VoicemailProperties extends React.Component {
                 </div>
                 <div>
                     <label>User</label>
-                    <input name="user" type="text" value={ this.state.stateObject.user} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+										<select name="user" value={this.state.stateObject.user} onChange={(e)=>{this.propertyChanged(e)}}
+														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+											{this.webitel.map( (i, index) => {
+												return <option key={index} value={i}>{i}</option>;
+											})}
+										</select>
 										{this.getActionProperties()}
                 </div>
 

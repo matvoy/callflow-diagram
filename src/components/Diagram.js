@@ -345,7 +345,12 @@ export class Diagram extends React.Component {
           <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">
           </a>
         </div>
-        <ExtendedDiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} actions={{deleteItems: allowDelete}} />
+        <ExtendedDiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} actions={{
+        	deleteItems: allowDelete,
+					copy: allowDelete,
+					paste: allowDelete,
+					selectAll: allowDelete,
+					deselectAll: allowDelete}} />
       </div>
     );
   }

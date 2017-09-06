@@ -2,11 +2,13 @@
  * Created by matvij on 31.07.17.
  */
 import React from 'react';
+import Element from '../../PropertyValues';
 
 export class QueueProperties extends React.Component {
     constructor(props){
         super(props);
         this.propertyChanged = this.propertyChanged.bind(this);
+        this.webitel = Element.webitelParams.acd;
         this.state = { value: this.props.node.extras.queue.name};
     }
     propertyChanged(e){
@@ -22,8 +24,12 @@ export class QueueProperties extends React.Component {
         return(
             <div>
                 <label>Name</label>
-                <input type="text" value={this.state.value} onInput={(e)=>{this.propertyChanged(e)}}
-											 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								<select name="name" value={this.state.value} onChange={(e)=>{this.propertyChanged(e)}}
+												onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+									{this.webitel.map( (i, index) => {
+										return <option key={index} value={i}>{i}</option>;
+									})}
+								</select>
             </div>
         );
     }

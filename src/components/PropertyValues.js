@@ -2,6 +2,12 @@
  * Created by matvij on 24.07.17.
  */
 var Elements = {
+		webitelParams: {
+			media: [],
+			calendar: [],
+			acd: [],
+			directory: []
+		},
     answer: {
         name: 'Sip code',
         single: true,

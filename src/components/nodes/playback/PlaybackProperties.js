@@ -8,12 +8,14 @@ export class PlaybackProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
+				this.webitel = Element.webitelParams.media;
         this.state={name:'', type: this.defValues.files[0]};
         this.files = this.props.node.extras[this.props.node.nodeType]['files'];
         this.typeChanged = this.typeChanged.bind(this);
         this.nameChanged = this.nameChanged.bind(this);
         this.addMedia = this.addMedia.bind(this);
         this.deleteMedia = this.deleteMedia.bind(this);
+				this.getInputMedia = this.getInputMedia.bind(this);
     }
     componentWillReceiveProps(nextProps) {
         this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
@@ -38,6 +40,24 @@ export class PlaybackProperties extends React.Component {
         this.files.splice(index,1);
         this.forceUpdate();
     }
+    getInputMedia(){
+    	if(['mp3', 'wav'].indexOf(this.state.type) !== -1){
+    		return (
+					<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
+									onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+						{this.webitel.map( (i, index) => {
+							return <option key={index} value={i}>{i}</option>;
+						})}
+					</select>
+				);
+			}
+			else{
+    		return (
+					<input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
+								 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+				)
+			}
+		}
     getParameters(){
         return(
             <div>
@@ -52,8 +72,7 @@ export class PlaybackProperties extends React.Component {
                 </div>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={ this.state.name} onInput={(e)=>{this.nameChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+										{this.getInputMedia()}
                     <button onClick={this.addMedia}>push</button>
                     <ul className="params-list">
                         {this.files.map((i)=> {

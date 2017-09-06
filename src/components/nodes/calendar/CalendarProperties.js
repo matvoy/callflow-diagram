@@ -2,10 +2,12 @@
  * Created by matvij on 31.07.17.
  */
 import React from 'react';
+import Element from '../../PropertyValues';
 
 export class CalendarProperties extends React.Component {
     constructor(props){
         super(props);
+				this.webitel = Element.webitelParams.calendar;
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 				this.json = this.props.node.extras.calendar;
         this.state = { name: this.json.name, setVar: this.json.setVar};
@@ -26,8 +28,12 @@ export class CalendarProperties extends React.Component {
         	<div>
 						<div>
 							<label>Name</label>
-							<input name="name" type="text" value={this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<select name="name" value={this.state.name} onChange={(e)=>{this.jsonPropertyChanged(e)}}
+											onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+								{this.webitel.map( (i, index) => {
+									return <option key={index} value={i}>{i}</option>;
+								})}
+							</select>
 						</div>
 						<div>
 							<label>Variable</label>

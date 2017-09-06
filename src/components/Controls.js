@@ -48,12 +48,12 @@ export class Controls extends React.Component {
 					return n.id === l.target;
 				})[0];
 				if(!!targetNode.extras.tag){
-					sourceNode.goto = targetNode.extras.tag;
+					sourceNode.goto = 'local:' + targetNode.extras.tag;
 				}
 				else{
 					let uid = RJD.Toolkit.UID();
 					targetNode.extras.tag = uid;
-					sourceNode.goto = uid;
+					sourceNode.goto = 'local:' + uid;
 				}
 			});
 			cb();

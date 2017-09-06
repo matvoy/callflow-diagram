@@ -151,6 +151,7 @@ export class Controls extends React.Component {
 		}
 		//ADD ELEMENT TO JSON
 		else{
+			node.extras._id = node.id; // for debug
 			json.push(Object.assign({}, node.extras));
 			if(!!node.goto){
 				json.push({goto: node.goto});
@@ -236,7 +237,7 @@ export class Controls extends React.Component {
 				<div className="parameters">
 					{param}
 				</div>
-				<div className="hiding-button" style={this.state.panelOpen && !!selectedNode && isNotStartStop ? null : {right: '-8px', visibility: this.hideButton ? 'hidden' : 'visible'}} onClick={()=>{this.panelChange()}}>
+				<div className="hiding-button" style={this.state.panelOpen && !!selectedNode && isNotStartStop ? null : {right: '8px', visibility: this.hideButton ? 'hidden' : 'visible'}} onClick={()=>{this.panelChange()}}>
 					<a className= {this.state.panelOpen === true ? "arrow-right" : "arrow-left"}></a>
 				</div>
 		  </div>

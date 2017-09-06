@@ -87,7 +87,8 @@ export class PlayNDigitsProperties extends React.Component {
 				<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
 								onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
 					{this.webitel.map( (i, index) => {
-						return <option key={index} value={i}>{i}</option>;
+						if(i.substr(i.length - 3) === this.state.type)
+							return <option key={index} value={i}>{i}</option>;
 					})}
 				</select>
 			);

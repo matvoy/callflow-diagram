@@ -3,7 +3,7 @@ import React from 'react';
 // import { DragDropContext } from 'react-dnd';
 // import HTML5Backend from 'react-dnd-html5-backend';
 import withDragDropContext from './singleDnD';
-
+import Element from './components/PropertyValues';
 import { connect } from 'react-redux';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
 import * as actions from './actions';
@@ -19,7 +19,10 @@ class Application extends React.Component {
 		window.CallflowDiagram = {
 			onNodeSelected: props.onNodeSelected.bind(this),
 			clearReducer: props.onClearHistory.bind(this),
-			updateModel: props.updateModel.bind(this)
+			updateModel: props.updateModel.bind(this),
+			setWebitelParams: (params)=>{
+				Element.webitelParams = params
+			}
 		};
 	}
   render() {

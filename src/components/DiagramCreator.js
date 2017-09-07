@@ -1,6 +1,7 @@
 /**
  * Created by matvij on 07.09.17.
  */
+import * as RJD from 'react-js-diagrams';
 import { ExtendedDiagramModel } from './extend/ExtendedDiagramModel';
 import { ExtendedLinkModel } from './extend/ExtendedLinkModel';
 import { StartNodeModel } from './nodes/start/StartNodeModel';
@@ -20,8 +21,7 @@ import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { BlackListNodeModel } from './nodes/blackList/BlackListNodeModel';
 import { CalendarNodeModel } from './nodes/calendar/CalendarNodeModel';
 import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
-import { UsersNodeModel } from './nodes/users/UsersNodeModel';
-import { OutboundCallNodeModel } from './nodes/outboundCall/OutboundCallNodeModel';
+import { BridgeNodeModel } from './nodes/bridge/BridgeNodeModel';
 import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';
 import { ReceiveFaxNodeModel } from './nodes/receiveFax/ReceiveFaxNodeModel';
@@ -41,13 +41,33 @@ export class DiagramCreator {
 			x: 100,
 			y: 100
 		};
+		this.goto = [];
 		this.diagramModel = new ExtendedDiagramModel();
 		this.startNode();
 		this.modelGenerator(this.json, this.diagramModel.nodes[Object.keys(this.diagramModel.nodes)[0]]);
+		this.gotoWriter();
+
 	}
 
 	getModel(){
 		return this.diagramModel.serializeDiagram();
+	}
+
+	gotoWriter(){
+		let nodes = this.diagramModel.nodes
+		this.goto.forEach((item)=>{
+				let targetNode = null;
+				for(let i in nodes){
+					if(nodes[i].extras.hasOwnProperty('tag') && nodes[i].extras.tag === item.tag){
+						targetNode = nodes[i];
+					}
+				}
+				let gotoLink = new ExtendedLinkModel();
+				gotoLink.setTargetPort(targetNode.getInPort());
+				gotoLink.setSourcePort(item.sourcePort);
+				gotoLink.extras.goto = true;
+				this.diagramModel.addLink(gotoLink);
+		});
 	}
 
 	startNode(){
@@ -76,7 +96,7 @@ export class DiagramCreator {
 		}
 	}
 
-	modelGenerator(json, lastNode, specType = false){
+	modelGenerator(json, lastNode, specType = false, casePort = null){
 		let node = null;
 		let prevNode = lastNode;
 		for(let i=0; i < json.length; i++){
@@ -102,14 +122,10 @@ export class DiagramCreator {
 				outPort = prevNode.getActionsPort();
 				specType = false;
 			}
-
-			if (Object.keys(json[i])[0] === 'if') {
-				this.modelGenerator(json[i].if.then, node, 'then');
-				this.modelGenerator(json[i].if.else, node, 'else')
-			}
-
-			if (Object.keys(json[i])[0] === 'blackList') {
-				this.modelGenerator(json[i].blackList.action, node, 'action');
+			if(specType === 'case'){
+				outPort = prevNode.getCustomPort(casePort);
+				specType = false;
+				casePort = null;
 			}
 
 			let link = new ExtendedLinkModel();
@@ -120,6 +136,50 @@ export class DiagramCreator {
 			prevNode = node;
 			if (json[i].hasOwnProperty('break')){
 				this.stopNode(node);
+			}
+
+			if (Object.keys(json[i])[0] === 'queue') {
+				if(Array.isArray(json[i].queue.timer)){
+					json[i].queue.timer.forEach(t => {
+						let timer = new QueueTimerNodeModel('Queue Timer');
+						let timerLink = new ExtendedLinkModel();
+						timerLink.setTargetPort(timer.getInPort());
+						timerLink.setSourcePort(node.getTimersPort());
+						timer.x = this.position.x;
+						timer.y = this.position.y;
+						this.position = {
+							x: this.position.x + 100,
+							y: this.position.y + 100
+						}
+						this.diagramModel.addNode(timer);
+						this.diagramModel.addLink(timerLink);
+						if(t.actions.length > 0)this.modelGenerator(t.actions, timer);
+					});
+				}
+
+			}
+
+			if (Object.keys(json[i])[0] === 'switch') {
+				for(let c in json[i].switch.case){
+					node.addPort(new RJD.DefaultPortModel(false, c, 'case: ' + c));
+					this.modelGenerator(json[i].switch.case[c], node, 'case', c);
+				}
+			}
+
+			if (Object.keys(json[i])[0] === 'if') {
+				this.modelGenerator(json[i].if.then, node, 'then');
+				this.modelGenerator(json[i].if.else, node, 'else')
+			}
+
+			if (Object.keys(json[i])[0] === 'blackList') {
+				this.modelGenerator(json[i].blackList.action, node, 'action');
+			}
+
+			if (Object.keys(json[i])[0] === 'goto' && json[i].goto.split(':')[0] === 'local') {
+				this.goto.push({
+					sourcePort: prevNode.getOutPort(),
+					tag: json[i].goto.substr(json[i].goto.indexOf(':')+1)
+				});
 			}
 		}
 	}
@@ -189,15 +249,9 @@ export class DiagramCreator {
 		if (Object.keys(element)[0] === 'goto' && element.goto.split(':')[0] !== 'local') {
 			node = new TransferNodeModel('Transfer');
 		}
-		// if (Object.keys(element)[0] === 'users') {
-		// 	node = new UsersNodeModel('Users');
-		// }
-		// if (Object.keys(element)[0] === 'outboundCall') {
-		// 	node = new OutboundCallNodeModel('Outbound call');
-		// }
-
-
-
+		if (Object.keys(element)[0] === 'bridge') {
+			node = new BridgeNodeModel('Bridge');
+		}
 		if (Object.keys(element)[0] === 'blackList') {
 			node = new BlackListNodeModel('BlackList');
 		}

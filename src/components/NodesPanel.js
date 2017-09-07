@@ -29,6 +29,7 @@ import { PickupNodeWidget } from './nodes/pickup/PickupNodeWidget';
 import { VariablesNodeWidget } from './nodes/variables/VariablesNodeWidget';
 import { VoicemailNodeWidget } from './nodes/voicemail/VoicemailNodeWidget';
 import { CustomCodeNodeWidget } from './nodes/customCode/CustomCodeNodeWidget';
+import { TransferNodeWidget } from './nodes/transfer/TransferNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -120,6 +121,9 @@ class Node extends React.Component {
 		}
 		if (type === 'customCode') {
 			return <CustomCodeNodeWidget node={{ name: 'Custom Code' }} color={color} displayOnly />;
+		}
+		if (type === 'transfer') {
+			return <TransferNodeWidget node={{ name: 'Transfer' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -223,6 +227,9 @@ export class NodesPanel extends React.Component {
 							</li>
 							<li className='node-wrapper'>
 								<Node type='outboundCall' color='rgb(114, 128, 150)' />
+							</li>
+							<li className='node-wrapper'>
+								<Node type='transfer' color='rgb(114, 128, 150)' />
 							</li>
 						</ul>
 					</li>

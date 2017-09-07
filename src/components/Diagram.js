@@ -33,6 +33,7 @@ import { ParkNodeModel } from './nodes/park/ParkNodeModel';
 import { VariablesNodeModel } from './nodes/variables/VariablesNodeModel';
 import { VoicemailNodeModel } from './nodes/voicemail/VoicemailNodeModel';
 import { CustomCodeNodeModel } from './nodes/customCode/CustomCodeNodeModel';
+import { TransferNodeModel } from './nodes/transfer/TransferNodeModel';
 
 // Setup the diagram model
 let diagramModel = new ExtendedDiagramModel();
@@ -133,6 +134,9 @@ const nodesTarget = {
 		}
 		if (item.type === 'customCode') {
 			node = new CustomCodeNodeModel('Custom Code', item.color);
+		}
+		if (item.type === 'transfer') {
+			node = new TransferNodeModel('Transfer', item.color);
 		}
 
     node.x = x;

@@ -158,6 +158,10 @@ var Elements = {
 			single: false,
 			flags:['moderator', 'join-only', 'vmute', 'mute', 'deaf', 'endconf', 'mintwo', 'nomoh']
 		},
+		transfer:{
+			single: false,
+			context:['default', 'public']
+		},
 		calendar:{
 			single: false
 		},

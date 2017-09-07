@@ -18,7 +18,10 @@ export class PlaybackProperties extends React.Component {
 				this.getInputMedia = this.getInputMedia.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
+				if(this.props.node.id === nextProps.node.id)
+					return;
+				this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
+				this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
     }
     typeChanged(e){
         this.setState({

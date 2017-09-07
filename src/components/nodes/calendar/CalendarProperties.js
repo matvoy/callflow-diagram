@@ -10,6 +10,7 @@ export class CalendarProperties extends React.Component {
 				this.webitel = Element.webitelParams.calendar;
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 				this.json = this.props.node.extras.calendar;
+				this.json.name = this.json.name === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.name;
         this.state = { name: this.json.name, setVar: this.json.setVar};
     }
 		jsonPropertyChanged(e){
@@ -21,6 +22,7 @@ export class CalendarProperties extends React.Component {
     componentWillReceiveProps(nextProps) {
 			if(this.props.node.id === nextProps.node.id) return;
 				this.json = nextProps.node.extras.calendar;
+				this.json.name = this.json.name === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.name;
         this.setState({ name: this.json.name, setVar: this.json.setVar});
     }
     getParameters(){

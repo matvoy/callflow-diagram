@@ -9,7 +9,7 @@ export class PlaybackProperties extends React.Component {
         super(props);
         this.defValues = Element[this.props.node.nodeType];
 				this.webitel = Element.webitelParams.media;
-        this.state={name:'', type: this.defValues.files[0]};
+        this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
         this.files = this.props.node.extras[this.props.node.nodeType]['files'];
         this.typeChanged = this.typeChanged.bind(this);
         this.nameChanged = this.nameChanged.bind(this);
@@ -22,7 +22,8 @@ export class PlaybackProperties extends React.Component {
     }
     typeChanged(e){
         this.setState({
-            type: e.target.value
+            type: e.target.value,
+						name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
         });
     }
     nameChanged(e){
@@ -33,7 +34,7 @@ export class PlaybackProperties extends React.Component {
     addMedia(){
         let file = {name:this.state.name, type:this.state.type};
         this.files.push(file);
-        this.setState({name:'', type: this.defValues.files[0]});
+        this.setState({name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]});
     }
     deleteMedia(item){
         let index = this.files.indexOf(item);
@@ -46,8 +47,9 @@ export class PlaybackProperties extends React.Component {
 					<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
 									onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
 						{this.webitel.map( (i, index) => {
-							if(i.substr(i.length - 3) === this.state.type)
+							if(i.substr(i.length - 3) === this.state.type){
 								return <option key={index} value={i}>{i}</option>;
+							}
 						})}
 					</select>
 				);

@@ -13,6 +13,7 @@ export class VoicemailProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
         this.webitel = Element.webitelParams.directory;
         this.json = this.props.node.extras.voicemail;
+				this.json.user = this.json.user === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.user;
         if(this.json.hasOwnProperty('check')){
 					this.state={
 						action: 'check',
@@ -47,6 +48,7 @@ export class VoicemailProperties extends React.Component {
     		if(this.props.node.id === nextProps.node.id)
     			return;
         this.json = nextProps.node.extras.voicemail;
+				this.json.user = this.json.user === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.user;
 				if(this.json.hasOwnProperty('check')){
 					this.state={
 						action: 'check',

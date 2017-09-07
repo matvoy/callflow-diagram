@@ -8,17 +8,22 @@ export class QueueProperties extends React.Component {
     constructor(props){
         super(props);
         this.propertyChanged = this.propertyChanged.bind(this);
+        this.json = this.props.node.extras.queue;
         this.webitel = Element.webitelParams.acd;
+				this.json.name = this.json.name === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.name;
         this.state = { value: this.props.node.extras.queue.name};
     }
     propertyChanged(e){
-        this.props.node.extras.queue.name=e.target.value;
+				this.json.name=e.target.value;
         this.setState({
             value: e.target.value
         });
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({ value: nextProps.node.extras.queue.name});
+			if(this.props.node.id === nextProps.node.id) return;
+			this.json = nextProps.node.extras.queue;
+			this.json.name = this.json.name === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.name;
+			this.setState({ value: this.json.name});
     }
     getParameters(){
         return(

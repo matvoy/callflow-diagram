@@ -344,7 +344,10 @@ export class Diagram extends React.Component {
           </a>
           <a onClick={canRedo ? onRedo : null} disabled={!canRedo} className="redo-img">
           </a>
-        </div>
+					<a onClick={()=>{
+						CallflowDiagram.onDebug.trigger({});
+					}} href="javascript:;" className="btn-icon-lined btn-icon-round btn-icon-md  btn-gap-v btn-success"><i className="fa fa-cloud"></i></a>
+				</div>
         <ExtendedDiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} actions={{
         	deleteItems: allowDelete,
 					copy: allowDelete,

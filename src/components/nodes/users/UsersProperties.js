@@ -22,6 +22,7 @@ export class UsersProperties extends React.Component {
 						endpoints: this.json.endpoints,
 					  parametersText: '',
 						userParametersText: [],
+						userNameText: this.webitel[0],
 						codecsSelect: 'PCMA',
 						showUser: false
         };
@@ -51,7 +52,7 @@ export class UsersProperties extends React.Component {
 					endpoints: this.json.endpoints,
 					parametersText: '',
 					userParametersText: [],
-					userNameText: '',
+					userNameText: this.webitel[0],
 					codecsSelect: 'PCMA',
 					showUser: false
 				});

@@ -22,12 +22,13 @@ export class PlayNDigitsProperties extends React.Component {
 			tries: this.json.getDigits.tries,
 			timeout: this.json.getDigits.timeout,
 			flushDTMF: this.json.getDigits.flushDTMF,
-			name: '',
+			name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
 			type: this.defValues.files[0]
 		};
 		this.jsonGetDigitsPropertyChanged = this.jsonGetDigitsPropertyChanged.bind(this);
 		this.jsonGetDigitsCheckboxChanged = this.jsonGetDigitsCheckboxChanged.bind(this);
-		this.propertyChanged = this.propertyChanged.bind(this);
+		this.typeChanged = this.typeChanged.bind(this);
+		this.nameChanged = this.nameChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
 		this.getInputMedia = this.getInputMedia.bind(this);
@@ -44,14 +45,20 @@ export class PlayNDigitsProperties extends React.Component {
 				tries: this.json.getDigits.tries,
 				timeout: this.json.getDigits.timeout,
 				flushDTMF: this.json.getDigits.flushDTMF,
-				name: '',
+				name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
 				type: this.defValues.files[0]
 			});
 		}
 	}
-	propertyChanged(e){
+	typeChanged(e){
 		this.setState({
-			[e.target.name]: e.target.value
+			type: e.target.value,
+			name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
+		});
+	}
+	nameChanged(e){
+		this.setState({
+			name: e.target.value
 		});
 	}
 	jsonGetDigitsPropertyChanged(e){
@@ -70,7 +77,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.json.files.push({name:this.state.name, type:this.state.type});
 		this.setState({
 			files: this.json.files,
-			name: '',
+			name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
 			type: this.defValues.files[0]
 		});
 	}
@@ -140,7 +147,7 @@ export class PlayNDigitsProperties extends React.Component {
 						<div>
 							<div>
 								<label>Type</label>
-								<select name="type" value={this.state.type} onChange={(e)=>{this.propertyChanged(e)}}
+								<select name="type" value={this.state.type} onChange={(e)=>{this.typeChanged(e)}}
 												onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
 									{this.defValues.files.map( (i, index) => {
 										return <option key={index} value={i}>{i}</option>;

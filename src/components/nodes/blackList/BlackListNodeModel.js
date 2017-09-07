@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class BlackListNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {blackList:{name:''}}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {blackList:{name:''}}) {
     super('blackList');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

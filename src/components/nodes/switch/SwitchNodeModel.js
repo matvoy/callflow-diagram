@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class SwitchNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {switch:{variable:'', case:{}}}) {
+  constructor(name = 'Untitled', color = 'rgb(55, 209, 165)', extras = {switch:{variable:'', case:{}}}) {
     super('switch');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
@@ -13,7 +13,6 @@ export class SwitchNodeModel extends RJD.NodeModel {
   }
 
   componentDidUpdate(){
-  	debugger;
   	this.forceUpdate();
 	}
   deSerialize(object) {

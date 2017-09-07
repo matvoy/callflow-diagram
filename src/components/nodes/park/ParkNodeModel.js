@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class ParkNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(73, 72, 79)', extras = { park: { name:'', lot:'', auto:'in' } }) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { park: { name:'', lot:'', auto:'in' } }) {
     super('park');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

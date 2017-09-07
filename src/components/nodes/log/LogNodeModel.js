@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class LogNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {log:''}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {log:''}) {
     super('log');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

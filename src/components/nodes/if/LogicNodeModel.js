@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class LogicNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {if:{expression:''}}) {
+  constructor(name = 'Untitled', color = 'rgb(200, 219, 94)', extras = {if:{expression:''}}) {
     super('if');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

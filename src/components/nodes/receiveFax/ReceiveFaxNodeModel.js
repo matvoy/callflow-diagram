@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class ReceiveFaxNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(73, 72, 79)', extras = { receiveFax: { email: [], enable_t38: false } }) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { receiveFax: { email: [], enable_t38: false } }) {
     super('receiveFax');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

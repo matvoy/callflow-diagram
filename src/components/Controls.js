@@ -8,7 +8,7 @@ export class Controls extends React.Component {
 		this.state = {panelOpen:false};
 		this.hideButton = true;
 		this.panelChange = this.panelChange.bind(this);
-		window.getCallflowJSON = this.getCallflowJSON.bind(this);
+		window.CallflowDiagram.getCallflowJSON = this.getCallflowJSON.bind(this);
 	}
 	getCallflowJSON(){
 		if(!this.props.model)return;

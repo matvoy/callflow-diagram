@@ -10,6 +10,7 @@ import * as actions from './actions';
 import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
+import { DiagramCreator } from './components/DiagramCreator';
 import './styles/index.scss';
 
 
@@ -44,8 +45,12 @@ class Application extends React.Component {
 			onNodeSelected: props.onNodeSelected.bind(this),
 			clearReducer: props.onClearHistory.bind(this),
 			updateModel: props.updateModel.bind(this),
-			setWebitelParams: (params)=>{
+			setWebitelParams: (params) => {
 				Element.webitelParams = params
+			},
+			createDiagram: (json) => {
+				let diagram = new DiagramCreator(json);
+				props.updateModel(diagram.getModel());
 			}
 		};
 	}

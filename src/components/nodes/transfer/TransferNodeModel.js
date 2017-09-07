@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class TransferNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {goto:'default:'}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {goto:'default:'}) {
     super('transfer');
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
     this.name = name;

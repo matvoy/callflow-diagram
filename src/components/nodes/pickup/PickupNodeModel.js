@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class PickupNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(224, 98, 20)', extras = {pickup:''}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {pickup:''}) {
     super('pickup');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

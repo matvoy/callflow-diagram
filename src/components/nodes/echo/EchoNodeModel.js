@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class EchoNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {echo:0}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {echo:0}) {
     super('echo');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

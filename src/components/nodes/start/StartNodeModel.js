@@ -25,4 +25,8 @@ export class StartNodeModel extends RJD.NodeModel {
   getOutPorts() {
     return _.filter(this.ports, portModel => !portModel.in);
   }
+
+	getOutPort() {
+		return this.ports.output;
+	}
 }

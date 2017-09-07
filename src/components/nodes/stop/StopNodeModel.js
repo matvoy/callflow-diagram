@@ -25,4 +25,8 @@ export class StopNodeModel extends RJD.NodeModel {
   getInPorts() {
     return _.filter(this.ports, portModel => !portModel.out);
   }
+
+	getInPort() {
+		return this.ports.input;
+	}
 }

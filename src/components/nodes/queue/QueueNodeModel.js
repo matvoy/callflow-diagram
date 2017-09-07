@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class QueueNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(100, 218, 229)', extras = {queue:{name:''}}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {queue:{name:''}}) {
     super('queue');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

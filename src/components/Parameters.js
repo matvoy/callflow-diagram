@@ -14,8 +14,7 @@ import { SwitchProperties } from './nodes/switch/SwitchProperties';
 import { BlackListProperties } from './nodes/blackList/BlackListProperties';
 import { CalendarProperties } from './nodes/calendar/CalendarProperties';
 import { ConferenceProperties } from './nodes/conference/ConferenceProperties';
-import { UsersProperties } from './nodes/users/UsersProperties';
-import { OutboundCallProperties } from './nodes/outboundCall/OutboundCallProperties';
+import { BridgeProperties } from './nodes/bridge/BridgeProperties';
 import { PlayNDigitsProperties } from './nodes/playNdigits/PlayNDigitsProperties';
 import { SendEmailProperties } from './nodes/sendEmail/SendEmailProperties';
 import { ReceiveFaxProperties } from './nodes/receiveFax/ReceiveFaxProperties';
@@ -87,14 +86,9 @@ export class Parameters extends React.Component {
 								<ConferenceProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
-						if(nodeType === 'users'){
+						if(nodeType === 'bridge'){
 							return (
-								<UsersProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
-							);
-						}
-						if(nodeType === 'outboundCall'){
-							return (
-								<OutboundCallProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+								<BridgeProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
 						if(nodeType === 'playNdigits'){

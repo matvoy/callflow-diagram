@@ -165,16 +165,11 @@ var Elements = {
 		calendar:{
 			single: false
 		},
-		users:{
-    	single: false,
-			strategy: ['multiple', 'failover'],
-			codecs: [ 'PCMA', 'PCMU', 'G729', 'G722', 'OPUS', 'GSM', 'ilbc', 'VP8', 'VP9', 'H264', 'H263', 'H263-1998']
-		},
-		outboundCall:{
+		bridge:{
     	single: false,
 			strategy: ['multiple', 'failover'],
 			codecs: [ 'PCMA', 'PCMU', 'G729', 'G722', 'OPUS', 'GSM', 'ilbc', 'VP8', 'VP9', 'H264', 'H263', 'H263-1998'],
-			type: [{name: 'SIP Gateway', value: 'sipGateway'}, {name: 'SIP URI', value: 'sipUri'}],
+			type: [{name: 'SIP Gateway', value: 'sipGateway'}, {name: 'SIP URI', value: 'sipUri'}, {name: 'User', value: 'user'}],
 			profile: ['nonreg', 'external', 'internal']
 		},
 		sendEmail:{

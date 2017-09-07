@@ -22,7 +22,7 @@ import { BlackListNodeModel } from './nodes/blackList/BlackListNodeModel';
 import { CalendarNodeModel } from './nodes/calendar/CalendarNodeModel';
 import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
 import { UsersNodeModel } from './nodes/users/UsersNodeModel';
-import { OutboundCallNodeModel } from './nodes/outboundCall/OutboundCallNodeModel';
+import { BridgeNodeModel } from './nodes/bridge/BridgeNodeModel';
 import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';
 import { ReceiveFaxNodeModel } from './nodes/receiveFax/ReceiveFaxNodeModel';
@@ -99,11 +99,8 @@ const nodesTarget = {
 		if (item.type === 'conference') {
 			node = new ConferenceNodeModel('Conference', item.color);
 		}
-		if (item.type === 'users') {
-			node = new UsersNodeModel('Users', item.color);
-		}
-		if (item.type === 'outboundCall') {
-			node = new OutboundCallNodeModel('Outbound call', item.color);
+		if (item.type === 'bridge') {
+			node = new BridgeNodeModel('Bridge', item.color);
 		}
 		if (item.type === 'playNdigits') {
 			node = new PlayNDigitsNodeModel('Play and get digits', item.color);

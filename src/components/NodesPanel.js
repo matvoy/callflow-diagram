@@ -17,8 +17,7 @@ import { SwitchNodeWidget } from './nodes/switch/SwitchNodeWidget';
 import { BlackListNodeWidget } from './nodes/blackList/BlackListNodeWidget';
 import { CalendarNodeWidget } from './nodes/calendar/CalendarNodeWidget';
 import { ConferenceNodeWidget } from './nodes/conference/ConferenceNodeWidget';
-import { UsersNodeWidget } from './nodes/users/UsersNodeWidget';
-import { OutboundCallNodeWidget } from './nodes/outboundCall/OutboundCallNodeWidget';
+import { BridgeNodeWidget } from './nodes/bridge/BridgeNodeWidget';
 import { PlayNDigitsNodeWidget } from './nodes/playNdigits/PlayNDigitsNodeWidget';
 import { SendEmailNodeWidget } from './nodes/sendEmail/SendEmailNodeWidget';
 import { ReceiveFaxNodeWidget } from './nodes/receiveFax/ReceiveFaxNodeWidget';
@@ -86,11 +85,8 @@ class Node extends React.Component {
 		if (type === 'conference') {
 			return <ConferenceNodeWidget node={{ name: 'Conference' }} color={color} displayOnly />;
 		}
-		if (type === 'users') {
-			return <UsersNodeWidget node={{ name: 'Users' }} color={color} displayOnly />;
-		}
-		if (type === 'outboundCall') {
-			return <OutboundCallNodeWidget node={{ name: 'Outbound Call' }} color={color} displayOnly />;
+		if (type === 'bridge') {
+			return <BridgeNodeWidget node={{ name: 'Bridge' }} color={color} displayOnly />;
 		}
 		if (type === 'playNdigits') {
 			return <PlayNDigitsNodeWidget node={{ name: 'Play and get digits' }} color={color} displayOnly />;
@@ -223,10 +219,7 @@ export class NodesPanel extends React.Component {
 								<Node type='conference' color='rgb(114, 128, 150)' />
 							</li>
 							<li className='node-wrapper'>
-								<Node type='users' color='rgb(114, 128, 150)' />
-							</li>
-							<li className='node-wrapper'>
-								<Node type='outboundCall' color='rgb(114, 128, 150)' />
+								<Node type='bridge' color='rgb(114, 128, 150)' />
 							</li>
 							<li className='node-wrapper'>
 								<Node type='transfer' color='rgb(114, 128, 150)' />

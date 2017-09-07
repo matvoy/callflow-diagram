@@ -46,7 +46,6 @@ export class DiagramCreator {
 		this.startNode();
 		this.modelGenerator(this.json, this.diagramModel.nodes[Object.keys(this.diagramModel.nodes)[0]]);
 		this.gotoWriter();
-
 	}
 
 	getModel(){

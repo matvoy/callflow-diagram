@@ -21,7 +21,6 @@ import { SwitchNodeModel } from './nodes/switch/SwitchNodeModel';
 import { BlackListNodeModel } from './nodes/blackList/BlackListNodeModel';
 import { CalendarNodeModel } from './nodes/calendar/CalendarNodeModel';
 import { ConferenceNodeModel } from './nodes/conference/ConferenceNodeModel';
-import { UsersNodeModel } from './nodes/users/UsersNodeModel';
 import { BridgeNodeModel } from './nodes/bridge/BridgeNodeModel';
 import { PlayNDigitsNodeModel } from './nodes/playNdigits/PlayNDigitsNodeModel';
 import { SendEmailNodeModel } from './nodes/sendEmail/SendEmailNodeModel';

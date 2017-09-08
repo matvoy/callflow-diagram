@@ -31,7 +31,7 @@ export class VoicemailProperties extends React.Component {
 							user: this.json.user,
 							skip_greeting: this.json.skip_greeting,
 							skip_instructions: this.json.skip_instructions,
-							cc: this.json.cc,
+							cc: this.json.cc || [],
 							ccText:''
 						}
 					};
@@ -66,7 +66,7 @@ export class VoicemailProperties extends React.Component {
 							user: this.json.user,
 							skip_greeting: this.json.skip_greeting,
 							skip_instructions: this.json.skip_instructions,
-							cc: this.json.cc,
+							cc: this.json.cc || [],
 							ccText:''
 						}
 					};

@@ -10,7 +10,10 @@ export class PlaybackProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
 				this.webitel = Element.webitelParams.media;
         this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
-        this.files = this.props.node.extras[this.props.node.nodeType]['files'];
+        this.files = props.node.extras.playback.hasOwnProperty('files') ? props.node.extras.playback['files'] : [{name: props.node.extras.playback.name, type: props.node.extras.playback.type}];
+				delete props.node.extras.playback.type;
+				delete props.node.extras.playback.name;
+				props.node.extras.playback.files = this.files;
         this.typeChanged = this.typeChanged.bind(this);
         this.nameChanged = this.nameChanged.bind(this);
         this.addMedia = this.addMedia.bind(this);
@@ -20,7 +23,10 @@ export class PlaybackProperties extends React.Component {
     componentWillReceiveProps(nextProps) {
 				if(this.props.node.id === nextProps.node.id)
 					return;
-				this.files = nextProps.node.extras[nextProps.node.nodeType]['files'];
+				this.files = nextProps.node.extras.playback.hasOwnProperty('files') ? nextProps.node.extras.playback['files'] : [{name: nextProps.node.extras.playback.name, type: nextProps.node.extras.playback.type}];
+			 	delete nextProps.node.extras.playback.type;
+				delete nextProps.node.extras.playback.name;
+				nextProps.node.extras.playback.files = this.files;
 				this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
     }
     typeChanged(e){

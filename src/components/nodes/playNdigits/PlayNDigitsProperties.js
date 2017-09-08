@@ -14,8 +14,11 @@ export class PlayNDigitsProperties extends React.Component {
 		this.defValues = Element[this.props.node.nodeType];
 		this.webitel = Element.webitelParams.media;
 		this.json = this.props.node.extras.playback;
+		this.json.files = this.json.hasOwnProperty('files') ? this.json.files : [{name: this.json.name, type: this.json.type}];
+		delete this.json.type;
+		delete this.json.name;
 		this.state={
-			files: this.json.files,
+			files: this.json.files || [],
 			setVar: this.json.getDigits.setVar,
 			min: this.json.getDigits.min,
 			max: this.json.getDigits.max,
@@ -37,6 +40,9 @@ export class PlayNDigitsProperties extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if(this.props.node.id !== nextProps.node.id){
 			this.json = nextProps.node.extras.playback;
+			this.json.files = this.json.hasOwnProperty('files') ? this.json.files : [{name: this.json.name, type: this.json.type}];
+			delete this.json.type;
+			delete this.json.name;
 			this.setState({
 				files: this.json.files,
 				setVar: this.json.getDigits.setVar,

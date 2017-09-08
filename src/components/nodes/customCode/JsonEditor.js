@@ -14,6 +14,14 @@ export class JsonEditor extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.json = nextProps.initial;
+		this.state = {
+			value: Object.assign({},this.json),
+			error: false
+		};
+	}
+
 	handleChange(e){
 		try {
 			this.setState({
@@ -36,7 +44,7 @@ export class JsonEditor extends React.Component {
 				<label>Code</label>
 				<textarea
 					onChange={(e)=>{this.handleChange(e)}}
-					defaultValue={JSON.stringify(this.state.value)}
+					value={JSON.stringify(this.state.value)}
 					onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}/>
 				<label>View</label>
 				<div className={(this.state.error) ? 'has-error' : 'normalJson'}>

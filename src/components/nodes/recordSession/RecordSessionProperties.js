@@ -20,7 +20,7 @@ export class RecordSessionProperties extends React.Component {
             bridged: this.json.bridged,
             minSec: this.json.minSec,
             followTransfer: this.json.followTransfer,
-            email: this.json.email,
+            email: this.json.email || [],
             emailText: ''
         };
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
@@ -40,7 +40,7 @@ export class RecordSessionProperties extends React.Component {
             bridged: this.json.bridged,
             minSec: this.json.minSec,
             followTransfer: this.json.followTransfer,
-            email: this.json.email,
+            email: this.json.email || [],
             emailText: ''
         });
     }

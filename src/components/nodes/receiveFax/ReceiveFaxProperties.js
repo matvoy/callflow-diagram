@@ -13,7 +13,7 @@ export class ReceiveFaxProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras.receiveFax;
         this.state={
-            email: this.json.email,
+            email: this.json.email || [],
 						enable_t38: this.json.enable_t38,
             emailText: ''
         };
@@ -27,7 +27,7 @@ export class ReceiveFaxProperties extends React.Component {
     			return;
         this.json = nextProps.node.extras.receiveFax;
         this.setState({
-					email: this.json.email,
+					email: this.json.email || [],
 					enable_t38: this.json.enable_t38,
 					emailText: ''
         });

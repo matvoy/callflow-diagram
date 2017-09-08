@@ -151,7 +151,7 @@ export class Controls extends React.Component {
 		}
 		//ADD ELEMENT TO JSON
 		else{
-			node.extras._id = node.id; // for debug
+			//node.extras._id = node.id; // for debug
 			json.push(Object.assign({}, node.extras));
 			if(!!node.goto){
 				json.push({goto: node.goto});

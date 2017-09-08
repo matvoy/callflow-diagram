@@ -96,10 +96,33 @@ export class DiagramCreator {
 	}
 
 	modelGenerator(json, lastNode, specType = false, casePort = null){
+		let j = json;
 		let node = null;
 		let prevNode = lastNode;
 		for(let i=0; i < json.length; i++){
 			node = this.createNode(json[i]);
+			if(!node){
+				if (Object.keys(json[i])[0] === 'goto' && json[i].goto.split(':')[0] === 'local') {
+					let outPort = null;
+					if(['then', 'else', 'case'].indexOf(specType) === -1){
+						outPort = prevNode.getOutPort();
+					}
+					else if(specType === 'then'){
+						outPort = prevNode.getIfPort();
+					}
+					else if(specType === 'else'){
+						outPort = prevNode.getElsePort();
+					}
+					else if(specType === 'case'){
+						outPort = prevNode.getCustomPort(casePort);
+					}
+					this.goto.push({
+						sourcePort: outPort,
+						tag: json[i].goto.substr(json[i].goto.indexOf(':')+1)
+					});
+				}
+				continue;
+			}
 			node.x = this.position.x;
 			node.y = this.position.y;
 			this.position = {
@@ -138,23 +161,24 @@ export class DiagramCreator {
 			}
 
 			if (Object.keys(json[i])[0] === 'queue') {
-				if(Array.isArray(json[i].queue.timer)){
-					json[i].queue.timer.forEach(t => {
-						let timer = new QueueTimerNodeModel('Queue Timer');
-						let timerLink = new ExtendedLinkModel();
-						timerLink.setTargetPort(timer.getInPort());
-						timerLink.setSourcePort(node.getTimersPort());
-						timer.x = this.position.x;
-						timer.y = this.position.y;
-						this.position = {
-							x: this.position.x + 100,
-							y: this.position.y + 100
-						}
-						this.diagramModel.addNode(timer);
-						this.diagramModel.addLink(timerLink);
-						if(t.actions.length > 0)this.modelGenerator(t.actions, timer);
-					});
+				if(!Array.isArray(json[i].queue.timer)){
+					json[i].queue.timer = [json[i].queue.timer];
 				}
+				json[i].queue.timer.forEach(t => {
+					let timer = new QueueTimerNodeModel('Queue Timer');
+					let timerLink = new ExtendedLinkModel();
+					timerLink.setTargetPort(timer.getInPort());
+					timerLink.setSourcePort(node.getTimersPort());
+					timer.x = this.position.x;
+					timer.y = this.position.y;
+					this.position = {
+						x: this.position.x + 100,
+						y: this.position.y + 100
+					}
+					this.diagramModel.addNode(timer);
+					this.diagramModel.addLink(timerLink);
+					if(t.actions.length > 0)this.modelGenerator(t.actions, timer);
+				});
 
 			}
 
@@ -166,20 +190,14 @@ export class DiagramCreator {
 			}
 
 			if (Object.keys(json[i])[0] === 'if') {
-				this.modelGenerator(json[i].if.then, node, 'then');
-				this.modelGenerator(json[i].if.else, node, 'else')
+				if(!!json[i].if.then)this.modelGenerator(json[i].if.then, node, 'then');
+				if(!!json[i].if.else)this.modelGenerator(json[i].if.else, node, 'else');
 			}
 
 			if (Object.keys(json[i])[0] === 'blackList') {
 				this.modelGenerator(json[i].blackList.action, node, 'action');
 			}
 
-			if (Object.keys(json[i])[0] === 'goto' && json[i].goto.split(':')[0] === 'local') {
-				this.goto.push({
-					sourcePort: prevNode.getOutPort(),
-					tag: json[i].goto.substr(json[i].goto.indexOf(':')+1)
-				});
-			}
 		}
 	}
 
@@ -191,7 +209,7 @@ export class DiagramCreator {
 		if (Object.keys(element)[0] === 'hangup') {
 			node = new HangupNodeModel('Hangup');
 		}
-		if (Object.keys(element)[0] === 'playback') {
+		if (Object.keys(element)[0] === 'playback' && !element.playback.hasOwnProperty('getDigits')) {
 			node = new PlaybackNodeModel('Playback');
 		}
 		if (Object.keys(element)[0] === 'log') {
@@ -218,7 +236,7 @@ export class DiagramCreator {
 		if (Object.keys(element)[0] === 'conference') {
 			node = new ConferenceNodeModel('Conference');
 		}
-		if (Object.keys(element)[0] === 'playNdigits') {
+		if (Object.keys(element)[0] === 'playback' && element.playback.hasOwnProperty('getDigits')) {
 			node = new PlayNDigitsNodeModel('Play and get digits');
 		}
 		if (Object.keys(element)[0] === 'sendEmail') {
@@ -263,7 +281,7 @@ export class DiagramCreator {
 		if (Object.keys(element)[0] === 'if') {
 			node = new LogicNodeModel('If');
 		}
-		if (!node) {
+		if (!node && Object.keys(element)[0] !== 'goto') {
 			node = new CustomCodeNodeModel('Custom Code');
 		}
 		return node;

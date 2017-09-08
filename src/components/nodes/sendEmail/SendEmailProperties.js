@@ -13,7 +13,7 @@ export class SendEmailProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras.sendEmail;
         this.state={
-            to: this.json.to,
+            to: this.json.to || [],
             subject: this.json.subject,
             message: this.json.message,
             emailText: ''
@@ -28,7 +28,7 @@ export class SendEmailProperties extends React.Component {
     			return;
         this.json = nextProps.node.extras.sendEmail;
         this.setState({
-					to: this.json.to,
+					to: this.json.to || [],
 					subject: this.json.subject,
 					message: this.json.message,
 					emailText: ''

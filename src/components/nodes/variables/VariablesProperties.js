@@ -13,14 +13,16 @@ export class VariablesProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras;
         let option = Object.keys(this.json)[0];
+				this.json[option] = Array.isArray(this.json[option]) ?  this.json[option] : [this.json[option]];
         this.state = {
         	stateObject: {
-						[option]: this.json[option]
+						[option]: this.json[option] || []
 					},
 					action: option,
 					varText: ''
         };
-        this.actionChanged = this.actionChanged.bind(this);
+				this.json[option] = Array.isArray(this.json[option]) ?  this.json[option] : [this.json[option]];
+				this.actionChanged = this.actionChanged.bind(this);
         this.varTextChanged = this.varTextChanged.bind(this);
         this.addVar = this.addVar.bind(this);
 				this.deleteVar = this.deleteVar.bind(this);
@@ -30,9 +32,10 @@ export class VariablesProperties extends React.Component {
     			return;
         this.json = nextProps.node.extras;
 				let option = Object.keys(this.json)[0];
+				this.json[option] = Array.isArray(this.json[option]) ?  this.json[option] : [this.json[option]];
 				this.setState({
 					stateObject: {
-						[option]: this.json[option],
+						[option]: this.json[option] || []
 					},
 					action: option,
 					varText: ''

@@ -13,7 +13,7 @@ export class ConferenceProperties extends React.Component {
 				this.deleteFlag = this.deleteFlag.bind(this);
 				this.json = this.props.node.extras.conference;
 				this.defValues = Element[this.props.node.nodeType];
-        this.state = { name: this.json.name, pin: this.json.pin, flags:this.json.flags, flag:'moderator'};
+        this.state = { name: this.json.name, pin: this.json.pin, flags:this.json.flags || [], flag:'moderator'};
     }
 		jsonPropertyChanged(e){
 			this.json[e.target.name]=e.target.value;
@@ -44,7 +44,7 @@ export class ConferenceProperties extends React.Component {
     componentWillReceiveProps(nextProps) {
 			if(nextProps.node.id !== this.props.node.id){
 				this.json = nextProps.node.extras.conference;
-				this.setState({ name: this.json.name, pin: this.json.pin, flags:this.json.flags, flag:'moderator'});
+				this.setState({ name: this.json.name, pin: this.json.pin, flags:this.json.flags || [], flag:'moderator'});
 			}
     }
     getParameters(){

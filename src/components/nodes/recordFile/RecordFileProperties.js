@@ -19,7 +19,7 @@ export class RecordFileProperties extends React.Component {
             type: this.json.type,
             maxSec: this.json.maxSec,
             silenceHits: this.json.silenceHits,
-            email: this.json.email,
+            email: this.json.email || [],
             emailText: ''
         };
         this.propertyChanged = this.propertyChanged.bind(this);
@@ -36,7 +36,7 @@ export class RecordFileProperties extends React.Component {
            type: this.json.type,
            maxSec: this.json.maxSec,
            silenceHits: this.json.silenceHits,
-           email: this.json.email,
+           email: this.json.email || [],
             emailText: ''
         });
     }

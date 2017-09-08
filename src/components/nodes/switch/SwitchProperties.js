@@ -16,7 +16,7 @@ export class SwitchProperties extends React.Component {
     constructor(props){
         super(props);
         this.json = this.props.node.extras.switch;
-        this.state = { variable: this.json.variable, case: this.json.case, caseText:''};
+        this.state = { variable: this.json.variable, case: this.json.case || [], caseText:''};
         this.variableChanged = this.variableChanged.bind(this);
         this.caseTextChanged = this.caseTextChanged.bind(this);
         this.addCase = this.addCase.bind(this);
@@ -44,7 +44,7 @@ export class SwitchProperties extends React.Component {
 				this.props.updateModel(diagramModel.serializeDiagram());
 			  this.props.setIsFocused(false);
         this.setState({
-            case: this.json.case,
+            case: this.json.case || [],
             caseText:''
         });
     }

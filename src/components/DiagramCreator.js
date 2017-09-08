@@ -171,6 +171,8 @@ export class DiagramCreator {
 					timerLink.setSourcePort(node.getTimersPort());
 					timer.x = this.position.x;
 					timer.y = this.position.y;
+					timer.extras.interval = t.interval;
+					timer.extras.tries = t.tries;
 					this.position = {
 						x: this.position.x + 100,
 						y: this.position.y + 100

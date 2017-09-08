@@ -38,7 +38,7 @@ export class Controls extends React.Component {
 
 		gotoParser(links, nodes, cb){
 			let gotoLinks = links.filter((l)=>{
-				return l.extras.goto;
+				return !!l.extras.goto;
 			});
 			gotoLinks.forEach((l)=>{
 				let sourceNode = nodes.filter((n)=>{
@@ -47,13 +47,14 @@ export class Controls extends React.Component {
 				let targetNode = nodes.filter((n)=>{
 					return n.id === l.target;
 				})[0];
+				if(!sourceNode.goto)sourceNode.goto = {};
 				if(!!targetNode.extras.tag){
-					sourceNode.goto = 'local:' + targetNode.extras.tag;
+					sourceNode.goto[l.extras.goto] = 'local:' + targetNode.extras.tag;
 				}
 				else{
 					let uid = RJD.Toolkit.UID();
 					targetNode.extras.tag = uid;
-					sourceNode.goto = 'local:' + uid;
+					sourceNode.goto[l.extras.goto] = 'local:' + uid;
 				}
 			});
 			cb();
@@ -65,8 +66,12 @@ export class Controls extends React.Component {
 					let tmpLink = link.filter((l)=>{
 						return !l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
 					})[0];
+					let gotoLink = link.filter((l)=>{
+						return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+					})[0];
 					json[json.length - 1].switch.case[logic_node.ports[i].name] = [];
 					this.recursiveElementsParser(json[json.length - 1].switch.case[logic_node.ports[i].name], tmpLink, links, nodes, logic_node);
+					if(!!gotoLink)json[json.length - 1].switch.case[logic_node.ports[i].name].push({goto: logic_node.goto[logic_node.ports[i].name]});
 				}
 			}
 		}
@@ -94,22 +99,39 @@ export class Controls extends React.Component {
     ifRecurse(json, link, links, nodes, logic_node){
 			let trueLink = {};
 			let falseLink = {};
-        for(let i = 0; i < logic_node.ports.length; i++){
-            if(logic_node.ports[i].name === 'if'){
-                trueLink = link.filter((l)=>{
-                    return !l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
-                })[0];
-            }
-            if(logic_node.ports[i].name === 'else'){
-                falseLink = link.filter((l)=>{
-                    return !l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
-                })[0];
-            }
-        }
-        json[json.length - 1].if.then = [];
-        json[json.length - 1].if.else = [];
-        this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, logic_node);
-        this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, logic_node);
+			let falseGotoLink = {};
+			let trueGotoLink = {};
+			let gotoLink = {};
+			for(let i = 0; i < logic_node.ports.length; i++){
+					if(logic_node.ports[i].name === 'output'){
+						gotoLink = link.filter((l)=>{
+							return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+						})[0];
+					}
+					if(logic_node.ports[i].name === 'if'){
+							trueLink = link.filter((l)=>{
+								return !l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+							})[0];
+							trueGotoLink = link.filter((l)=>{
+								return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+							})[0];
+					}
+					if(logic_node.ports[i].name === 'else'){
+							falseLink = link.filter((l)=>{
+									return !l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+							})[0];
+							falseGotoLink = link.filter((l)=>{
+								return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+							})[0];
+					}
+			}
+			json[json.length - 1].if.then = [];
+			json[json.length - 1].if.else = [];
+			if(!!trueGotoLink)json[json.length - 1].if.then.push({goto: logic_node.goto.if});
+			if(!!falseGotoLink)json[json.length - 1].if.else.push({goto: logic_node.goto.else});
+			this.recursiveElementsParser(json[json.length - 1].if.then, trueLink, links, nodes, logic_node);
+			this.recursiveElementsParser(json[json.length - 1].if.else, falseLink, links, nodes, logic_node);
+			if(!!gotoLink)json.push({goto: logic_node.goto});
     }
 
     queueRecurse(json, link, links, nodes, logic_node){
@@ -153,13 +175,20 @@ export class Controls extends React.Component {
 		else{
 			//node.extras._id = node.id; // for debug
 			json.push(Object.assign({}, node.extras));
-			if(!!node.goto){
-				json.push({goto: node.goto});
+			if(!!node.goto && ['if', 'switch'].indexOf(node.type) === -1){
+				json.push({goto: node.goto.output});
 				return
 			}
-			link =  links.filter((l)=>{
+			else if(!!node.goto && ['if', 'switch'].indexOf(node.type) !== -1){
+				link =  links.filter((l)=>{
+					return (l.source === node.id || l.target === node.id) && l.id !== link.id;
+				});
+			}
+			else{
+				link =  links.filter((l)=>{
 					return !l.extras.goto && (l.source === node.id || l.target === node.id) && l.id !== link.id;
-			});
+				});
+			}
 		}
 
 		switch (node.type) {

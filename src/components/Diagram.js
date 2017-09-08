@@ -288,7 +288,7 @@ export class Diagram extends React.Component {
 		if(['goto-created'].indexOf(action.type) !== -1){
 			for(let i = 0; i < model.links.length; i++){
 				if(model.links[i].id === action.linkModel.id){
-					model.links[i].extras.goto = true;
+					model.links[i].extras.goto = action.linkModel.sourcePort.name;
 					action.linkModel.goto = true;
 					this.checkLinks(model, action.linkModel);
 					break;

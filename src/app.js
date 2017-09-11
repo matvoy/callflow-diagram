@@ -29,6 +29,7 @@ class Application extends React.Component {
 			createDiagram: (json) => {
 				let diagram = new DiagramCreator(json);
 				props.updateModel(diagram.getModel());
+				return diagram.getModel();
 			}
 		};
 	}

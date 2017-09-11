@@ -11,30 +11,8 @@ import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
 import { DiagramCreator } from './components/DiagramCreator';
+import WebitelEvent from './components/WebitelEvent';
 import './styles/index.scss';
-
-
-var WebitelEvent = function() {
-	var nextSubscriberId = 0;
-	var subscriberList = [];
-
-	this.subscribe = function(callback) {
-		var id = nextSubscriberId;
-		subscriberList[id] = callback;
-		nextSubscriberId++;
-		return id;
-	};
-
-	this.unsubscribe = function(id) {
-		delete subscriberList[id];
-	};
-
-	this.trigger = function(sender) {
-		for (var i in subscriberList) {
-			subscriberList[i](sender);
-		}
-	};
-};
 
 // @DragDropContext(HTML5Backend)
 class Application extends React.Component {

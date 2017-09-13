@@ -101,7 +101,7 @@ export class HttpRequestProperties extends React.Component {
 							<Pane label="General">
 								<div>
 									<label>URL</label>
-									<input name="url" type="text" value={ this.state.name} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+									<input name="url" type="text" value={ this.state.url} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 								</div>
 								<div>

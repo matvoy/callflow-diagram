@@ -53,7 +53,7 @@ export class DiagramCreator {
 	}
 
 	gotoWriter(){
-		let nodes = this.diagramModel.nodes
+		let nodes = this.diagramModel.nodes;
 		this.goto.forEach((item)=>{
 				let targetNode = null;
 				for(let i in nodes){
@@ -64,7 +64,7 @@ export class DiagramCreator {
 				let gotoLink = new ExtendedLinkModel();
 				gotoLink.setTargetPort(targetNode.getInPort());
 				gotoLink.setSourcePort(item.sourcePort);
-				gotoLink.extras.goto = true;
+				gotoLink.extras.goto = item.sourcePort.name;
 				this.diagramModel.addLink(gotoLink);
 		});
 	}

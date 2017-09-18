@@ -85,6 +85,7 @@ export class Controls extends React.Component {
 
 		blackListRecurse(json, link, links, nodes, logic_node){
 			let flag = false;
+			let gotoLink = {};
 			for(let i=0; i<logic_node.ports.length; i++){
 				if(logic_node.ports[i].name === 'actions'){
 					var tmpLink = link.filter((l)=>{
@@ -92,6 +93,11 @@ export class Controls extends React.Component {
 					})[0];
 					flag = !!tmpLink ? true : false;
 					break;
+				}
+				if(logic_node.ports[i].name === 'output'){
+					gotoLink = link.filter((l)=>{
+						return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+					})[0];
 				}
 			}
 			if(flag){
@@ -101,6 +107,7 @@ export class Controls extends React.Component {
 			else{
 				delete json[json.length - 1].blackList.action;
 			}
+			if(!!gotoLink)json.push({goto: logic_node.goto.output});
 		}
 
     ifRecurse(json, link, links, nodes, logic_node){
@@ -142,6 +149,7 @@ export class Controls extends React.Component {
     }
 
     queueRecurse(json, link, links, nodes, logic_node){
+    		let gotoLink = {};
         for(let i = 0; i < logic_node.ports.length; i++){
             if(logic_node.ports[i].name === 'timers'){
                 link = link.filter((l)=>{
@@ -149,6 +157,11 @@ export class Controls extends React.Component {
                 });
                 break;
             }
+						if(logic_node.ports[i].name === 'output'){
+							gotoLink = link.filter((l)=>{
+								return !!l.extras.goto && (logic_node.ports[i].id === l.sourcePort || logic_node.ports[i].id === l.targetPort);
+							})[0];
+						}
         }
         if(link.length > 0) json[json.length - 1].queue.timer = [];
         for(let i = 0; i < link.length; i++){
@@ -163,6 +176,7 @@ export class Controls extends React.Component {
             if(node.extras.actions[0].ccPosition.var !== '') json[json.length - 1].queue.timer[i].actions.push(node.extras.actions[0]);
             this.recursiveElementsParser(json[json.length - 1].queue.timer[i].actions, tmpLink, links, nodes, node);
         }
+				if(!!gotoLink)json.push({goto: logic_node.goto.output});
     }
 
 	recursiveElementsParser(json, link, links, nodes, prev_node){
@@ -182,11 +196,11 @@ export class Controls extends React.Component {
 		else{
 			node.extras._id = node.id; // for debug
 			json.push(Object.assign({}, node.extras));
-			if(!!node.goto && ['if', 'switch'].indexOf(node.type) === -1){
+			if(!!node.goto && ['if', 'switch', 'queue', 'blackList'].indexOf(node.type) === -1){
 				json.push({goto: node.goto.output});
-				return
+				return;
 			}
-			else if(!!node.goto && ['if', 'switch'].indexOf(node.type) !== -1){
+			else if(!!node.goto && ['if', 'switch', 'queue', 'blackList'].indexOf(node.type) !== -1){
 				link =  links.filter((l)=>{
 					return (l.source === node.id || l.target === node.id) && l.id !== link.id;
 				});

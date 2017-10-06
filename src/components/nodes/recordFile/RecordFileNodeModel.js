@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class RecordFileNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { recordFile: { name:'', terminators:'', type:'mp3', maxSec:0, silenceHits:0, email:[] } }) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { recordFile: { name:'', terminators:'', type:'mp3', maxSec:60, silenceHits:5, email:[] } }) {
     super('recordFile');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

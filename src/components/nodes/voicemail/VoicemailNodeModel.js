@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class VoicemailNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { voicemail: { user: '', skip_greeting: false, skip_instructions: false, cc: [] } }) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { voicemail: { user: '', skip_greeting: true, skip_instructions: true, cc: [] } }) {
     super('voicemail');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

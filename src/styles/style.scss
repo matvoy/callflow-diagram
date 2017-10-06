@@ -38,16 +38,45 @@ html, body, #root {
     border-right: 2px solid black;
     color: white;
 
-    .header{
-      //border: 1px white solid;
-      margin-top: 0.8rem;
-      //background: darkgray;
-      //padding-bottom: 0;
-      font-size: 1.3rem;
-      font-weight: bold;
+    .logo {
+      position: absolute;
+      width: 100%;
+      height: 60px;
+      background-color: #242633;
+      line-height: 60px;
       text-align: center;
-      //border-bottom: 2px solid white;
+
+      span {
+        vertical-align: middle;
+        color: #fffaed;
+        font-size: 30px;
+        font-weight: 700;
+      }
     }
+
+    input {
+      display: block;
+      font-size: 16px; //1.0em;
+      padding: 4px; //0.25em;
+      background-color: transparent; //white;
+      color: white;
+      width: 100%;
+      margin-bottom: 16px; //1em;
+      border-radius: 3px;
+      border: 1px solid #BABABA;
+    }
+
+    .search{
+      margin-top: 4px;
+      margin-left: 2px;
+    }
+
+    .search-icon{
+      position: absolute;
+      left: 163px;
+      margin-top: 6px;
+    }
+
     .group-list{
       overflow: auto !important;
       padding: 0 0;
@@ -379,15 +408,15 @@ html, body, #root {
         font-style: normal;
         font-weight: normal;
         font-size: 16px;//1.0rem;//18px;
-        content: "true";
-        color: white;
-        background-color: #217c35;//green;
         display:block;
-      }
-      input[type=checkbox]:checked:after {
         content: "false";
         color: white;
         background-color: #c43c3c;//red;
+      }
+      input[type=checkbox]:checked:after {
+        content: "true";
+        color: white;
+        background-color: #217c35;//green;
       }
       /////////////////////////CHECKBOX/////////////////////////
 

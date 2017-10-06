@@ -24,7 +24,7 @@ class Application extends React.Component {
 			clearReducer: props.onClearHistory.bind(this),
 			updateModel: props.updateModel.bind(this),
 			setWebitelParams: (params) => {
-				Element.webitelParams = params
+				Element.webitelParams = Object.assign(Element.webitelParams, params);
 			},
 			createDiagram: (json) => {
 				let diagram = new DiagramCreator(json);
@@ -39,7 +39,9 @@ class Application extends React.Component {
 
   	return (
     	  <div className='parent-container'>
-    	    <NodesPanel />
+    	    <NodesPanel
+						setIsFocused={setIsFocused}
+					/>
   	      <Diagram
 						onUndo={onUndo}
 						onRedo={onRedo}

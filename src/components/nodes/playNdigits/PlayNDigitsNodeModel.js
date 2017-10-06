@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class PlayNDigitsNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {playback:{files:[], getDigits:{setVar:'', min:0, max:0, tries:0, timeout:0, flushDTMF: true}}}) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {playback:{files:[], getDigits:{setVar:'', min:3, max:4, tries:1, timeout:2000, flushDTMF: true}}}) {
     super('playNdigits');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

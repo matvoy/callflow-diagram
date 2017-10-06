@@ -98,11 +98,6 @@ export class TtsProperties extends React.Component {
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
-                    <label>Text</label>
-                    <input name="text" type="text" value={ this.state.text} onInput={(e)=>{this.propertyChanged(e)}}
-													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-                </div>
-                <div>
                     <label>Language</label>
 										<select name="language" value={this.state.language} onChange={(e)=>{this.langChanged(e)}}
 														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
@@ -114,6 +109,11 @@ export class TtsProperties extends React.Component {
 								<div>
 									<label>Voice</label>
 									{this.getVoicesByLanguage()}
+								</div>
+								<div>
+									<label>Text</label>
+									<input name="text" type="text" value={ this.state.text} onInput={(e)=>{this.propertyChanged(e)}}
+												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 								</div>
             </div>
         );

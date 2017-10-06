@@ -12,7 +12,10 @@ export class BridgeProperties extends React.Component {
 	constructor(props){
 		super(props);
 		this.defValues = Element[this.props.node.nodeType];
-		this.webitel = Element.webitelParams.directory;
+		// this.webitelDirectory = Element.webitelParams.directory;
+		// this.webitelGateway = Element.webitelParams.gateway;
+		let gtwArr = Element.webitelParams.gatewayArr;
+		let dirArr = Element.webitelParams.directoryArr
 		this.json = this.props.node.extras.bridge;
 		this.state={
 			pickup: this.json.pickup,
@@ -22,15 +25,18 @@ export class BridgeProperties extends React.Component {
 			endpoints: this.json.endpoints || [],
 			type: 'sipGateway',
 			parametersText: '',
-			name:'',
+			name: gtwArr[0] || '',
 			host:'',
 			dialString:'',
 			profile: this.defValues.profile[0],
-			userNameText: this.webitel[0] || '',
+			userNameText: dirArr[0] || '',
 			endpointParametersText: '',
 			codecsSelect: 'PCMA',
-			showEndpoint: false
+			showEndpoint: false,
+			webitelDirectory: dirArr,
+			webitelGateway: gtwArr
 		};
+		this.getWebitelParam();
 		this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 		this.propertyChanged = this.propertyChanged.bind(this);
 		this.endpointParametersTextChanged = this.endpointParametersTextChanged.bind(this);
@@ -47,6 +53,34 @@ export class BridgeProperties extends React.Component {
 		this.getEndpointInputForm = this.getEndpointInputForm.bind(this);
 		this.showEndpoint = this.showEndpoint.bind(this);
 	}
+	getWebitelParam(){
+		this.getGateway();
+		this.getDirectory();
+	}
+	getGateway(){
+		if(Element.webitelParams.gatewayArr.length === 0) {
+			Element.webitelParams.gateway((arr) => {
+					this.setState({
+						webitelGateway: arr,
+						name: arr[0] || ''
+					});
+					Element.webitelParams.gatewayArr = arr;
+				}
+			);
+		}
+	}
+	getDirectory(){
+		if(Element.webitelParams.directoryArr.length === 0) {
+			Element.webitelParams.directory((arr) => {
+					this.setState({
+						webitelDirectory: arr,
+						userNameText: arr[0] || ''
+					});
+					Element.webitelParams.directoryArr = arr;
+				}
+			);
+		}
+	}
 	componentWillReceiveProps(nextProps) {
 		if(this.props.node.id !== nextProps.node.id){
 			this.json = nextProps.node.extras.bridge;
@@ -58,11 +92,11 @@ export class BridgeProperties extends React.Component {
 				endpoints: this.json.endpoints || [],
 				type: 'sipGateway',
 				parametersText: '',
-				name:'',
-				host:'',
-				dialString:'',
+				name: this.state.webitelGateway[0] || '',
+				host: '',
+				dialString: '',
 				profile: this.defValues.profile[0],
-				userNameText: this.webitel[0] || '',
+				userNameText: this.state.webitelDirectory[0] || '',
 				endpointParametersText: '',
 				codecsSelect: 'PCMA',
 				showEndpoint: false
@@ -119,7 +153,7 @@ export class BridgeProperties extends React.Component {
 			this.setState({
 				endpoints: this.json.endpoints,
 				dialString: '',
-				name: '',
+				name: this.state.webitelGateway[0] || '',
 				endpointParametersText: ''
 			});
 		}
@@ -148,7 +182,7 @@ export class BridgeProperties extends React.Component {
 				});
 				this.setState({
 					endpoints: this.json.endpoints,
-					userNameText: this.webitel[0] || '',
+					userNameText: this.state.webitelDirectory[0] || '',
 					endpointParametersText: ''
 				});
 			}
@@ -170,9 +204,9 @@ export class BridgeProperties extends React.Component {
 	typeChanged(e){
 		this.setState({
 			type: e.target.value,
-			name:'',
-			host:'',
-			userNameText: this.webitel[0],
+			name: this.state.webitelGateway[0] || '',
+			host: '',
+			userNameText: this.state.webitelDirectory[0],
 			dialString:'',
 			profile: this.defValues.profile[0]
 		});
@@ -332,8 +366,12 @@ export class BridgeProperties extends React.Component {
 				<div>
 					<div>
 						<label>Name</label>
-						<input name="name" type="text" value={ this.state.name} onInput={(e)=>{this.propertyChanged(e)}}
-									 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+						<select name="name" value={this.state.name} onChange={(e)=>{this.propertyChanged(e)}}
+										onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+							{this.state.webitelGateway.map( (i, index) => {
+								return <option key={index} value={i}>{i}</option>;
+							})}
+						</select>
 					</div>
 					<div>
 						<label>Dial String</label>
@@ -375,7 +413,7 @@ export class BridgeProperties extends React.Component {
 						<label>Username</label>
 						<select name="userNameText" value={this.state.userNameText} onChange={(e)=>{this.propertyChanged(e)}}
 										onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-							{this.webitel.map( (i, index) => {
+							{this.state.webitelDirectory.map( (i, index) => {
 								return <option key={index} value={i}>{i}</option>;
 							})}
 						</select>

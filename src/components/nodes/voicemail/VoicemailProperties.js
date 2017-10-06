@@ -11,9 +11,9 @@ export class VoicemailProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
-        this.webitel = Element.webitelParams.directory;
+        //this.webitel = Element.webitelParams.directory;
         this.json = this.props.node.extras.voicemail;
-				this.json.user = this.json.user === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.user;
+				//this.json.user = this.json.user === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.user;
         if(this.json.hasOwnProperty('check')){
 					this.state={
 						action: 'check',
@@ -21,7 +21,8 @@ export class VoicemailProperties extends React.Component {
 							user: this.json.user,
 							check: this.json.check,
 							auth: this.json.auth
-						}
+						},
+						webitel: Element.webitelParams.directoryArr
 					};
 				}
 				else{
@@ -33,9 +34,11 @@ export class VoicemailProperties extends React.Component {
 							skip_instructions: this.json.skip_instructions,
 							cc: this.json.cc || [],
 							ccText:''
-						}
+						},
+						webitel: Element.webitelParams.directoryArr
 					};
 				}
+				this.getWebitelParam();
 				this.actionChanged = this.actionChanged.bind(this);
         this.propertyChanged = this.propertyChanged.bind(this);
 				this.ccTextChanged = this.ccTextChanged.bind(this);
@@ -48,7 +51,7 @@ export class VoicemailProperties extends React.Component {
     		if(this.props.node.id === nextProps.node.id)
     			return;
         this.json = nextProps.node.extras.voicemail;
-				this.json.user = this.json.user === '' && this.webitel.length > 0 ? this.webitel[0] : this.json.user;
+				this.json.user = this.json.user === '' && this.state.webitel.length > 0 ? this.state.webitel[0] : this.json.user;
 				if(this.json.hasOwnProperty('check')){
 					this.state={
 						action: 'check',
@@ -71,7 +74,30 @@ export class VoicemailProperties extends React.Component {
 						}
 					};
 				}
+				this.getWebitelParam();
     }
+
+		getWebitelParam(){
+			if(Element.webitelParams.directoryArr.length === 0) {
+				Element.webitelParams.directory((arr) => {
+						this.json.user = this.json.user === '' && this.state.webitel.length > 0 ? this.state.webitel[0] : this.json.user;
+						this.setState({
+							webitel: arr,
+							user: this.json.user
+						});
+						Element.webitelParams.directoryArr = arr;
+					}
+				);
+			}
+			else{
+				let arr = Element.webitelParams.directoryArr;
+				this.json.user = this.json.user === '' && arr.length > 0 ? arr[0] : this.json.user;
+				this.setState({
+					user: this.json.user,
+					webitel: arr
+				});
+			}
+		}
 
     propertyChanged(e){
         this.json[e.target.name] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -112,8 +138,8 @@ export class VoicemailProperties extends React.Component {
 			Object.keys(this.json).forEach((option)=>{delete this.json[option]});
 			let tmpObj = {};
     	if(e.target.value === 'leave') {
-				tmpObj = { skip_greeting: false, skip_instructions: false, cc: [] };
-				Object.assign(this.json, { user: '', skip_greeting: false, skip_instructions: false, cc: [] });
+				tmpObj = { skip_greeting: true, skip_instructions: true, cc: [] };
+				Object.assign(this.json, { user: '', skip_greeting: true, skip_instructions: true, cc: [] });
 			}
 			else{
     		tmpObj = { check: true, auth: true };
@@ -142,7 +168,7 @@ export class VoicemailProperties extends React.Component {
                     <label>User</label>
 										<select name="user" value={this.state.stateObject.user} onChange={(e)=>{this.propertyChanged(e)}}
 														onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-											{this.webitel.map( (i, index) => {
+											{this.state.webitel.map( (i, index) => {
 												return <option key={index} value={i}>{i}</option>;
 											})}
 										</select>

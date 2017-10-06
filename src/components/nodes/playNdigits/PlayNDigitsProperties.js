@@ -12,11 +12,12 @@ export class PlayNDigitsProperties extends React.Component {
 	constructor(props){
 		super(props);
 		this.defValues = Element[this.props.node.nodeType];
-		this.webitel = Element.webitelParams.media;
+		//this.webitel = Element.webitelParams.media;
 		this.json = this.props.node.extras.playback;
 		this.json.files = this.json.hasOwnProperty('files') ? this.json.files : [{name: this.json.name, type: this.json.type}];
 		delete this.json.type;
 		delete this.json.name;
+		let mediaArr = Element.webitelParams.mediaArr;
 		this.state={
 			files: this.json.files || [],
 			setVar: this.json.getDigits.setVar,
@@ -25,9 +26,11 @@ export class PlayNDigitsProperties extends React.Component {
 			tries: this.json.getDigits.tries,
 			timeout: this.json.getDigits.timeout,
 			flushDTMF: this.json.getDigits.flushDTMF,
-			name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
-			type: this.defValues.files[0]
+			name: mediaArr.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
+			type: this.defValues.files[0],
+			webitel: mediaArr
 		};
+		this.getWebitelParam();
 		this.jsonGetDigitsPropertyChanged = this.jsonGetDigitsPropertyChanged.bind(this);
 		this.jsonGetDigitsCheckboxChanged = this.jsonGetDigitsCheckboxChanged.bind(this);
 		this.typeChanged = this.typeChanged.bind(this);
@@ -35,7 +38,20 @@ export class PlayNDigitsProperties extends React.Component {
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
 		this.getInputMedia = this.getInputMedia.bind(this);
-
+	}
+	getWebitelParam(){
+		if(Element.webitelParams.mediaArr.length === 0) {
+			Element.webitelParams.media((arr) => {
+					this.setState({
+						webitel: arr,
+						name: arr.filter((item) => {
+							return item.substr(item.length - 3) === 'wav'
+						})[0]
+					});
+					Element.webitelParams.mediaArr = arr;
+				}
+			);
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		if(this.props.node.id !== nextProps.node.id){
@@ -51,7 +67,7 @@ export class PlayNDigitsProperties extends React.Component {
 				tries: this.json.getDigits.tries,
 				timeout: this.json.getDigits.timeout,
 				flushDTMF: this.json.getDigits.flushDTMF,
-				name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
+				name: this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
 				type: this.defValues.files[0]
 			});
 		}
@@ -59,7 +75,7 @@ export class PlayNDigitsProperties extends React.Component {
 	typeChanged(e){
 		this.setState({
 			type: e.target.value,
-			name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
+			name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
 		});
 	}
 	nameChanged(e){
@@ -83,7 +99,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.json.files.push({name:this.state.name, type:this.state.type});
 		this.setState({
 			files: this.json.files,
-			name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0],
+			name: this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
 			type: this.defValues.files[0]
 		});
 	}
@@ -95,11 +111,11 @@ export class PlayNDigitsProperties extends React.Component {
 		});
 	}
 	getInputMedia(){
-		if(['mp3', 'wav'].indexOf(this.state.type) !== -1){
+		if(['mp3', 'wav'].indexOf(this.state.type) !== -1 && this.state.webitel){
 			return (
 				<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
 								onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-					{this.webitel.map( (i, index) => {
+					{this.state.webitel.map( (i, index) => {
 						if(i.substr(i.length - 3) === this.state.type)
 							return <option key={index} value={i}>{i}</option>;
 					})}

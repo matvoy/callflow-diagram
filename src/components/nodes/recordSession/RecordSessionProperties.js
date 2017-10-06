@@ -105,7 +105,7 @@ export class RecordSessionProperties extends React.Component {
 									</div>
 									<div>
 											<label>Bridged</label>
-											<input name='bridged' type="checkbox" checked={ this.state.bridged} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
+											<input name='bridged' type="checkbox" checked={ this.state.bridged } onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 									</div>
 									<div>
@@ -115,7 +115,7 @@ export class RecordSessionProperties extends React.Component {
 									</div>
 									<div>
 											<label>Follow Transfer</label>
-											<input name="followTransfer" type="checkbox" checked={ this.state.followTransfer} onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
+											<input name="followTransfer" type="checkbox" checked={ this.state.followTransfer } onChange={(e)=>{this.jsonCheckboxPropertyChanged(e)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 									</div>
 								</Pane>

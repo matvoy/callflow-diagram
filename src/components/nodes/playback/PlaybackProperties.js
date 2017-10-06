@@ -8,12 +8,14 @@ export class PlaybackProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
-				this.webitel = Element.webitelParams.media;
-        this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
+				//this.webitel = Element.webitelParams.media;
+				let mediaArr = Element.webitelParams.mediaArr;
+        this.state={name: mediaArr.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0], type: this.defValues.files[0], webitel: mediaArr};
         this.files = props.node.extras.playback.hasOwnProperty('files') ? props.node.extras.playback['files'] : [{name: props.node.extras.playback.name, type: props.node.extras.playback.type}];
 				delete props.node.extras.playback.type;
 				delete props.node.extras.playback.name;
 				props.node.extras.playback.files = this.files;
+				this.getWebitelParam();
         this.typeChanged = this.typeChanged.bind(this);
         this.nameChanged = this.nameChanged.bind(this);
         this.addMedia = this.addMedia.bind(this);
@@ -27,12 +29,39 @@ export class PlaybackProperties extends React.Component {
 			 	delete nextProps.node.extras.playback.type;
 				delete nextProps.node.extras.playback.name;
 				nextProps.node.extras.playback.files = this.files;
-				this.state={name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]};
+				this.state={
+					name: this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
+					type: this.defValues.files[0]
+				};
+				this.getWebitelParam();
     }
+		getWebitelParam(){
+			if(Element.webitelParams.mediaArr.length === 0) {
+				Element.webitelParams.media((arr) => {
+						this.setState({
+							webitel: arr,
+							name: arr.filter((item) => {
+								return item.substr(item.length - 3) === 'wav'
+							})[0]
+						});
+						Element.webitelParams.mediaArr = arr;
+					}
+				);
+			}
+			else{
+				let arr = Element.webitelParams.mediaArr;
+				this.setState({
+					webitel: arr,
+					name: arr.filter((item) => {
+						return item.substr(item.length - 3) === 'wav'
+					})[0]
+				});
+			}
+		}
     typeChanged(e){
         this.setState({
             type: e.target.value,
-						name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
+						name: ['mp3', 'wav'].indexOf(e.target.value) !== -1 ? this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === e.target.value})[0] : ''
         });
     }
     nameChanged(e){
@@ -43,7 +72,7 @@ export class PlaybackProperties extends React.Component {
     addMedia(){
         let file = {name:this.state.name, type:this.state.type};
         this.files.push(file);
-        this.setState({name: this.webitel.filter((item)=>{return item.substr(item.length - 3) === 'mp3'})[0], type: this.defValues.files[0]});
+        this.setState({name: this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0], type: this.defValues.files[0]});
     }
     deleteMedia(item){
         let index = this.files.indexOf(item);
@@ -51,11 +80,11 @@ export class PlaybackProperties extends React.Component {
         this.forceUpdate();
     }
     getInputMedia(){
-    	if(['mp3', 'wav'].indexOf(this.state.type) !== -1){
+    	if(['mp3', 'wav'].indexOf(this.state.type) !== -1 && this.state.webitel){
     		return (
 					<select value={this.state.name} onChange={(e)=>{this.nameChanged(e)}}
 									onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-						{this.webitel.map( (i, index) => {
+						{this.state.webitel.map( (i, index) => {
 							if(i.substr(i.length - 3) === this.state.type){
 								return <option key={index} value={i}>{i}</option>;
 							}

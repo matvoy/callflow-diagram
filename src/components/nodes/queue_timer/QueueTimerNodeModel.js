@@ -3,7 +3,7 @@ import * as RJD from 'react-js-diagrams';
 
 
 export class QueueTimerNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {interval:0,tries:0,
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = {interval:90,tries:1,
       actions: [
         {
           ccPosition: {

@@ -3,10 +3,16 @@
  */
 var Elements = {
 		webitelParams: {
-			media: [],
-			calendar: [],
-			acd: [],
-			directory: []
+			media: null,
+			mediaArr: [],
+			calendar: null,
+			calendarArr: [],
+			acd: null,
+			acdArr: [],
+			directory: null,
+			directoryArr: [],
+			gateway: null,
+			gatewayArr: []
 		},
     answer: {
         name: 'Sip code',
@@ -113,8 +119,8 @@ var Elements = {
     playback:{
         single: false,
         files:[
-            'mp3',
             'wav',
+						'mp3',
             'shout',
             'tone',
             'silence'
@@ -123,8 +129,8 @@ var Elements = {
 		playNdigits:{
 			single: false,
 			files:[
-				'mp3',
 				'wav',
+				'mp3',
 				'shout',
 				'tone',
 				'silence'

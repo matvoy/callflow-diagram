@@ -134,7 +134,7 @@ export class RecordSessionProperties extends React.Component {
 																	return (
 																			<li>
 																					<span>{i}</span>
-																					<button onClick={()=>{this.deleteEmail(i)}}>x</button>
+																					<button onClick={()=>{this.deleteEmail(i)}}><i className="fa fa-times"></i></button>
 																			</li>
 																	);
 															}

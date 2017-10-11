@@ -207,7 +207,7 @@ export class VoicemailProperties extends React.Component {
 											return (
 												<li>
 													<span>{i}</span>
-													<button onClick={()=>{this.deleteCC(i)}}>x</button>
+													<button onClick={()=>{this.deleteCC(i)}}><i className="fa fa-times"></i></button>
 												</li>
 											);
 										}

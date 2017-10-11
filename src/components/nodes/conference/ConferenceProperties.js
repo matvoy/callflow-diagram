@@ -74,7 +74,7 @@ export class ConferenceProperties extends React.Component {
 										return (
 											<li>
 												<span>{i}</span>
-												<button onClick={()=>{this.deleteFlag(i)}}>delete</button>
+												<button onClick={()=>{this.deleteFlag(i)}}><i className="fa fa-times"></i></button>
 											</li>
 										);
 									}

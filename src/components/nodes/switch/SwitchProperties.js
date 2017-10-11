@@ -73,7 +73,7 @@ export class SwitchProperties extends React.Component {
             arr.push (
 							<li>
 								<span>{i}</span>
-								<button onClick={() => { this.deleteCase(i) }}>x</button>
+								<button onClick={() => { this.deleteCase(i) }}><i className="fa fa-times"></i></button>
 							</li>
             );
         }

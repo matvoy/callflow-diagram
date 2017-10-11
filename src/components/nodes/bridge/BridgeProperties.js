@@ -45,6 +45,8 @@ export class BridgeProperties extends React.Component {
 		this.addCodecs = this.addCodecs.bind(this);
 		this.deleteCodecs = this.deleteCodecs.bind(this);
 		this.getTypedParameters = this.getTypedParameters.bind(this);
+		this.upEndpoint = this.upEndpoint.bind(this);
+		this.downEndpoint = this.downEndpoint.bind(this);
 		this.addEndpoint = this.addEndpoint.bind(this);
 		this.deleteEndpoint = this.deleteEndpoint.bind(this);
 		this.addEndpointParameter = this.addEndpointParameter.bind(this);
@@ -58,7 +60,7 @@ export class BridgeProperties extends React.Component {
 		this.getDirectory();
 	}
 	getGateway(){
-		if(Element.webitelParams.gatewayArr.length === 0) {
+		if(Element.webitelParams.gatewayArr.length === 0 && typeof Element.webitelParams.gateway === 'function') {
 			Element.webitelParams.gateway((arr) => {
 					this.setState({
 						webitelGateway: arr,
@@ -70,7 +72,7 @@ export class BridgeProperties extends React.Component {
 		}
 	}
 	getDirectory(){
-		if(Element.webitelParams.directoryArr.length === 0) {
+		if(Element.webitelParams.directoryArr.length === 0 && typeof Element.webitelParams.directory === 'function') {
 			Element.webitelParams.directory((arr) => {
 					this.setState({
 						webitelDirectory: arr,
@@ -140,6 +142,24 @@ export class BridgeProperties extends React.Component {
 		this.json.parameters.splice(index,1);
 		this.setState({
 			parameters: this.json.parameters
+		});
+	}
+	upEndpoint(item){
+		let index = this.json.endpoints.indexOf(item);
+		let tmp = this.json.endpoints[index - 1];
+		this.json.endpoints[index - 1] = item;
+		this.json.endpoints[index] = tmp;
+		this.setState({
+			endpoints: this.json.endpoints
+		});
+	}
+	downEndpoint(item){
+		let index = this.json.endpoints.indexOf(item);
+		let tmp = this.json.endpoints[index + 1];
+		this.json.endpoints[index + 1] = item;
+		this.json.endpoints[index] = tmp;
+		this.setState({
+			endpoints: this.json.endpoints
 		});
 	}
 	addEndpoint(){
@@ -230,7 +250,7 @@ export class BridgeProperties extends React.Component {
 		return(
 			<div>
 				<div style={{display:'inline-flex', marginBottom:'10px'}}>
-					<label className="bridge-header">{endpoint.name!==undefined ? 'Name: ' + endpoint.name : 'Host: ' + endpoint.host}</label>
+					<label className="bridge-header">{endpoint.name !== undefined ?  (endpoint.dialString !== undefined ? ('Dial String: ' + endpoint.dialString) : ('Name: ' + endpoint.name)) : 'Host: ' + endpoint.host}</label>
 					<button className="bridge-button" onClick={()=>{this.showEndpoint(false, null)}}>back</button>
 				</div>
 				<form onSubmit={(e)=>{e.preventDefault()}}>
@@ -245,7 +265,7 @@ export class BridgeProperties extends React.Component {
 								return (
 									<li>
 										<span>{j}</span>
-										<button onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}>x</button>
+										<button onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}><i className="fa fa-times"></i></button>
 									</li>
 								);
 							}
@@ -271,8 +291,10 @@ export class BridgeProperties extends React.Component {
 					{this.state.endpoints.map((i, index)=> {
 							return (
 								<li>
-									<span className="bridge-item" onClick={()=>{this.showEndpoint(true, index)}}>Type: {i.type}<br/><span>{i.name!==undefined ? 'Name: ' + i.name : 'Host: ' + i.host}</span></span>
-									<button onClick={()=>{this.deleteEndpoint(i)}}>x</button>
+									<span className="bridge-item" onClick={()=>{this.showEndpoint(true, index)}}>Type: {i.type}<br/><span>{i.name !== undefined ? (i.dialString !== undefined ? ('Dial String: ' + i.dialString) : ('Name: ' + i.name)) : 'Host: ' + i.host}</span></span>
+									<button onClick={()=>{this.deleteEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-times"></i></button>
+									{index !== 0 ? (<button onClick={()=>{this.upEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-arrow-up"></i></button>) : null}
+									{index !== this.state.endpoints.length-1 ? (<button onClick={()=>{this.downEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-arrow-down"></i></button>) : null}
 								</li>
 							);
 						}
@@ -321,7 +343,7 @@ export class BridgeProperties extends React.Component {
 										return (
 											<li>
 												<span>{i}</span>
-												<button onClick={()=>{this.deleteCodecs(i)}}>x</button>
+												<button onClick={()=>{this.deleteCodecs(i)}}><i className="fa fa-times"></i></button>
 											</li>
 										);
 									}
@@ -343,7 +365,7 @@ export class BridgeProperties extends React.Component {
 										return (
 											<li>
 												<span>{i}</span>
-												<button onClick={()=>{this.deleteParameter(i)}}>x</button>
+												<button onClick={()=>{this.deleteParameter(i)}}><i className="fa fa-times"></i></button>
 											</li>
 										);
 									}

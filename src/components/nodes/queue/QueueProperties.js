@@ -16,7 +16,7 @@ export class QueueProperties extends React.Component {
         this.getWebitelParam();
     }
 		getWebitelParam(){
-			if(Element.webitelParams.acdArr.length === 0) {
+			if(Element.webitelParams.acdArr.length === 0 && typeof Element.webitelParams.acd === 'function') {
 				Element.webitelParams.acd((arr) => {
 						this.json.name = this.json.name === '' && arr.length > 0 ? arr[0] : this.json.name;
 						this.setState({

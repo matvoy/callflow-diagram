@@ -101,7 +101,7 @@ export class VariablesProperties extends React.Component {
                                 return (
                                     <li>
 																			<span>{i}</span>
-                                        <button onClick={()=>{this.deleteVar(i)}}>x</button>
+                                        <button onClick={()=>{this.deleteVar(i)}}><i className="fa fa-times"></i></button>
                                     </li>
                                 );
                             }

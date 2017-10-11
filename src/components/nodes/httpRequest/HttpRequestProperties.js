@@ -147,7 +147,7 @@ export class HttpRequestProperties extends React.Component {
 					list.push((
 						<li>
 							<span>{option + ': ' + this.state.headers[option]}</span>
-							<button name="headers" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
+							<button name="headers" onClick={(e)=>{this.deleteKeyValue(e, option)}}><i className="fa fa-times"></i></button>
 						</li>
 					));
 				}
@@ -176,7 +176,7 @@ export class HttpRequestProperties extends React.Component {
 					list.push((
 						<li>
 							<span>{option + ': ' + this.state.path[option]}</span>
-							<button name="path" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
+							<button name="path" onClick={(e)=>{this.deleteKeyValue(e, option)}}><i className="fa fa-times"></i></button>
 						</li>
 					));
 				}
@@ -205,7 +205,7 @@ export class HttpRequestProperties extends React.Component {
 					list.push((
 						<li>
 							<span>{option + ': ' + this.state.data[option]}</span>
-							<button name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
+							<button name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}><i className="fa fa-times"></i></button>
 						</li>
 					));
 				}
@@ -234,7 +234,7 @@ export class HttpRequestProperties extends React.Component {
 					list.push((
 						<li>
 							<span>{option + ': ' + this.state.exportVariables[option]}</span>
-							<button name="exportVariables" onClick={(e)=>{this.deleteKeyValue(e, option)}}>x</button>
+							<button name="exportVariables" onClick={(e)=>{this.deleteKeyValue(e, option)}}><i className="fa fa-times"></i></button>
 						</li>
 					));
 				}

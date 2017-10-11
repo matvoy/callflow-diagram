@@ -15,7 +15,7 @@ export class CalendarProperties extends React.Component {
         this.getWebitelParam();
     }
     getWebitelParam(){
-    	if(Element.webitelParams.calendarArr.length === 0){
+    	if(Element.webitelParams.calendarArr.length === 0 && typeof Element.webitelParams.calendar === 'function'){
 				Element.webitelParams.calendar((arr) => {
 						this.json.name = this.json.name === '' && arr.length > 0 ? arr[0] : this.json.name;
 						this.setState({

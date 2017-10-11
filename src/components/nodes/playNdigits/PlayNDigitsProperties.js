@@ -40,7 +40,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.getInputMedia = this.getInputMedia.bind(this);
 	}
 	getWebitelParam(){
-		if(Element.webitelParams.mediaArr.length === 0) {
+		if(Element.webitelParams.mediaArr.length === 0 && typeof Element.webitelParams.media === 'function') {
 			Element.webitelParams.media((arr) => {
 					this.setState({
 						webitel: arr,
@@ -186,7 +186,7 @@ export class PlayNDigitsProperties extends React.Component {
 										return (
 											<li>
 												<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
-												<button onClick={()=>{this.deleteFile(i)}}>x</button>
+												<button onClick={()=>{this.deleteFile(i)}}><i className="fa fa-times"></i></button>
 											</li>
 										);
 									}

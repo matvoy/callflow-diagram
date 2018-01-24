@@ -25,6 +25,7 @@ export class RecordSessionProperties extends React.Component {
         };
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 				this.jsonCheckboxPropertyChanged = this.jsonCheckboxPropertyChanged.bind(this);
+				this.jsonNumberPropertyChanged = this.jsonNumberPropertyChanged.bind(this);
         this.emailTextChanged = this.emailTextChanged.bind(this);
         this.addEmail = this.addEmail.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
@@ -48,6 +49,12 @@ export class RecordSessionProperties extends React.Component {
 			this.json[e.target.name] = e.target.value;
 			this.setState({
 				[e.target.name]: e.target.value
+			});
+		}
+		jsonNumberPropertyChanged(e){
+			this.json[e.target.name] = e.target.valueAsNumber;
+			this.setState({
+				[e.target.name]: e.target.valueAsNumber
 			});
 		}
 		jsonCheckboxPropertyChanged(e){
@@ -110,7 +117,7 @@ export class RecordSessionProperties extends React.Component {
 									</div>
 									<div>
 											<label>Min Seconds</label>
-											<input name="minSec" type="number" value={ this.state.minSec} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+											<input name="minSec" type="number" value={ this.state.minSec} onInput={(e)=>{this.jsonNumberPropertyChanged(e)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 									</div>
 									<div>

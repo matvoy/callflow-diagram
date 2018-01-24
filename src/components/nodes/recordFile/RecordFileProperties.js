@@ -23,6 +23,7 @@ export class RecordFileProperties extends React.Component {
             emailText: ''
         };
         this.propertyChanged = this.propertyChanged.bind(this);
+				this.propertyNumberChanged = this.propertyNumberChanged.bind(this);
         this.addEmail = this.addEmail.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
     }
@@ -46,6 +47,12 @@ export class RecordFileProperties extends React.Component {
             [e.target.name]: e.target.value
         });
     }
+		propertyNumberChanged(e){
+			this.json[e.target.name] = e.target.valueAsNumber;
+			this.setState({
+				[e.target.name]: e.target.valueAsNumber
+			});
+		}
     emailTextChanged(e){
         this.setState({
             emailText: e.target.value
@@ -91,12 +98,12 @@ export class RecordFileProperties extends React.Component {
 									</div>
 									<div>
 											<label>Max Seconds</label>
-											<input name="maxSec" type="number" value={ this.state.maxSec} onInput={(e)=>{this.propertyChanged(e)}}
+											<input name="maxSec" type="number" value={ this.state.maxSec} onInput={(e)=>{this.propertyNumberChanged(e)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 									</div>
 									<div>
 											<label>Silence Hits</label>
-											<input name="silenceHits" type="number" value={ this.state.silenceHits} onInput={(e)=>{this.propertyChanged(e)}}
+											<input name="silenceHits" type="number" value={ this.state.silenceHits} onInput={(e)=>{this.propertyNumberChanged(e)}}
 														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 									</div>
 								</Pane>

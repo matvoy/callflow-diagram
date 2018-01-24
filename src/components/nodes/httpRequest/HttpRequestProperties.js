@@ -32,6 +32,7 @@ export class HttpRequestProperties extends React.Component {
 						exportVariablesValue: ''
         };
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
+				this.jsonNumberPropertyChanged = this.jsonNumberPropertyChanged.bind(this);
 				this.propertyChanged = this.propertyChanged.bind(this);
         this.addKeyValue = this.addKeyValue.bind(this);
         this.deleteKeyValue = this.deleteKeyValue.bind(this);
@@ -64,7 +65,12 @@ export class HttpRequestProperties extends React.Component {
 						exportVariablesValue: ''
         });
     }
-
+		jsonNumberPropertyChanged(e){
+			this.json[e.target.name] = e.target.valueAsNumber;
+			this.setState({
+				[e.target.name]: e.target.valueAsNumber
+			});
+		}
 		jsonPropertyChanged(e){
         this.json[e.target.name] = e.target.value;
         this.setState({
@@ -115,7 +121,7 @@ export class HttpRequestProperties extends React.Component {
 								</div>
 								<div>
 									<label>Timeout, ms</label>
-									<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+									<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonNumberPropertyChanged(e)}}
 												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 								</div>
 								<div>

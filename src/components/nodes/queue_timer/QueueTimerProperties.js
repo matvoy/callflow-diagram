@@ -9,17 +9,18 @@ import React from 'react';
 export class QueueTimerProperties extends React.Component {
     constructor(props){
         super(props);
+				this.propertyNumberChanged = this.propertyNumberChanged.bind(this);
         this.propertyChanged = this.propertyChanged.bind(this);
         this.positionChanged = this.positionChanged.bind(this);
         this.json = this.props.node.extras;
         this.state = { interval: this.json.interval, tries: this.json.tries, position: this.json.actions[0].ccPosition.var};
     }
-    propertyChanged(e){
-				this.json[e.target.name]=parseInt(e.target.value);
-        this.setState({
-					[e.target.name]: e.target.value
-        });
-    }
+		propertyNumberChanged(e){
+			this.json[e.target.name]=e.target.valueAsNumber;
+			this.setState({
+				[e.target.name]: e.target.valueAsNumber
+			});
+		}
     positionChanged(e){
         this.props.node.extras.actions[0].ccPosition.var=e.target.value;
         this.setState({
@@ -36,12 +37,12 @@ export class QueueTimerProperties extends React.Component {
             <div>
                 <div>
                     <label>Interval</label>
-                    <input name="interval" type="number" value={this.state.interval} onInput={(e)=>{this.propertyChanged(e)}}
+                    <input name="interval" type="number" value={this.state.interval} onInput={(e)=>{this.propertyNumberChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>
                     <label>Retries</label>
-                    <input name="tries" type="number" value={this.state.tries} onInput={(e)=>{this.propertyChanged(e)}}
+                    <input name="tries" type="number" value={this.state.tries} onInput={(e)=>{this.propertyNumberChanged(e)}}
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
                 <div>

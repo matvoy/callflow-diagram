@@ -33,6 +33,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.getWebitelParam();
 		this.jsonGetDigitsPropertyChanged = this.jsonGetDigitsPropertyChanged.bind(this);
 		this.jsonGetDigitsCheckboxChanged = this.jsonGetDigitsCheckboxChanged.bind(this);
+		this.jsonGetDigitsNumberChanged = this.jsonGetDigitsNumberChanged.bind(this);
 		this.typeChanged = this.typeChanged.bind(this);
 		this.nameChanged = this.nameChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
@@ -87,6 +88,12 @@ export class PlayNDigitsProperties extends React.Component {
 		this.json.getDigits[e.target.name] = e.target.value;
 		this.setState({
 			[e.target.name]: e.target.value
+		});
+	}
+	jsonGetDigitsNumberChanged(e){
+		this.json.getDigits[e.target.name] = e.target.valueAsNumber;
+		this.setState({
+			[e.target.name]: e.target.valueAsNumber
 		});
 	}
 	jsonGetDigitsCheckboxChanged(e){
@@ -147,22 +154,22 @@ export class PlayNDigitsProperties extends React.Component {
 						</div>
 						<div>
 							<label>Minimum digits</label>
-							<input name="min" type="number" value={ this.state.min} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+							<input name="min" type="number" value={ this.state.min} onInput={(e)=>{this.jsonGetDigitsNumberChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Maximum digits</label>
-							<input name="max" type="number" value={ this.state.max} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+							<input name="max" type="number" value={ this.state.max} onInput={(e)=>{this.jsonGetDigitsNumberChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Number of tries</label>
-							<input name="tries" type="number" value={ this.state.tries} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+							<input name="tries" type="number" value={ this.state.tries} onInput={(e)=>{this.jsonGetDigitsNumberChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>
 							<label>Timeout</label>
-							<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonGetDigitsPropertyChanged(e)}}
+							<input name="timeout" type="number" value={ this.state.timeout} onInput={(e)=>{this.jsonGetDigitsNumberChanged(e)}}
 										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 						</div>
 						<div>

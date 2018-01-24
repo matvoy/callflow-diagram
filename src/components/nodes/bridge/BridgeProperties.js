@@ -423,7 +423,7 @@ export class BridgeProperties extends React.Component {
 	getInputMedia(){
 		let time = new Date();
 		let pblist = time.getTime() + 1;
-		if(['mp3', 'wav'].indexOf(this.state.type) !== -1 && this.state.webitel){
+		if(['mp3', 'wav'].indexOf(this.state.mediaType) !== -1 && this.state.webitelMedia){
 			return (
 				<div>
 					<input type="text" autoComplete="off" name="mediaName" list={pblist} value={this.state.mediaName} onChange={(e)=>{this.propertyChanged(e)}}

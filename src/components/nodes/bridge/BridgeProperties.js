@@ -25,11 +25,11 @@ export class BridgeProperties extends React.Component {
 			endpoints: this.json.endpoints || [],
 			type: 'sipGateway',
 			parametersText: '',
-			name: gtwArr[0] || '',
+			name: '',//gtwArr[0] || '',
 			host:'',
 			dialString:'',
 			profile: this.defValues.profile[0],
-			userNameText: dirArr[0] || '',
+			userNameText: '',//dirArr[0] || '',
 			endpointParametersText: '',
 			codecsSelect: 'PCMA',
 			showEndpoint: false,
@@ -64,7 +64,7 @@ export class BridgeProperties extends React.Component {
 			Element.webitelParams.gateway((arr) => {
 					this.setState({
 						webitelGateway: arr,
-						name: arr[0] || ''
+						name: ''//arr[0] || ''
 					});
 					Element.webitelParams.gatewayArr = arr;
 				}
@@ -76,7 +76,7 @@ export class BridgeProperties extends React.Component {
 			Element.webitelParams.directory((arr) => {
 					this.setState({
 						webitelDirectory: arr,
-						userNameText: arr[0] || ''
+						userNameText: ''//arr[0] || ''
 					});
 					Element.webitelParams.directoryArr = arr;
 				}
@@ -94,11 +94,11 @@ export class BridgeProperties extends React.Component {
 				endpoints: this.json.endpoints || [],
 				type: 'sipGateway',
 				parametersText: '',
-				name: this.state.webitelGateway[0] || '',
+				name: '',//this.state.webitelGateway[0] || '',
 				host: '',
 				dialString: '',
 				profile: this.defValues.profile[0],
-				userNameText: this.state.webitelDirectory[0] || '',
+				userNameText: '',//this.state.webitelDirectory[0] || '',
 				endpointParametersText: '',
 				codecsSelect: 'PCMA',
 				showEndpoint: false
@@ -173,7 +173,7 @@ export class BridgeProperties extends React.Component {
 			this.setState({
 				endpoints: this.json.endpoints,
 				dialString: '',
-				name: this.state.webitelGateway[0] || '',
+				name: '',//this.state.webitelGateway[0] || '',
 				endpointParametersText: ''
 			});
 		}
@@ -202,7 +202,7 @@ export class BridgeProperties extends React.Component {
 				});
 				this.setState({
 					endpoints: this.json.endpoints,
-					userNameText: this.state.webitelDirectory[0] || '',
+					userNameText: '',//this.state.webitelDirectory[0] || '',
 					endpointParametersText: ''
 				});
 			}
@@ -224,9 +224,9 @@ export class BridgeProperties extends React.Component {
 	typeChanged(e){
 		this.setState({
 			type: e.target.value,
-			name: this.state.webitelGateway[0] || '',
+			name: '',//this.state.webitelGateway[0] || '',
 			host: '',
-			userNameText: this.state.webitelDirectory[0],
+			userNameText: '',//this.state.webitelDirectory[0],
 			dialString:'',
 			profile: this.defValues.profile[0]
 		});

@@ -383,17 +383,21 @@ export class BridgeProperties extends React.Component {
 	}
 
 	getTypedParameters(){
+		let time = new Date();
+		let gwid = time.getTime();
+		let usrid =  time.getTime() + 1;
 		if(this.state.type === 'sipGateway'){
 			return(
 				<div>
 					<div>
 						<label>Name</label>
-						<select name="name" value={this.state.name} onChange={(e)=>{this.propertyChanged(e)}}
-										onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+						<input type="text" autoComplete="off" name="name" list={gwid} value={this.state.name} onChange={(e)=>{this.propertyChanged(e)}}
+									 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}/>
+						<datalist id={gwid}>
 							{this.state.webitelGateway.map( (i, index) => {
 								return <option key={index} value={i}>{i}</option>;
 							})}
-						</select>
+						</datalist>
 					</div>
 					<div>
 						<label>Dial String</label>
@@ -433,12 +437,13 @@ export class BridgeProperties extends React.Component {
 				return(
 					<div>
 						<label>Username</label>
-						<select name="userNameText" value={this.state.userNameText} onChange={(e)=>{this.propertyChanged(e)}}
-										onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+						<input type="text" autoComplete="off" name="userNameText" list={usrid} value={this.state.userNameText} onChange={(e)=>{this.propertyChanged(e)}}
+									 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}/>
+						<datalist id={usrid}>
 							{this.state.webitelDirectory.map( (i, index) => {
 								return <option key={index} value={i}>{i}</option>;
 							})}
-						</select>
+						</datalist>
 					</div>
 				);
 			}

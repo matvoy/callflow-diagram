@@ -33,6 +33,8 @@ import { VariablesNodeModel } from './nodes/variables/VariablesNodeModel';
 import { VoicemailNodeModel } from './nodes/voicemail/VoicemailNodeModel';
 import { CustomCodeNodeModel } from './nodes/customCode/CustomCodeNodeModel';
 import { TransferNodeModel } from './nodes/transfer/TransferNodeModel';
+import { ExistsNodeModel } from './nodes/exists/ExistsNodeModel';
+
 
 // Setup the diagram model
 let diagramModel = new ExtendedDiagramModel();
@@ -133,6 +135,9 @@ const nodesTarget = {
 		}
 		if (item.type === 'transfer') {
 			node = new TransferNodeModel('Transfer', item.color);
+		}
+		if (item.type === 'exists') {
+			node = new ExistsNodeModel('Exists', item.color);
 		}
 
     node.x = x;

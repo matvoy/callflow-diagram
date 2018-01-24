@@ -341,7 +341,7 @@ html, body, #root {
         border-radius: 3px;
         border: 1px solid #BABABA;
         option {
-          color: black;
+          background-color: #242633;
         }
       }
 
@@ -665,6 +665,10 @@ html, body, #root {
   .app-img-transfer{
     @extend .app-img;
     background-image: url("../images/forward-call.svg");
+  }
+  .app-img-exists{
+    @extend .app-img;
+    background-image: url("../images/search-in-folder.svg");
   }
   .ports{
     display: flex;

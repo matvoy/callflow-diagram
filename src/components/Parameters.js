@@ -25,6 +25,7 @@ import { VariablesProperties } from './nodes/variables/VariablesProperties';
 import { VoicemailProperties } from './nodes/voicemail/VoicemailProperties';
 import { CustomCodeProperties } from './nodes/customCode/CustomCodeProperties';
 import { TransferProperties } from './nodes/transfer/TransferProperties';
+import { ExistsProperties }  from './nodes/exists/ExistsProperties';
 
 export class Parameters extends React.Component {
     getParameters(nodeType){
@@ -139,6 +140,11 @@ export class Parameters extends React.Component {
 						if(nodeType === 'transfer'){
 							return (
 								<TransferProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
+							);
+						}
+						if(nodeType === 'exists'){
+							return (
+								<ExistsProperties setIsFocused={this.props.setIsFocused} node = {this.props.node}/>
 							);
 						}
         }

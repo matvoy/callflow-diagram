@@ -194,7 +194,7 @@ var Elements = {
 		},
 		variables:{
     	single: false,
-			action:[ 'setVar', 'unSet', 'export']
+			action:[ 'setVar', 'unSet', 'exportVars']
 		},
 		voicemail:{
     	single: false,
@@ -202,6 +202,11 @@ var Elements = {
 		},
 		customCode:{
 			single: false
+		},
+		exists:{
+			single: false,
+			resource:['media', 'account', 'queue', 'dialer'],
+			type: ['mp3', 'wav']
 		},
 		tts:{
     	single: false,

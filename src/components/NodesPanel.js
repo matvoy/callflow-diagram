@@ -29,6 +29,7 @@ import { VariablesNodeWidget } from './nodes/variables/VariablesNodeWidget';
 import { VoicemailNodeWidget } from './nodes/voicemail/VoicemailNodeWidget';
 import { CustomCodeNodeWidget } from './nodes/customCode/CustomCodeNodeWidget';
 import { TransferNodeWidget } from './nodes/transfer/TransferNodeWidget';
+import { ExistsNodeWidget } from './nodes/exists/ExistsNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
@@ -120,6 +121,9 @@ class Node extends React.Component {
 		}
 		if (type === 'transfer') {
 			return <TransferNodeWidget node={{ name: 'Transfer' }} color={color} displayOnly />;
+		}
+		if (type === 'exists') {
+			return <ExistsNodeWidget node={{ name: 'Exists' }} color={color} displayOnly />;
 		}
     console.warn('Unknown node type');
     return null;
@@ -278,6 +282,10 @@ export class NodesPanel extends React.Component {
 								(<li className='node-wrapper'>
 									<Node type='httpRequest' color='rgb(114, 128, 150)'/>
 								</li>) : null}
+							{'exists'.includes(this.state.searchText.toLowerCase()) ?
+								(<li className='node-wrapper'>
+									<Node type='exists' color='rgb(114, 128, 150)'/>
+								</li>) : null}
 							{'custom code'.includes(this.state.searchText.toLowerCase()) ?
 								(<li className='node-wrapper'>
 									<Node type='customCode' color='rgb(114, 128, 150)'/>
@@ -389,6 +397,9 @@ export class NodesPanel extends React.Component {
 							</li>
 							<li className='node-wrapper'>
 								<Node type='httpRequest' color='rgb(114, 128, 150)'/>
+							</li>
+							<li className='node-wrapper'>
+								<Node type='exists' color='rgb(114, 128, 150)'/>
 							</li>
 							<li className='node-wrapper'>
 								<Node type='customCode' color='rgb(114, 128, 150)'/>

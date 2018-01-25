@@ -34,6 +34,7 @@ export class TtsProperties extends React.Component {
 						accessToken: this.json.accessToken,
 						voice: this.json.voice,
             text: this.json.text,
+						textType: this.json.textType,
 						language: lang
         };
         this.propertyChanged = this.propertyChanged.bind(this);
@@ -66,6 +67,7 @@ export class TtsProperties extends React.Component {
 					accessToken: this.json.accessToken,
 					voice: this.json.voice,
 					text: this.json.text,
+					textType: this.json.textType,
 					language: lang
         });
     }
@@ -156,6 +158,15 @@ export class TtsProperties extends React.Component {
 													 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
                 </div>
 								{this.getParametersByProvider()}
+								<div>
+									<label>Text type</label>
+									<select name="textType" value={this.state.textType} onChange={(e)=>{this.propertyChanged(e)}}
+													onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+										{this.defValues.textType.map( (i, index) => {
+											return <option key={index} value={i}>{i}</option>;
+										})}
+									</select>
+								</div>
 								<div>
 									<label>Text</label>
 									<textarea name="text" type="text" value={ this.state.text} onInput={(e)=>{this.propertyChanged(e)}}

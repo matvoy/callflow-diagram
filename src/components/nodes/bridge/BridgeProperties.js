@@ -346,7 +346,7 @@ export class BridgeProperties extends React.Component {
 								return (
 									<li>
 										<span>{j}</span>
-										<button onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}><i className="fa fa-times"></i></button>
+										<button className="fa fa-times" onClick={()=>{this.deleteEndpointParameter(j, this.state.endpointIndex)}}></button>
 									</li>
 								);
 							}
@@ -373,7 +373,7 @@ export class BridgeProperties extends React.Component {
 							return (
 								<li>
 									<span className="bridge-item" onClick={()=>{this.showEndpoint(true, index)}}>Type: {i.type}<br/><span>{i.name !== undefined ? (i.dialString !== undefined ? ('Dial String: ' + i.dialString) : ('Name: ' + i.name)) : 'Host: ' + i.host}</span></span>
-									<button onClick={()=>{this.deleteEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-times"></i></button>
+									<button className="fa fa-times" onClick={()=>{this.deleteEndpoint(i)}} style={{margin:'-2px'}}></button>
 									{index !== 0 ? (<button onClick={()=>{this.upEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-arrow-up"></i></button>) : null}
 									{index !== this.state.endpoints.length-1 ? (<button onClick={()=>{this.downEndpoint(i)}} style={{margin:'-2px'}}><i className="fa fa-arrow-down"></i></button>) : null}
 								</li>

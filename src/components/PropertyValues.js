@@ -211,6 +211,7 @@ var Elements = {
 		},
 		tts:{
     	single: false,
+			textType:['text', 'ssml'],
 			providers: [
 				{
 					name: 'polly',

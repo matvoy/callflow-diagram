@@ -7,6 +7,7 @@
 import React from 'react';
 import Element from '../../PropertyValues';
 import { Tabs, Pane } from '../../Tabs';
+import {SortableGrid} from '../../SortableGrid';
 
 export class RecordFileProperties extends React.Component {
     constructor(props){
@@ -26,6 +27,7 @@ export class RecordFileProperties extends React.Component {
 				this.propertyNumberChanged = this.propertyNumberChanged.bind(this);
         this.addEmail = this.addEmail.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
+				this.setArray = this.setArray.bind(this);
     }
     componentWillReceiveProps(nextProps) {
     		if(this.props.node.id === nextProps.node.id)
@@ -72,6 +74,12 @@ export class RecordFileProperties extends React.Component {
             email: this.json.email
         });
     }
+		setArray(arr){
+			this.json.email = arr;
+			this.setState({
+				email: this.json.email
+			});
+		}
     getParameters(){
         return(
             <div>
@@ -117,17 +125,7 @@ export class RecordFileProperties extends React.Component {
 														 onBlur={()=>{this.props.setIsFocused(false)}}
 														 ></input>
 											<button onClick={()=>{this.addEmail()}}>push</button>
-											<ul className="params-list">
-													{this.state.email.map((i)=> {
-																	return (
-																			<li>
-																				<span>{i}</span>
-																				<button onClick={()=>{this.deleteEmail(i)}}><i className="fa fa-times"></i></button>
-																			</li>
-																	);
-															}
-													)}
-											</ul>
+											<SortableGrid items={this.state.email} deleteFunc={this.deleteEmail} setFunc={this.setArray}/>
 										</form>
 									</div>
 								</Pane>

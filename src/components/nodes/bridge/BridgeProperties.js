@@ -7,6 +7,7 @@
 import React from 'react';
 import Element from '../../PropertyValues';
 import { Tabs, Pane } from '../../Tabs';
+import {SortableGrid} from '../../SortableGrid';
 
 export class BridgeProperties extends React.Component {
 	constructor(props){
@@ -82,6 +83,9 @@ export class BridgeProperties extends React.Component {
 		this.queueRetriesChanged = this.queueRetriesChanged.bind(this);
 		this.queueTimeoutChanged = this.queueTimeoutChanged.bind(this);
 		this.queueSleepChanged = this.queueSleepChanged.bind(this);
+		this.setMediaArray = this.setMediaArray.bind(this);
+		this.setParamsArray = this.setParamsArray.bind(this);
+		this.setCodecsArray = this.setCodecsArray.bind(this);
 	}
 	getWebitelParam(){
 		this.getGateway();
@@ -195,6 +199,12 @@ export class BridgeProperties extends React.Component {
 			codecs: this.json.codecs
 		});
 	}
+	setCodecsArray(arr){
+		this.json.codecs = arr;
+		this.setState({
+			codecs: this.json.codecs
+		});
+	}
 	addParameter(){
 		this.json.parameters.push(this.state.parametersText);
 		this.setState({
@@ -205,6 +215,12 @@ export class BridgeProperties extends React.Component {
 	deleteParameter(item){
 		let index = this.json.parameters.indexOf(item);
 		this.json.parameters.splice(index,1);
+		this.setState({
+			parameters: this.json.parameters
+		});
+	}
+	setParamsArray(arr){
+		this.json.parameters = arr;
 		this.setState({
 			parameters: this.json.parameters
 		});
@@ -420,6 +436,12 @@ export class BridgeProperties extends React.Component {
 			mediaFiles: this.json.queue.playback.files
 		});
 	}
+	setMediaArray(arr){
+		this.json.queue.playback.files = arr;
+		this.setState({
+			mediaFiles: this.json.queue.playback.files
+		});
+	}
 	getInputMedia(){
 		let time = new Date();
 		let pblist = time.getTime() + 1;
@@ -473,17 +495,7 @@ export class BridgeProperties extends React.Component {
 								})}
 							</select>
 							<button onClick={()=>{this.addCodecs()}}>push</button>
-							<ul className="params-list">
-								{this.state.codecs.map((i)=> {
-										return (
-											<li>
-												<span>{i}</span>
-												<button onClick={()=>{this.deleteCodecs(i)}}><i className="fa fa-times"></i></button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<SortableGrid items={this.state.codecs} deleteFunc={this.deleteCodecs} setFunc={this.setCodecsArray}/>
 						</div>
 					</Pane>
 					<Pane label="Params">
@@ -495,17 +507,7 @@ export class BridgeProperties extends React.Component {
 										 onBlur={()=>{this.props.setIsFocused(false)}}
 										 ></input>
 							<button onClick={()=>{this.addParameter()}}>push</button>
-							<ul className="params-list">
-								{this.state.parameters.map((i)=> {
-										return (
-											<li>
-												<span>{i}</span>
-												<button onClick={()=>{this.deleteParameter(i)}}><i className="fa fa-times"></i></button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<SortableGrid items={this.state.parameters} deleteFunc={this.deleteParameter} setFunc={this.setParamsArray}/>
 						</form>
 					</Pane>
 					<Pane label="Endpoint">
@@ -549,17 +551,7 @@ export class BridgeProperties extends React.Component {
 								{this.getInputMedia()}
 							</div>
 							<button onClick={this.addFile}>push</button>
-							<ul className="params-list">
-								{this.state.mediaFiles.map((i)=> {
-										return (
-											<li>
-												<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
-												<button onClick={()=>{this.deleteFile(i)}}><i className="fa fa-times"></i></button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<SortableGrid items={this.state.mediaFiles} deleteFunc={this.deleteFile} setFunc={this.setMediaArray} type="playback"/>
 						</div>
 					</Pane>
 				</Tabs>

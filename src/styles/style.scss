@@ -10,6 +10,42 @@ html, body, #root {
   overflow: hidden;
 }
 
+body .params-item {
+  //border-radius: 15px;
+  background-color: #647278;
+  display: inline-block;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  padding: 8px;//0.5em;
+  margin-bottom: 2px;//.125em;
+  //display: block;
+  list-style: none;
+  //text-transform: uppercase;
+  span{
+    color: white;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
+  }
+  button{
+    display: none;
+    //background-color: transparent;
+    //padding: 6px 10px;//0.4rem 0.6rem;
+    //border-radius: 10px;
+    //float: right;
+  }
+  //button:hover, button:focus {
+  //  color: black;
+  //  background-color: transparent;
+  //  cursor: pointer;
+  //}
+  //.bridge-item{
+  //  cursor: pointer;
+  //  &:hover{
+  //    color:yellow;
+  //  }
+  //}
+}
+
 .parent-container {
   flex: 1;
   display: flex;
@@ -451,6 +487,9 @@ html, body, #root {
           //display: block;
           list-style: none;
           //text-transform: uppercase;
+          &:hover{
+            cursor: pointer;
+          }
           span{
             vertical-align: -webkit-baseline-middle;
             vertical-align: -moz-middle-with-baseline;

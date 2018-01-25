@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import {SortableGrid} from '../../SortableGrid';
 
 export class VariablesProperties extends React.Component {
     constructor(props){
@@ -26,6 +27,7 @@ export class VariablesProperties extends React.Component {
         this.varTextChanged = this.varTextChanged.bind(this);
         this.addVar = this.addVar.bind(this);
 				this.deleteVar = this.deleteVar.bind(this);
+				this.setArray = this.setArray.bind(this);
     }
     componentWillReceiveProps(nextProps) {
     		if(this.props.node.id === nextProps.node.id)
@@ -75,6 +77,14 @@ export class VariablesProperties extends React.Component {
 					}
         });
     }
+		setArray(arr){
+			this.json[this.state.action] = arr;
+			this.setState({
+				stateObject:{
+					[this.state.action]: this.json[this.state.action]
+				}
+			});
+		}
     getParameters(){
         return(
             <div>
@@ -96,17 +106,7 @@ export class VariablesProperties extends React.Component {
 													 onBlur={()=>{this.props.setIsFocused(false)}}
 													 ></input>
                     <button onClick={()=>{this.addVar()}}>push</button>
-                    <ul className="params-list">
-                        {this.state.stateObject[this.state.action].map((i)=> {
-                                return (
-                                    <li>
-																			<span>{i}</span>
-                                        <button onClick={()=>{this.deleteVar(i)}}><i className="fa fa-times"></i></button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
+										<SortableGrid items={this.state.stateObject[this.state.action]} deleteFunc={this.deleteVar} setFunc={this.setArray}/>
 									</form>
                 </div>
             </div>

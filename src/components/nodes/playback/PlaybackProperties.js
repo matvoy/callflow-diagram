@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import {SortableGrid} from '../../SortableGrid';
 
 export class PlaybackProperties extends React.Component {
     constructor(props){
@@ -10,28 +11,36 @@ export class PlaybackProperties extends React.Component {
         this.defValues = Element[this.props.node.nodeType];
 				//this.webitel = Element.webitelParams.media;
 				let mediaArr = Element.webitelParams.mediaArr;
-        this.state={name: ''/*mediaArr.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0]*/, type: this.defValues.files[0], webitel: mediaArr};
-        this.files = props.node.extras.playback.hasOwnProperty('files') ? props.node.extras.playback['files'] : [{name: props.node.extras.playback.name, type: props.node.extras.playback.type}];
-				delete props.node.extras.playback.type;
-				delete props.node.extras.playback.name;
-				props.node.extras.playback.files = this.files;
+				this.json = props.node.extras.playback;
+				this.json.files =this.json.hasOwnProperty('files') ? this.json['files'] : [{name: this.json.name, type: this.json.type}];
+				delete this.json.type;
+				delete this.json.name;
+        this.state={files:this.json.files,
+					name: '',//mediaArr.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
+					type: this.defValues.files[0],
+					webitel: mediaArr};
+        //this.files = props.node.extras.playback.hasOwnProperty('files') ? props.node.extras.playback['files'] : [{name: props.node.extras.playback.name, type: props.node.extras.playback.type}];
+
+
 				this.getWebitelParam();
         this.typeChanged = this.typeChanged.bind(this);
         this.nameChanged = this.nameChanged.bind(this);
         this.addMedia = this.addMedia.bind(this);
         this.deleteMedia = this.deleteMedia.bind(this);
 				this.getInputMedia = this.getInputMedia.bind(this);
+				this.setArray = this.setArray.bind(this);
     }
     componentWillReceiveProps(nextProps) {
 				if(this.props.node.id === nextProps.node.id)
 					return;
-				this.files = nextProps.node.extras.playback.hasOwnProperty('files') ? nextProps.node.extras.playback['files'] : [{name: nextProps.node.extras.playback.name, type: nextProps.node.extras.playback.type}];
-			 	delete nextProps.node.extras.playback.type;
-				delete nextProps.node.extras.playback.name;
-				nextProps.node.extras.playback.files = this.files;
+				this.json = nextProps.node.extras.playback;
+				this.json.files = this.json.hasOwnProperty('files') ? this.json.files : [{name: this.json.name, type: this.json.type}];
+				delete this.json.type;
+				delete this.json.name;
 				this.state={
 					name: '',//this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
-					type: this.defValues.files[0]
+					type: this.defValues.files[0],
+					files: this.json.files
 				};
 				this.getWebitelParam();
     }
@@ -70,15 +79,26 @@ export class PlaybackProperties extends React.Component {
         });
     }
     addMedia(){
-        let file = {name:this.state.name, type:this.state.type};
-        this.files.push(file);
-        this.setState({name: ''/*this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0]*/, type: this.defValues.files[0]});
+			this.json.files.push({name:this.state.name, type:this.state.type});
+			this.setState({
+				files: this.json.files,
+				name: '',//this.state.webitel.filter((item)=>{return item.substr(item.length - 3) === 'wav'})[0],
+				type: this.defValues.files[0]
+			});
     }
     deleteMedia(item){
-        let index = this.files.indexOf(item);
-        this.files.splice(index,1);
-        this.forceUpdate();
+			let index = this.json.files.indexOf(item);
+			this.json.files.splice(index, 1);
+			this.setState({
+				files: this.json.files
+			});
     }
+		setArray(arr){
+			this.json.files = arr;
+			this.setState({
+				files: this.json.files
+			});
+		}
     getInputMedia(){
     	let time = new Date();
     	let pblist = time.getTime() + 1;
@@ -120,17 +140,7 @@ export class PlaybackProperties extends React.Component {
                     <label>Name</label>
 										{this.getInputMedia()}
                     <button onClick={this.addMedia}>push</button>
-                    <ul className="params-list">
-                        {this.files.map((i)=> {
-                                return (
-                                    <li>
-																			<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
-																			<button onClick={()=>{this.deleteMedia(i)}}><i className="fa fa-times"></i></button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
+										<SortableGrid items={this.state.files} deleteFunc={this.deleteMedia} setFunc={this.setArray} type="playback"/>
                 </div>
             </div>
         );

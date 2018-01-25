@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import {SortableGrid} from '../../SortableGrid';
 
 export class VoicemailProperties extends React.Component {
     constructor(props){
@@ -44,6 +45,7 @@ export class VoicemailProperties extends React.Component {
 				this.ccTextChanged = this.ccTextChanged.bind(this);
         this.addCC = this.addCC.bind(this);
         this.deleteCC = this.deleteCC.bind(this);
+				this.setArray = this.setArray.bind(this);
         this.getActionProperties = this.getActionProperties.bind(this);
     }
 
@@ -78,7 +80,7 @@ export class VoicemailProperties extends React.Component {
     }
 
 		getWebitelParam(){
-			if(Element.webitelParams.directoryArr.length === 0) {
+			if(Element.webitelParams.directoryArr.length === 0 && typeof Element.webitelParams.directory === 'function') {
 				Element.webitelParams.directory((arr) => {
 						this.json.user = this.json.user === '' && this.state.webitel.length > 0 ? this.state.webitel[0] : this.json.user;
 						this.setState({
@@ -133,6 +135,15 @@ export class VoicemailProperties extends React.Component {
 					stateObject: items
         });
     }
+
+		setArray(arr){
+			this.json.cc = arr;
+			let items = Object.assign({},this.state.stateObject);
+			items.cc = this.json.cc;
+			this.setState({
+				stateObject: items
+			});
+		}
 
 		actionChanged(e){
 			Object.keys(this.json).forEach((option)=>{delete this.json[option]});
@@ -202,17 +213,7 @@ export class VoicemailProperties extends React.Component {
 											 onBlur={()=>{this.props.setIsFocused(false)}}
 											 ></input>
 								<button onClick={()=>{this.addCC()}}>push</button>
-								<ul className="params-list">
-									{this.state.stateObject.cc.map((i)=> {
-											return (
-												<li>
-													<span>{i}</span>
-													<button onClick={()=>{this.deleteCC(i)}}><i className="fa fa-times"></i></button>
-												</li>
-											);
-										}
-									)}
-								</ul>
+								<SortableGrid items={this.state.stateObject.cc} deleteFunc={this.deleteCC} setFunc={this.setArray}/>
 							</form>
 						</div>
 					</div>

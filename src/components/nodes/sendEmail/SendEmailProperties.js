@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import {SortableGrid} from '../../SortableGrid';
 
 export class SendEmailProperties extends React.Component {
     constructor(props){
@@ -22,6 +23,7 @@ export class SendEmailProperties extends React.Component {
         this.emailTextChanged = this.emailTextChanged.bind(this);
         this.addEmail = this.addEmail.bind(this);
         this.deleteEmail = this.deleteEmail.bind(this);
+				this.setArray = this.setArray.bind(this);
     }
     componentWillReceiveProps(nextProps) {
     		if(this.props.node.id === nextProps.node.id)
@@ -53,6 +55,12 @@ export class SendEmailProperties extends React.Component {
             emailText:''
         });
     }
+    setArray(arr){
+    	this.json.to = arr;
+			this.setState({
+				to: this.json.to
+			});
+		}
     deleteEmail(item){
         let index = this.json.to.indexOf(item);
         this.json.to.splice(index, 1);
@@ -82,17 +90,7 @@ export class SendEmailProperties extends React.Component {
 													 onBlur={()=>{this.props.setIsFocused(false)}}
 													 ></input>
                     <button onClick={()=>{this.addEmail()}}>push</button>
-                    <ul className="params-list">
-                        {this.state.to.map((i)=> {
-                                return (
-                                    <li>
-																			<span>{i}</span>
-																			<button onClick={()=>{this.deleteEmail(i)}}><i className="fa fa-times"></i></button>
-                                    </li>
-                                );
-                            }
-                        )}
-                    </ul>
+										<SortableGrid items={this.state.to} deleteFunc={this.deleteEmail} setFunc={this.setArray}/>
 									</form>
                 </div>
             </div>

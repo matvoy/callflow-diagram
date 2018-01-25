@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Element from '../../PropertyValues';
+import {SortableGrid} from '../../SortableGrid';
 
 export class ConferenceProperties extends React.Component {
     constructor(props){
@@ -11,6 +12,7 @@ export class ConferenceProperties extends React.Component {
         this.propertyChanged = this.propertyChanged.bind(this);
 				this.addFlag = this.addFlag.bind(this);
 				this.deleteFlag = this.deleteFlag.bind(this);
+				this.setArray = this.setArray.bind(this);
 				this.json = this.props.node.extras.conference;
 				this.defValues = Element[this.props.node.nodeType];
         this.state = { name: this.json.name, pin: this.json.pin, flags:this.json.flags || [], flag:'moderator'};
@@ -37,6 +39,12 @@ export class ConferenceProperties extends React.Component {
 		deleteFlag(item){
 			let index = this.json.flags.indexOf(item);
 			this.json.flags.splice(index,1);
+			this.setState({
+				flags: this.json.flags
+			});
+		}
+		setArray(arr){
+			this.json.flags = arr;
 			this.setState({
 				flags: this.json.flags
 			});
@@ -69,17 +77,7 @@ export class ConferenceProperties extends React.Component {
 								})}
 							</select>
 							<button onClick={this.addFlag}>push</button>
-							<ul className="params-list">
-								{this.state.flags.map((i)=> {
-										return (
-											<li>
-												<span>{i}</span>
-												<button onClick={()=>{this.deleteFlag(i)}}><i className="fa fa-times"></i></button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<SortableGrid items={this.state.flags} deleteFunc={this.deleteFlag} setFunc={this.setArray}/>
 						</div>
 					</div>
         );

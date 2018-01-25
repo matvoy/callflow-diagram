@@ -7,6 +7,7 @@
 import React from 'react';
 import Element from '../../PropertyValues';
 import { Tabs, Pane } from '../../Tabs';
+import {SortableGrid} from '../../SortableGrid';
 
 export class PlayNDigitsProperties extends React.Component {
 	constructor(props){
@@ -39,6 +40,7 @@ export class PlayNDigitsProperties extends React.Component {
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
 		this.getInputMedia = this.getInputMedia.bind(this);
+		this.setArray = this.setArray.bind(this);
 	}
 	getWebitelParam(){
 		if(Element.webitelParams.mediaArr.length === 0 && typeof Element.webitelParams.media === 'function') {
@@ -113,6 +115,12 @@ export class PlayNDigitsProperties extends React.Component {
 	deleteFile(item){
 		let index = this.json.files.indexOf(item);
 		this.json.files.splice(index, 1);
+		this.setState({
+			files: this.json.files
+		});
+	}
+	setArray(arr){
+		this.json.files = arr;
 		this.setState({
 			files: this.json.files
 		});
@@ -194,17 +202,7 @@ export class PlayNDigitsProperties extends React.Component {
 								{this.getInputMedia()}
 							</div>
 							<button onClick={this.addFile}>push</button>
-							<ul className="params-list">
-								{this.state.files.map((i)=> {
-										return (
-											<li>
-												<span>Type: {i.type}<br/><span style={{color:'yellow'}}>{i.name}</span></span>
-												<button onClick={()=>{this.deleteFile(i)}}><i className="fa fa-times"></i></button>
-											</li>
-										);
-									}
-								)}
-							</ul>
+							<SortableGrid items={this.state.files} deleteFunc={this.deleteFile} setFunc={this.setArray} type="playback"/>
 						</div>
 					</Pane>
 				</Tabs>

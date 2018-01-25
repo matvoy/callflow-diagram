@@ -5,14 +5,14 @@ import React from 'react';
 
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
-const SortableItem = SortableElement((props) =>//
-	<li className="params-item"><span>{props.value}</span><button onClick={()=>{props.deleteFunc(props.value)}}><i className="fa fa-times"></i></button></li>
+const SortableItem = SortableElement((props) =>//<i className="fa fa-times"></i>
+	<li className="callflow-diagram-params-item"><span>{props.value}</span><button className="fa fa-times" onClick={()=>{props.deleteFunc(props.value)}}></button></li>
 );
 
-const SortablePlaybackItem = SortableElement((props) =>//
-	<li className="params-item">
+const SortablePlaybackItem = SortableElement((props) =>
+	<li className="callflow-diagram-params-item">
 		<span>Type: {props.value.type}<br/><span style={{color:'yellow'}}>{props.value.name}</span></span>
-		<button onClick={()=>{props.deleteFunc(props.value)}}><i className="fa fa-times"></i></button>
+		<button className="fa fa-times" onClick={()=>{props.deleteFunc(props.value)}}></button>
 	</li>
 );
 

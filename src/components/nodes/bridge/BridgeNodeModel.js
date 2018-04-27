@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as RJD from 'react-js-diagrams';
 
 export class BridgeNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { bridge: { strategy: 'multiple', codecs: [], parameters: [], endpoints: [], queue:{enable:false,retries:10,timeout:10,sleep:10,playback:{files:[]}}} }) {
+  constructor(name = 'Untitled', color = 'rgb(114, 128, 150)', extras = { bridge: { strategy: 'multiple', codecs: [], parameters: [], endpoints: []/*, queue:{enable:false,retries:10,timeout:10,sleep:10,playback:{files:[]}}*/} }) {
     super('bridge');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
     this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));

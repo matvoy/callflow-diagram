@@ -17,11 +17,11 @@ export class BridgeProperties extends React.Component {
 		// this.webitelGateway = Element.webitelParams.gateway;
 		let gtwArr = Element.webitelParams.gatewayArr;
 		let dirArr = Element.webitelParams.directoryArr;
-		let medArr = Element.webitelParams.mediaArr;
+		//let medArr = Element.webitelParams.mediaArr;
 		this.json = this.props.node.extras.bridge;
-		this.json.queue.playback.files = this.json.queue.playback.hasOwnProperty('files') ? this.json.queue.playback.files : [{name: this.json.queue.playback.name, type: this.json.queue.playback.type}]
+	  /*this.json.queue.playback.files = this.json.queue.playback.hasOwnProperty('files') ? this.json.queue.playback.files : [{name: this.json.queue.playback.name, type: this.json.queue.playback.type}]
 		delete this.json.queue.playback.type;
-		delete this.json.queue.playback.name;
+		delete this.json.queue.playback.name;*/
 		this.state={
 			pickup: this.json.pickup,
 			strategy: this.json.strategy,
@@ -40,21 +40,21 @@ export class BridgeProperties extends React.Component {
 			showEndpoint: false,
 
 			//Media>>
-			mediaType: this.defValues.mediaType[0],
+			/*mediaType: this.defValues.mediaType[0],
 			mediaName: '',
-			mediaFiles: this.json.queue.playback.files || [],
+			mediaFiles: this.json.queue.playback.files || [],*/
 			//<<Media
 
 			//Queue>>
-			queueEnabled: this.json.queue.enable,
+			/*queueEnabled: this.json.queue.enable,
 			queueRetries: this.json.queue.retries,
 			queueTimeout: this.json.queue.timeout,
-			queueSleep: this.json.queue.sleep,
+			queueSleep: this.json.queue.sleep,*/
 			//<<Queue
 
 			webitelDirectory: dirArr,
 			webitelGateway: gtwArr,
-			webitelMedia: medArr
+			//webitelMedia: medArr
 
 		};
 		this.getWebitelParam();
@@ -75,7 +75,7 @@ export class BridgeProperties extends React.Component {
 		this.getEndpoint = this.getEndpoint.bind(this);
 		this.getEndpointInputForm = this.getEndpointInputForm.bind(this);
 		this.showEndpoint = this.showEndpoint.bind(this);
-		this.getInputMedia = this.getInputMedia.bind(this);
+		/*this.getInputMedia = this.getInputMedia.bind(this);
 		this.mediaTypeChanged = this.mediaTypeChanged.bind(this);
 		this.addFile = this.addFile.bind(this);
 		this.deleteFile = this.deleteFile.bind(this);
@@ -83,21 +83,21 @@ export class BridgeProperties extends React.Component {
 		this.queueRetriesChanged = this.queueRetriesChanged.bind(this);
 		this.queueTimeoutChanged = this.queueTimeoutChanged.bind(this);
 		this.queueSleepChanged = this.queueSleepChanged.bind(this);
-		this.setMediaArray = this.setMediaArray.bind(this);
+		this.setMediaArray = this.setMediaArray.bind(this);*/
 		this.setParamsArray = this.setParamsArray.bind(this);
 		this.setCodecsArray = this.setCodecsArray.bind(this);
 	}
 	getWebitelParam(){
 		this.getGateway();
 		this.getDirectory();
-		this.getMedia();
+		//this.getMedia();
 	}
 	getGateway(){
 		if(Element.webitelParams.gatewayArr.length === 0 && typeof Element.webitelParams.gateway === 'function') {
 			Element.webitelParams.gateway((arr) => {
 					this.setState({
 						webitelGateway: arr,
-						name: ''//arr[0] || ''
+						name: ''
 					});
 					Element.webitelParams.gatewayArr = arr;
 				}
@@ -109,21 +109,19 @@ export class BridgeProperties extends React.Component {
 			Element.webitelParams.directory((arr) => {
 					this.setState({
 						webitelDirectory: arr,
-						userNameText: ''//arr[0] || ''
+						userNameText: ''
 					});
 					Element.webitelParams.directoryArr = arr;
 				}
 			);
 		}
 	}
-	getMedia(){
+	/*getMedia(){
 		if(Element.webitelParams.mediaArr.length === 0 && typeof Element.webitelParams.media === 'function') {
 			Element.webitelParams.media((arr) => {
 					this.setState({
 						webitelMedia: arr,
-						mediaName: ''/*arr.filter((item) => {
-						 return item.substr(item.length - 3) === 'wav'
-						 })[0]*/
+						mediaName: ''
 					});
 					Element.webitelParams.mediaArr = arr;
 				}
@@ -132,18 +130,16 @@ export class BridgeProperties extends React.Component {
 			let arr = Element.webitelParams.mediaArr;
 			this.setState({
 				webitelMedia: arr,
-				mediaName: ''/*arr.filter((item) => {
-				 return item.substr(item.length - 3) === 'wav'
-				 })[0]*/
+				mediaName: ''
 			});
 		}
-	}
+	}*/
 	componentWillReceiveProps(nextProps) {
 		if(this.props.node.id !== nextProps.node.id){
 			this.json = nextProps.node.extras.bridge;
-			this.json.queue.playback.files = this.json.queue.playback.hasOwnProperty('files') ? this.json.queue.playback.files : [{name: this.json.queue.playback.name, type: this.json.queue.playback.type}]
+			/*this.json.queue.playback.files = this.json.queue.playback.hasOwnProperty('files') ? this.json.queue.playback.files : [{name: this.json.queue.playback.name, type: this.json.queue.playback.type}]
 			delete this.json.queue.playback.type;
-			delete this.json.queue.playback.name;
+			delete this.json.queue.playback.name;*/
 			this.setState({
 				pickup: this.json.pickup,
 				strategy: this.json.strategy,
@@ -152,24 +148,24 @@ export class BridgeProperties extends React.Component {
 				endpoints: this.json.endpoints || [],
 				type: 'sipGateway',
 				parametersText: '',
-				name: '',//this.state.webitelGateway[0] || '',
+				name: '',
 				host: '',
 				dialString: '',
 				profile: this.defValues.profile[0],
-				userNameText: '',//this.state.webitelDirectory[0] || '',
+				userNameText: '',
 				endpointParametersText: '',
 				codecsSelect: 'PCMA',
 				showEndpoint: false,
 				//Media>>
-				mediaType: this.defValues.mediaType[0],
+			  /*mediaType: this.defValues.mediaType[0],
 				mediaName: '',
-				mediaFiles: this.json.queue.playback.files || [],
+				mediaFiles: this.json.queue.playback.files || [],*/
 				//<<Media
 				//Queue>>
-				queueEnabled: this.json.queue.enable,
+			  /*queueEnabled: this.json.queue.enable,
 				queueRetries: this.json.queue.retries,
 				queueTimeout: this.json.queue.timeout,
-				queueSleep: this.json.queue.sleep,
+				queueSleep: this.json.queue.sleep,*/
 				//<<Queue
 			});
 		}
@@ -194,7 +190,7 @@ export class BridgeProperties extends React.Component {
 	}
 	deleteCodecs(item){
 		let index = this.json.codecs.indexOf(item);
-		this.json.codecs.splice(index,1);
+		this.json.codecs.splice(index, 1);
 		this.setState({
 			codecs: this.json.codecs
 		});
@@ -254,7 +250,7 @@ export class BridgeProperties extends React.Component {
 			this.setState({
 				endpoints: this.json.endpoints,
 				dialString: '',
-				name: '',//this.state.webitelGateway[0] || '',
+				name: '',
 				endpointParametersText: ''
 			});
 		}
@@ -283,7 +279,7 @@ export class BridgeProperties extends React.Component {
 				});
 				this.setState({
 					endpoints: this.json.endpoints,
-					userNameText: '',//this.state.webitelDirectory[0] || '',
+					userNameText: '',
 					endpointParametersText: ''
 				});
 			}
@@ -291,7 +287,7 @@ export class BridgeProperties extends React.Component {
 	}
 	deleteEndpoint(item){
 		let index = this.json.endpoints.indexOf(item);
-		this.json.endpoints.splice(index,1);
+		this.json.endpoints.splice(index, 1);
 		this.setState({
 			endpoints: this.json.endpoints,
 			endpointParametersText: ''
@@ -305,9 +301,9 @@ export class BridgeProperties extends React.Component {
 	typeChanged(e){
 		this.setState({
 			type: e.target.value,
-			name: '',//this.state.webitelGateway[0] || '',
+			name: '',
 			host: '',
-			userNameText: '',//this.state.webitelDirectory[0],
+			userNameText: '',
 			dialString:'',
 			profile: this.defValues.profile[0]
 		});
@@ -391,7 +387,7 @@ export class BridgeProperties extends React.Component {
 			endpointParametersText: ''
 		})
 	}
-	mediaTypeChanged(e){
+	/*mediaTypeChanged(e){
 		this.setState({
 			mediaType: e.target.value,
 			mediaName: ''
@@ -466,7 +462,7 @@ export class BridgeProperties extends React.Component {
 							 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 			)
 		}
-	}
+	}*/
 	getParameters(){
 		return(
 			<div>
@@ -514,46 +510,46 @@ export class BridgeProperties extends React.Component {
 						{this.state.showEndpoint === false ? this.getEndpointInputForm() : this.getEndpoint()}
 
 					</Pane>
-					<Pane label="Queue">
-						<div>
-							<label>Enable</label>
-							<input name='enable' type="checkbox" checked={ this.state.queueEnabled } onChange={(e)=>{this.queueEnabledChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-						</div>
-						<div>
-							<label>Retries</label>
-							<input name="retries" type="number" value={ this.state.queueRetries} onInput={(e)=>{this.queueRetriesChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-						</div>
-						<div>
-							<label>Timeout</label>
-							<input name="timeout" type="number" value={ this.state.queueTimeout} onInput={(e)=>{this.queueTimeoutChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-						</div>
-						<div>
-							<label>Sleep</label>
-							<input name="sleep" type="number" value={ this.state.queueSleep} onInput={(e)=>{this.queueSleepChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-						</div>
-						<div>
-							<label className="bridge-header" style={{textAlign: 'center', margin:'0px'}}>Playback</label>
-							<div>
-								<label>Type</label>
-								<select name="type" value={this.state.mediaType} onChange={(e)=>{this.mediaTypeChanged(e)}}
-												onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
-									{this.defValues.mediaType.map( (i, index) => {
-										return <option key={index} value={i}>{i}</option>;
-									})}
-								</select>
-							</div>
-							<div>
-								<label>Name</label>
-								{this.getInputMedia()}
-							</div>
-							<button onClick={this.addFile}>push</button>
-							<SortableGrid items={this.state.mediaFiles} deleteFunc={this.deleteFile} setFunc={this.setMediaArray} type="playback"/>
-						</div>
-					</Pane>
+					{/*<Pane label="Queue">*/}
+						{/*<div>*/}
+							{/*<label>Enable</label>*/}
+							{/*<input name='enable' type="checkbox" checked={ this.state.queueEnabled } onChange={(e)=>{this.queueEnabledChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+						{/*</div>*/}
+						{/*<div>*/}
+							{/*<label>Retries</label>*/}
+							{/*<input name="retries" type="number" value={ this.state.queueRetries} onInput={(e)=>{this.queueRetriesChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+						{/*</div>*/}
+						{/*<div>*/}
+							{/*<label>Timeout</label>*/}
+							{/*<input name="timeout" type="number" value={ this.state.queueTimeout} onInput={(e)=>{this.queueTimeoutChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+						{/*</div>*/}
+						{/*<div>*/}
+							{/*<label>Sleep</label>*/}
+							{/*<input name="sleep" type="number" value={ this.state.queueSleep} onInput={(e)=>{this.queueSleepChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+						{/*</div>*/}
+						{/*<div>*/}
+							{/*<label className="bridge-header" style={{textAlign: 'center', margin:'0px'}}>Playback</label>*/}
+							{/*<div>*/}
+								{/*<label>Type</label>*/}
+								{/*<select name="type" value={this.state.mediaType} onChange={(e)=>{this.mediaTypeChanged(e)}}*/}
+												{/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>*/}
+									{/*{this.defValues.mediaType.map( (i, index) => {*/}
+										{/*return <option key={index} value={i}>{i}</option>;*/}
+									{/*})}*/}
+								{/*</select>*/}
+							{/*</div>*/}
+							{/*<div>*/}
+								{/*<label>Name</label>*/}
+								{/*{this.getInputMedia()}*/}
+							{/*</div>*/}
+							{/*<button onClick={this.addFile}>push</button>*/}
+							{/*<SortableGrid items={this.state.mediaFiles} deleteFunc={this.deleteFile} setFunc={this.setMediaArray} type="playback"/>*/}
+						{/*</div>*/}
+					{/*</Pane>*/}
 				</Tabs>
 			</div>
 		);

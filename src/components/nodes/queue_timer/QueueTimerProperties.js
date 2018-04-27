@@ -10,7 +10,7 @@ export class QueueTimerProperties extends React.Component {
     constructor(props){
         super(props);
 				this.propertyNumberChanged = this.propertyNumberChanged.bind(this);
-        this.propertyChanged = this.propertyChanged.bind(this);
+        this.propertyNumberChanged = this.propertyNumberChanged.bind(this);
         this.positionChanged = this.positionChanged.bind(this);
         this.json = this.props.node.extras;
         this.state = { interval: this.json.interval, tries: this.json.tries, position: this.json.actions[0].ccPosition.var};

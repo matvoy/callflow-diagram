@@ -13,7 +13,7 @@ export class VariablesProperties extends React.Component {
         super(props);
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras;
-        let option = Object.keys(this.json)[0];
+        let option = Object.keys(this.json)[0] === '_id' ? Object.keys(this.json)[1] : Object.keys(this.json)[0];
 				this.json[option] = Array.isArray(this.json[option]) ?  this.json[option] : [this.json[option]];
         this.state = {
         	stateObject: {
@@ -33,7 +33,7 @@ export class VariablesProperties extends React.Component {
     		if(this.props.node.id === nextProps.node.id)
     			return;
         this.json = nextProps.node.extras;
-				let option = Object.keys(this.json)[0];
+				let option = Object.keys(this.json)[0] === '_id' ? Object.keys(this.json)[1] : Object.keys(this.json)[0];
 				this.json[option] = Array.isArray(this.json[option]) ?  this.json[option] : [this.json[option]];
 				this.setState({
 					stateObject: {

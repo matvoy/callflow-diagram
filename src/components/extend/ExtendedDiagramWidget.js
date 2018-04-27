@@ -168,9 +168,9 @@ export class ExtendedDiagramWidget extends RJD.DiagramWidget {
 			const initialOffsetY = diagramModel.getOffsetY();
 			const initialZoom = diagramModel.getZoomLevel();
 
-			if((initialZoom > 200 && event.deltaY > 0) || (initialZoom < 40 && event.deltaY < 0))return;
+			if((initialZoom > 200 && event.deltaY < 0) || (initialZoom < 20 && event.deltaY > 0))return;
 
-			const zoom = initialZoom + (event.deltaY * (initialZoom / 100.0) * 0.2);
+			const zoom = initialZoom + (-event.deltaY * (initialZoom / 100.0) * 0.2);
 
 			diagramModel.setOffset(
 				(relativeMouse.x + initialOffsetX) * (initialZoom/zoom) - relativeMouse.x,

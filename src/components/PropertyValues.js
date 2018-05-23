@@ -540,6 +540,10 @@ var Elements = {
 							gender: 'Female'
 						},
 						{
+							language: 'vi-VN',
+							gender: 'Male'
+						},
+						{
 							language: 'zh-CN',
 							gender: 'Female'
 						},

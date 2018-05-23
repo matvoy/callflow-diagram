@@ -7,20 +7,33 @@
 import React from 'react';
 import Element from '../../PropertyValues';
 import { Tabs, Pane } from '../../Tabs';
+import JSONInput from '../customCode/JsonInput';
 
 export class HttpRequestProperties extends React.Component {
     constructor(props){
         super(props);
         this.defValues = Element[this.props.node.nodeType];
         this.json = this.props.node.extras.httpRequest;
+				this.darktheme = {
+					default         : '#D4D4D4',
+					background      : '#1E1E1E',
+					border          : '#000000',
+					string          : '#CE8453',
+					number          : '#B5CE9F',
+					colon           : '#49B8F7',
+					keys            : '#9CDCFE',
+					keys_whiteSpace : '#AF74A5',
+					primitive       : '#6392C6'
+				}
         this.state={
             url: this.json.url,
             method: this.json.method,
 						timeout: this.json.timeout,
 						exportCookie: this.json.exportCookie,
+						responseCode: this.json.responseCode,
 						headers: this.json.headers || [],
 						path: this.json.path || [],
-						data: this.json.data || [],
+						data: this.json.data || {},
 						exportVariables: this.json.exportVariables || [],
 						headerKey: '',
 						headerValue: '',
@@ -29,7 +42,8 @@ export class HttpRequestProperties extends React.Component {
 						dataKey: '',
 						dataValue: '',
 						exportVariablesKey: '',
-						exportVariablesValue: ''
+						exportVariablesValue: '',
+						dataType: typeof this.json.data === 'object' ? 'json' : 'string'
         };
         this.jsonPropertyChanged = this.jsonPropertyChanged.bind(this);
 				this.jsonNumberPropertyChanged = this.jsonNumberPropertyChanged.bind(this);
@@ -40,6 +54,8 @@ export class HttpRequestProperties extends React.Component {
         this.getHeaders = this.getHeaders.bind(this);
 				this.getExportVariables = this.getExportVariables.bind(this);
 				this.getPath = this.getPath.bind(this);
+				this.setOutputJson = this.setOutputJson.bind(this);
+				this.dataTypeChanged = this.dataTypeChanged.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,9 +67,10 @@ export class HttpRequestProperties extends React.Component {
 						method: this.json.method,
 						timeout: this.json.timeout,
 						exportCookie: this.json.exportCookie,
+						responseCode: this.json.responseCode,
 						headers: this.json.headers || [],
 						path: this.json.path || [],
-						data: this.json.data || [],
+						data: this.json.data || {},
 						exportVariables: this.json.exportVariables || [],
 						headerKey: '',
 						headerValue: '',
@@ -62,7 +79,8 @@ export class HttpRequestProperties extends React.Component {
 						dataKey: '',
 						dataValue: '',
 						exportVariablesKey: '',
-						exportVariablesValue: ''
+						exportVariablesValue: '',
+						dataType: typeof this.json.data === 'object' ? 'json' : 'string'
         });
     }
 		jsonNumberPropertyChanged(e){
@@ -81,6 +99,14 @@ export class HttpRequestProperties extends React.Component {
 		propertyChanged(e){
 			this.setState({
 				[e.target.name]: e.target.value
+			});
+		}
+
+		dataTypeChanged(e){
+			this.json.data = e.target.value === 'string' ? '' : {}
+			this.setState({
+				dataType: e.target.value,
+				data: this.json.data
 			});
 		}
 
@@ -127,6 +153,11 @@ export class HttpRequestProperties extends React.Component {
 								<div>
 									<label>Export cookie</label>
 									<input name="exportCookie" type="text" value={ this.state.exportCookie} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+								</div>
+								<div>
+									<label>Response code</label>
+									<input name="responseCode" type="text" value={ this.state.responseCode} onInput={(e)=>{this.jsonPropertyChanged(e)}}
 												 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
 								</div>
 							</Pane>
@@ -205,31 +236,56 @@ export class HttpRequestProperties extends React.Component {
 				);
 		}
 
+		setOutputJson(obj){
+			if(!obj) return;
+			for(let option in this.json.data){
+				delete this.json[option];
+			}
+			Object.assign(this.json.data, obj);
+		}
+
 		getData(){
-				let list = [];
-				for(let option in this.state.data){
-					list.push((
-						<li>
-							<span>{option + ': ' + this.state.data[option]}</span>
-							<button className="fa fa-times" name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}></button>
-						</li>
-					));
-				}
+				//let list = [];
+				// for(let option in this.state.data){
+				// 	list.push((
+				// 		<li>
+				// 			<span>{option + ': ' + this.state.data[option]}</span>
+				// 			<button className="fa fa-times" name="data" onClick={(e)=>{this.deleteKeyValue(e, option)}}></button>
+				// 		</li>
+				// 	));
+				// }
 				return (
 					<div>
 						<label className="header">Data</label>
 						<div>
-							<label>Key</label>
-							<input name="dataKey" type="text" value={ this.state.dataKey} onInput={(e)=>{this.propertyChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
-							<label>Value</label>
-							<input name="dataValue" type="text" value={ this.state.dataValue} onInput={(e)=>{this.propertyChanged(e)}}
-										 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>
+							<label>Data type</label>
+							<select name="dataType" value={this.state.dataType} onChange={(e)=>{this.dataTypeChanged(e)}}
+											onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}>
+								<option key={0} value={'json'}>json</option>
+								<option key={1} value={'string'}>string</option>
+							</select>
 						</div>
-						<button name="data" onClick={(e)=>{this.addKeyValue(e)}}>push</button>
-						<ul className="params-list">
-							{list}
-						</ul>
+						{this.state.dataType === 'json' ? (<JSONInput
+							id = 'jsoneditor24879924'
+							placeholder = { this.json.data }
+							colors      = { this.darktheme }
+							height      = '550px'
+							setIsFocused={this.props.setIsFocused}
+							returning = {this.setOutputJson}
+						/>) : (<textarea name="data" type="text" value={ this.state.data} onInput={(e)=>{this.jsonPropertyChanged(e)}}
+														 onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></textarea>)}
+						{/*<div>*/}
+							{/*<label>Key</label>*/}
+							{/*<input name="dataKey" type="text" value={ this.state.dataKey} onInput={(e)=>{this.propertyChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+							{/*<label>Value</label>*/}
+							{/*<input name="dataValue" type="text" value={ this.state.dataValue} onInput={(e)=>{this.propertyChanged(e)}}*/}
+										 {/*onFocus={()=>{this.props.setIsFocused(true)}} onBlur={()=>{this.props.setIsFocused(false)}}></input>*/}
+						{/*</div>*/}
+						{/*<button name="data" onClick={(e)=>{this.addKeyValue(e)}}>push</button>*/}
+						{/*<ul className="params-list">*/}
+							{/*{list}*/}
+						{/*</ul>*/}
 					</div>
 				);
 		}
